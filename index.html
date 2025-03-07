@@ -74,7 +74,11 @@
   </style>
 </noscript>
 
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -182,7 +186,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-03-07 18:42:46 / Modified: 18:15:10" itemprop="dateCreated datePublished" datetime="2025-03-07T18:42:46+08:00">2025-03-07</time>
+              <time title="Created: 2025-03-07 18:42:46 / Modified: 19:20:58" itemprop="dateCreated datePublished" datetime="2025-03-07T18:42:46+08:00">2025-03-07</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -205,8 +209,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <hr>
-<h2 id="title-25-Spring-模式识别笔记-1-date-2025-03-07-18-42-46categories-Notes-tags"><a href="#title-25-Spring-模式识别笔记-1-date-2025-03-07-18-42-46categories-Notes-tags" class="headerlink" title="title: 25 Spring -模式识别笔记(1)date: 2025-03-07 18:42:46categories: [Notes]tags:"></a>title: 25 Spring -模式识别笔记(1)<br>date: 2025-03-07 18:42:46<br>categories: [Notes]<br>tags:</h2><h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><h2 id="Word2Vec-Embedding-技术"><a href="#Word2Vec-Embedding-技术" class="headerlink" title="Word2Vec Embedding 技术"></a>Word2Vec Embedding 技术</h2><p>Word2Vec 是一种用于将单词映射到向量空间的技术，通过训练语料库来学习单词的语义关系。核心思想是将单词转换为一个高维向量，使得语义相近的单词在向量空间中距离较近。</p>
+          <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><h2 id="Word2Vec-Embedding-技术"><a href="#Word2Vec-Embedding-技术" class="headerlink" title="Word2Vec Embedding 技术"></a>Word2Vec Embedding 技术</h2><p>Word2Vec 是一种用于将单词映射到向量空间的技术，通过训练语料库来学习单词的语义关系。核心思想是将单词转换为一个高维向量，使得语义相近的单词在向量空间中距离较近。</p>
 <h3 id="Word2Vec-过程"><a href="#Word2Vec-过程" class="headerlink" title="Word2Vec 过程"></a>Word2Vec 过程</h3><ol>
 <li><strong>输入文本</strong>（例如：”我”、”是”、”中国”、”人民”）</li>
 <li><strong>嵌入层（Embedding）</strong>：将单词转换为向量表示</li>
@@ -460,10 +463,16 @@ $$
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2025-02-25 11:42:46 / Modified: 14:15:04" itemprop="dateCreated datePublished" datetime="2025-02-25T11:42:46+08:00">2025-02-25</time>
+              <time title="Created: 2025-02-25 11:42:46" itemprop="dateCreated datePublished" datetime="2025-02-25T11:42:46+08:00">2025-02-25</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-03-07 19:21:06" itemprop="dateModified" datetime="2025-03-07T19:21:06+08:00">2025-03-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -536,7 +545,7 @@ $$
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-02-25 14:14:21" itemprop="dateModified" datetime="2025-02-25T14:14:21+08:00">2025-02-25</time>
+                <time title="Modified: 2025-03-07 19:20:54" itemprop="dateModified" datetime="2025-03-07T19:20:54+08:00">2025-03-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -747,6 +756,63 @@ $$
 
 
   
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
