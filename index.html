@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-03-13 11:10:56" itemprop="dateModified" datetime="2025-03-13T11:10:56+08:00">2025-03-13</time>
+                <time title="Modified: 2025-03-13 11:19:45" itemprop="dateModified" datetime="2025-03-13T11:19:45+08:00">2025-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -266,7 +266,7 @@
 <p>其中：</p>
 <ul>
 <li><p>$\mathcal{U}$ 是所有可能的独热编码集合：</p>
-<p>$$<br>\mathcal{U} &#x3D; \left{ \mathbf{U} &#x3D; (U_1, U_2, \dots, U_K) ,\middle|, \sum_{k&#x3D;1}^{K} U_k &#x3D; 1, \quad 0 \leq U_k \leq 1 \right}<br>$$</p>
+<p>$$<br>\mathcal{U} &#x3D; \left{ \mathbf{U} &#x3D; (U_1, U_2, \dots, U_K) ,\bigg|, \sum_{k&#x3D;1}^{K} U_k &#x3D; 1, \quad 0 \leq U_k \leq 1 \right}<br>$$</p>
 <p>表示每个样本点只能属于一个簇。</p>
 </li>
 </ul>
@@ -291,7 +291,7 @@
 </li>
 </ol>
 <hr>
-<h2 id="4-结论"><a href="#4-结论" class="headerlink" title="4. 结论"></a>4. 结论</h2><ul>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ul>
 <li><strong>独热编码</strong> 用于表示样本所属的类别，每个样本只能属于一个簇。  </li>
 <li><strong>目标函数</strong> 通过最小化样本到其最近聚类中心的距离平方和，确定最优分类。  </li>
 <li><strong>定理证明</strong> 说明了最佳分配方案是将样本分配到使得 $(f - C_k)^2$ 最小的簇。</li>
@@ -313,7 +313,7 @@
 </ul>
 <hr>
 <h3 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h3><p>为了保证每个点 $x$ 仅归属于一个聚类簇，引入约束：</p>
-<p>$$<br>\mathcal{U} &#x3D; \left{ \mathbf{U}(x) &#x3D; (U_1(x), U_2(x), \dots, U_K(x)) ,\middle|, \sum_{k&#x3D;1}^{K} U_k(x) &#x3D; 1, \quad 0 \leq U_k(x) \leq 1, \quad \forall x \in \Omega \right}<br>$$</p>
+<p>$$<br>\mathcal{U} &#x3D; \left{ \mathbf{U}(x) &#x3D; (U_1(x), U_2(x), \dots, U_K(x)) ,\bigg|, \sum_{k&#x3D;1}^{K} U_k(x) &#x3D; 1, \quad 0 \leq U_k(x) \leq 1, \quad \forall x \in \Omega \right}<br>$$</p>
 <p>这意味着：</p>
 <ul>
 <li>每个 $x$ 只能属于一个簇（即某个 $U_k(x)$ 取 1，其余取 0）。</li>
@@ -327,7 +327,7 @@
 <li>目标是将这些数据点划分到不同的簇 $C_1, C_2, \dots, C_K$ 中，使得同一簇中的点具有较小的方差。</li>
 </ul>
 <hr>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><ul>
+<h3 id="结论-1"><a href="#结论-1" class="headerlink" title="结论"></a>结论</h3><ul>
 <li>在连续情况下，K-Means 的目标函数和约束条件从离散样本点扩展到了整个定义域 $\Omega$。  </li>
 <li>目标仍然是最小化数据点到聚类中心的平方误差。  </li>
 <li>约束条件确保每个点 $x$ 只能归属于一个簇。  </li>
@@ -400,14 +400,14 @@ $$
 </blockquote>
 <hr>
 <h2 id="K-Means-能量单调下降（不增）性"><a href="#K-Means-能量单调下降（不增）性" class="headerlink" title="K-Means 能量单调下降（不增）性"></a>K-Means 能量单调下降（不增）性</h2><p>以下笔记基于黑板内容，<strong>严格按照板书逻辑</strong> 展示 K-Means 迭代过程中目标函数（也称“能量”或“误差”）如何在每一步都单调下降（或不增），从而收敛到局部最优解。</p>
-<h3 id="1-引理-定理描述"><a href="#1-引理-定理描述" class="headerlink" title="1. 引理 &#x2F; 定理描述"></a>1. 引理 &#x2F; 定理描述</h3><blockquote>
+<h3 id="引理-定理描述"><a href="#引理-定理描述" class="headerlink" title="引理 &#x2F; 定理描述"></a>引理 &#x2F; 定理描述</h3><blockquote>
 <p><strong>定理：</strong><br>由 K-Means 算法产生的迭代序列 $(\mathbf{u}^{(t)}, \mathbf{c}^{(t)})$ 满足</p>
 <p>$$<br>E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}^{(t+1)}\bigr)<br>;;\le;;<br>E\bigl(\mathbf{u}^{(t)}, \mathbf{c}^{(t)}\bigr),<br>$$</p>
 <p>即每次迭代更新后，目标函数 $E(\cdot)$ 不会增大，从而保证了算法的单调收敛性。</p>
 </blockquote>
-<h3 id="2-目标函数回顾"><a href="#2-目标函数回顾" class="headerlink" title="2. 目标函数回顾"></a>2. 目标函数回顾</h3><p>离散情形下的 K-Means 目标函数：</p>
+<h3 id="目标函数回顾"><a href="#目标函数回顾" class="headerlink" title="目标函数回顾"></a>目标函数回顾</h3><p>离散情形下的 K-Means 目标函数：</p>
 <p>$$<br>E\bigl(\mathbf{u}, \mathbf{c}\bigr)<br>&#x3D; \sum_{k&#x3D;1}^{K} \sum_{x \in \Omega}<br>U_k(x),\bigl(f(x) - C_k\bigr)^2.<br>$$</p>
-<h3 id="3-迭代过程（两步更新）"><a href="#3-迭代过程（两步更新）" class="headerlink" title="3. 迭代过程（两步更新）"></a>3. 迭代过程（两步更新）</h3><ul>
+<h3 id="迭代过程（两步更新）"><a href="#迭代过程（两步更新）" class="headerlink" title="迭代过程（两步更新）"></a>迭代过程（两步更新）</h3><ul>
 <li><p><strong>Step 1：更新 $\mathbf{u}^{(t+1)}$</strong><br>固定 $\mathbf{c}^{(t)}$，令</p>
 <p>$$<br>\mathbf{u}^{(t+1)}<br>&#x3D; \arg\min_{\mathbf{u} \in \mathcal{U}}<br>  E\bigl(\mathbf{u}, \mathbf{c}^{(t)}\bigr).<br>$$</p>
 <p>由于独热编码的性质，每个样本 $x$ 归于距离最近的中心 $C_k^{(t)}$。<br>这样得到</p>
@@ -419,10 +419,10 @@ $$
 <p>$$<br>E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}^{(t+1)}\bigr)<br>;\le;<br>E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}^{(t)}\bigr).<br>$$</p>
 </li>
 </ul>
-<h3 id="4-能量严格下降的证明思路"><a href="#4-能量严格下降的证明思路" class="headerlink" title="4. 能量严格下降的证明思路"></a>4. 能量严格下降的证明思路</h3><p>上两步结合，可得：</p>
+<h3 id="能量严格下降的证明思路"><a href="#能量严格下降的证明思路" class="headerlink" title="能量严格下降的证明思路"></a>能量严格下降的证明思路</h3><p>上两步结合，可得：</p>
 <p>$$<br>E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}^{(t+1)}\bigr)<br>;\le;<br>E\bigl(\mathbf{u}^{(t)}, \mathbf{c}^{(t)}\bigr).<br>$$</p>
 <p>这说明每一轮迭代后，目标函数都会朝着不增的方向变化，从而收敛到某个局部最优或鞍点。</p>
-<h3 id="5-结论"><a href="#5-结论" class="headerlink" title="5. 结论"></a>5. 结论</h3><ul>
+<h3 id="结论-2"><a href="#结论-2" class="headerlink" title="结论"></a>结论</h3><ul>
 <li>K-Means 通过交替最小化簇分配 $\mathbf{u}$ 和聚类中心 $\mathbf{c}$，使目标函数在每次迭代中不增。  </li>
 <li>因此，算法<strong>单调地</strong>收敛到一个局部最优解（或鞍点）。</li>
 </ul>
