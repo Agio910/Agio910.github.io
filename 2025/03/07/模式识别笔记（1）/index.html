@@ -28,7 +28,7 @@
 <meta property="og:description" content="引言Word2Vec Embedding 技术Word2Vec 是一种用于将单词映射到向量空间的技术，通过训练语料库来学习单词的语义关系。核心思想是将单词转换为一个高维向量，使得语义相近的单词在向量空间中距离较近。 Word2Vec 过程 输入文本（例如：”我”、”是”、”中国”、”人民”） 嵌入层（Embedding）：将单词转换为向量表示 训练：使用 Skip-gram 或 CBOW 模型进行">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-07T10:42:46.000Z">
-<meta property="article:modified_time" content="2025-03-13T03:40:59.479Z">
+<meta property="article:modified_time" content="2025-03-13T03:42:38.359Z">
 <meta property="article:author" content="AgioPan">
 <meta name="twitter:card" content="summary">
 
@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-03-13 11:40:59" itemprop="dateModified" datetime="2025-03-13T11:40:59+08:00">2025-03-13</time>
+                <time title="Modified: 2025-03-13 11:42:38" itemprop="dateModified" datetime="2025-03-13T11:42:38+08:00">2025-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,7 +274,7 @@
 </ul>
 <hr>
 <h3 id="定理及其证明"><a href="#定理及其证明" class="headerlink" title="定理及其证明"></a>定理及其证明</h3><h4 id="定理（Thm）"><a href="#定理（Thm）" class="headerlink" title="定理（Thm）"></a>定理（Thm）</h4><p>对于任意样本 $f$ 和聚类中心 $C_1, C_2, \dots, C_K$，定义：</p>
-<p>$$<br>U_k^* &#x3D;<br>\begin{cases}<br>1, &amp; k &#x3D; \arg\min\limits_{R&#x3D;1,2,\dots,K} {(f - C_R)^2}, \<br>0, &amp; \text{else}.<br>\end{cases}<br>$$</p>
+<p>$$<br>U_k^* &#x3D;<br>\begin{cases}<br>1, &amp; k &#x3D; \arg\min\limits_{R&#x3D;1,2,\dots,K} (f - C_R)^2 \<br>0, &amp; \text{else}<br>\end{cases}<br>$$</p>
 <p>即，样本 $f$ 应该被分配到使得 $(f - C_k)^2$（最小值唯一） 最小的簇 $C_k$。</p>
 <h4 id="证明（Proof）"><a href="#证明（Proof）" class="headerlink" title="证明（Proof）"></a>证明（Proof）</h4><ol>
 <li><p>定义</p>
