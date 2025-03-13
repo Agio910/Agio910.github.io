@@ -184,10 +184,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2025-03-07 18:42:46 / Modified: 19:20:58" itemprop="dateCreated datePublished" datetime="2025-03-07T18:42:46+08:00">2025-03-07</time>
+              <time title="Created: 2025-03-07 18:42:46" itemprop="dateCreated datePublished" datetime="2025-03-07T18:42:46+08:00">2025-03-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-03-13 11:10:56" itemprop="dateModified" datetime="2025-03-13T11:10:56+08:00">2025-03-13</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -241,7 +247,7 @@
 <li><strong>K-Means</strong> 通过反复迭代，将数据点划分到不同的簇中进行聚类分析。</li>
 </ul>
 <p>这两者结合在自然语言处理 (NLP) 中可用于 <strong>文本分类、聚类分析</strong> 等任务。例如，先用 Word2Vec 将文本转换为向量，然后使用 K-Means 进行文本聚类。</p>
-<h2 id="kmeans算法的定义"><a href="#kmeans算法的定义" class="headerlink" title="kmeans算法的定义"></a>kmeans算法的定义</h2><h2 id="1-独热编码（One-Hot-Encoding）"><a href="#1-独热编码（One-Hot-Encoding）" class="headerlink" title="1. 独热编码（One-Hot Encoding）"></a>1. 独热编码（One-Hot Encoding）</h2><p>在 K-Means 聚类算法中，我们使用独热编码（One-Hot Encoding）来表示样本所属的类别：</p>
+<h2 id="kmeans算法的定义"><a href="#kmeans算法的定义" class="headerlink" title="kmeans算法的定义"></a>kmeans算法的定义</h2><h3 id="独热编码（One-Hot-Encoding）"><a href="#独热编码（One-Hot-Encoding）" class="headerlink" title="独热编码（One-Hot Encoding）"></a>独热编码（One-Hot Encoding）</h3><p>在 K-Means 聚类算法中，我们使用独热编码（One-Hot Encoding）来表示样本所属的类别：</p>
 <ul>
 <li><p>若样本 $f$ 属于第 $k$ 个簇，则其独热编码表示为</p>
 <p>$$<br>\mathbf{U}^* &#x3D; (0, 0, \dots, 1, \dots, 0)<br>$$</p>
@@ -255,20 +261,20 @@
 </li>
 </ul>
 <hr>
-<h2 id="2-K-Means-目标函数"><a href="#2-K-Means-目标函数" class="headerlink" title="2. K-Means 目标函数"></a>2. K-Means 目标函数</h2><p>在 K-Means 算法中，我们的目标是最小化样本点到其分配的聚类中心的距离平方和：</p>
+<h3 id="K-Means-目标函数"><a href="#K-Means-目标函数" class="headerlink" title="K-Means 目标函数"></a>K-Means 目标函数</h3><p>在 K-Means 算法中，我们的目标是最小化样本点到其分配的聚类中心的距离平方和：</p>
 <p>$$<br>\mathbf{U}^* &#x3D; \arg\min_{\mathbf{U} \in \mathcal{U}} \sum_{k&#x3D;1}^{K}U_k (f - C_k)^2<br>$$</p>
 <p>其中：</p>
 <ul>
 <li><p>$\mathcal{U}$ 是所有可能的独热编码集合：</p>
-<p>$$<br>\mathcal{U} &#x3D; \left{ \mathbf{U} &#x3D; (U_1, U_2, \dots, U_K) ;\middle|; \sum_{k&#x3D;1}^{K} U_k &#x3D; 1, \quad 0 \leq U_k \leq 1 \right}<br>$$</p>
+<p>$$<br>\mathcal{U} &#x3D; \left{ \mathbf{U} &#x3D; (U_1, U_2, \dots, U_K) ,\middle|, \sum_{k&#x3D;1}^{K} U_k &#x3D; 1, \quad 0 \leq U_k \leq 1 \right}<br>$$</p>
 <p>表示每个样本点只能属于一个簇。</p>
 </li>
 </ul>
 <hr>
-<h2 id="3-定理及其证明"><a href="#3-定理及其证明" class="headerlink" title="3. 定理及其证明"></a>3. 定理及其证明</h2><h3 id="定理（Thm）"><a href="#定理（Thm）" class="headerlink" title="定理（Thm）"></a>定理（Thm）</h3><p>对于任意样本 $f$ 和聚类中心 $C_1, C_2, \dots, C_K$，定义：</p>
+<h3 id="定理及其证明"><a href="#定理及其证明" class="headerlink" title="定理及其证明"></a>定理及其证明</h3><h4 id="定理（Thm）"><a href="#定理（Thm）" class="headerlink" title="定理（Thm）"></a>定理（Thm）</h4><p>对于任意样本 $f$ 和聚类中心 $C_1, C_2, \dots, C_K$，定义：</p>
 <p>$$<br>U_k^* &#x3D;<br>\begin{cases}<br>1, &amp; k &#x3D; \arg\min_{R \in {1,2,\dots,K}} {(f - C_R)^2 }\<br>0, &amp; \text{otherwise}<br>\end{cases}<br>$$</p>
 <p>即，样本 $f$ 应该被分配到使得 $(f - C_k)^2$（最小值唯一） 最小的簇 $C_k$。</p>
-<h3 id="证明（Proof）"><a href="#证明（Proof）" class="headerlink" title="证明（Proof）"></a>证明（Proof）</h3><ol>
+<h4 id="证明（Proof）"><a href="#证明（Proof）" class="headerlink" title="证明（Proof）"></a>证明（Proof）</h4><ol>
 <li><p>定义</p>
 <p>$$<br>m &#x3D; \min_{k \in {1,2,\dots,K}} {(f - C_k)^2}<br>$$</p>
 <p>由于 $U_k$ 是独热编码，所有可能的 $U_k$ 满足</p>
@@ -293,7 +299,7 @@
 <p>这一定理是 K-Means 算法的核心之一，保证了算法在每一步迭代中都能使目标函数收敛到一个局部最优解。</p>
 <p>–</p>
 <h2 id="连续情况下的-K-Means-聚类定义"><a href="#连续情况下的-K-Means-聚类定义" class="headerlink" title="连续情况下的 K-Means 聚类定义"></a>连续情况下的 K-Means 聚类定义</h2><p>在离散情况下，我们用有限个样本点 $f$ 进行聚类，而在连续情况下，需要对整个定义域 $\Omega$ 进行考虑。</p>
-<h3 id="1-目标函数扩展到连续情况"><a href="#1-目标函数扩展到连续情况" class="headerlink" title="1. 目标函数扩展到连续情况"></a>1. 目标函数扩展到连续情况</h3><ul>
+<h3 id="目标函数扩展到连续情况"><a href="#目标函数扩展到连续情况" class="headerlink" title="目标函数扩展到连续情况"></a>目标函数扩展到连续情况</h3><ul>
 <li><p>设函数 $f: \Omega \to \mathbb{R}$，其中 $\Omega$ 是定义域，$f(x)$ 是定义在 $\Omega$ 上的连续函数。  </p>
 </li>
 <li><p>目标是在整个 $\Omega$ 上最小化聚类误差：</p>
@@ -306,22 +312,22 @@
 </li>
 </ul>
 <hr>
-<h3 id="2-约束条件"><a href="#2-约束条件" class="headerlink" title="2. 约束条件"></a>2. 约束条件</h3><p>为了保证每个点 $x$ 仅归属于一个聚类簇，引入约束：</p>
-<p>$$<br>\mathcal{U}<br>&#x3D; \left{ \mathbf{U}(x) &#x3D; (U_1(x), U_2(x), \dots, U_K(x))<br>;\middle|; \sum_{k&#x3D;1}^{K} U_k(x) &#x3D; 1, \quad 0 \leq U_k(x) \leq 1, \quad \forall x \in \Omega \right}.<br>$$</p>
+<h3 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h3><p>为了保证每个点 $x$ 仅归属于一个聚类簇，引入约束：</p>
+<p>$$<br>\mathcal{U} &#x3D; \left{ \mathbf{U}(x) &#x3D; (U_1(x), U_2(x), \dots, U_K(x)) ,\middle|, \sum_{k&#x3D;1}^{K} U_k(x) &#x3D; 1, \quad 0 \leq U_k(x) \leq 1, \quad \forall x \in \Omega \right}<br>$$</p>
 <p>这意味着：</p>
 <ul>
 <li>每个 $x$ 只能属于一个簇（即某个 $U_k(x)$ 取 1，其余取 0）。</li>
 <li>$U_k(x)$ 的取值范围在 $[0,1]$ 之间。</li>
 </ul>
 <hr>
-<h3 id="3-直观解释"><a href="#3-直观解释" class="headerlink" title="3. 直观解释"></a>3. 直观解释</h3><p>从黑板上的示意图可以看出：</p>
+<h3 id="直观解释"><a href="#直观解释" class="headerlink" title="直观解释"></a>直观解释</h3><p>从黑板上的示意图可以看出：</p>
 <ul>
 <li>$x \in \Omega$ 表示数据点在连续空间中的分布。</li>
 <li>$f(x)$ 代表数据点的特征值。</li>
 <li>目标是将这些数据点划分到不同的簇 $C_1, C_2, \dots, C_K$ 中，使得同一簇中的点具有较小的方差。</li>
 </ul>
 <hr>
-<h3 id="4-结论-1"><a href="#4-结论-1" class="headerlink" title="4. 结论"></a>4. 结论</h3><ul>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><ul>
 <li>在连续情况下，K-Means 的目标函数和约束条件从离散样本点扩展到了整个定义域 $\Omega$。  </li>
 <li>目标仍然是最小化数据点到聚类中心的平方误差。  </li>
 <li>约束条件确保每个点 $x$ 只能归属于一个簇。  </li>
@@ -366,27 +372,27 @@ $$
 </ul>
 <hr>
 <h2 id="目标函数关于聚类中心的推导"><a href="#目标函数关于聚类中心的推导" class="headerlink" title="目标函数关于聚类中心的推导"></a>目标函数关于聚类中心的推导</h2><p>以下演示 <strong>Step 2</strong>（更新聚类中心）中，如何对目标函数关于聚类中心 $C_k$ 求导并得到更新公式。为简化，只对离散情形展示，连续情形可将求和替换为积分，思路相同。</p>
-<h3 id="1-目标函数拆分"><a href="#1-目标函数拆分" class="headerlink" title="1. 目标函数拆分"></a>1. 目标函数拆分</h3><p>K-Means 的目标函数（离散情形）：</p>
+<h3 id="目标函数拆分"><a href="#目标函数拆分" class="headerlink" title="目标函数拆分"></a>目标函数拆分</h3><p>K-Means 的目标函数（离散情形）：</p>
 <p>$$<br>E(\mathbf{U}, \mathbf{C})<br>&#x3D; \sum_{k&#x3D;1}^{K} \sum_{x \in \Omega} U_k(x),\bigl(f(x) - C_k\bigr)^2.<br>$$</p>
 <p>我们先单独关注属于簇 $k$ 的部分：</p>
 <p>$$<br>E_k(\mathbf{U}, C_k)<br>&#x3D; \sum_{x \in \Omega} U_k(x),\bigl(f(x) - C_k\bigr)^2.<br>$$</p>
 <p>在更新 $C_k$ 时，$U_k(x)$ 固定，只需对 $C_k$ 进行最优化。</p>
-<h3 id="2-对-C-k-求偏导"><a href="#2-对-C-k-求偏导" class="headerlink" title="2. 对 $C_k$ 求偏导"></a>2. 对 $C_k$ 求偏导</h3><p>令</p>
+<h3 id="对-C-k-求偏导"><a href="#对-C-k-求偏导" class="headerlink" title="对 $C_k$ 求偏导"></a>对 $C_k$ 求偏导</h3><p>令</p>
 <p>$$<br>E_k(\mathbf{U}, C_k)<br>&#x3D; \sum_{x \in \Omega} U_k(x),\bigl(f(x) - C_k\bigr)^2.<br>$$</p>
 <p>对 $C_k$ 求导并令其为 0：</p>
 <p>$$<br>\frac{\partial}{\partial C_k} E_k(\mathbf{U}, C_k)<br>&#x3D; \sum_{x \in \Omega} U_k(x),2,\bigl(C_k - f(x)\bigr).<br>$$</p>
 <p>令其为 0，可得：</p>
 <p>$$<br>\sum_{x \in \Omega} U_k(x),\bigl(C_k - f(x)\bigr) &#x3D; 0.<br>$$</p>
-<h3 id="3-解方程，得到更新公式"><a href="#3-解方程，得到更新公式" class="headerlink" title="3. 解方程，得到更新公式"></a>3. 解方程，得到更新公式</h3><p>整理可得：</p>
+<h3 id="解方程，得到更新公式"><a href="#解方程，得到更新公式" class="headerlink" title="解方程，得到更新公式"></a>解方程，得到更新公式</h3><p>整理可得：</p>
 <p>$$<br>C_k \sum_{x \in \Omega} U_k(x)<br>&#x3D; \sum_{x \in \Omega} U_k(x),f(x).<br>$$</p>
 <p>若分母不为 0（该簇有样本），则</p>
-<h1 id="C-k"><a href="#C-k" class="headerlink" title="$$C_k "></a>$$<br>C_k </h1><p>\frac{\sum\limits_{x \in \Omega} U_k(x),f(x)}<br>      {\sum\limits_{x \in \Omega} U_k(x)}.<br>$$</p>
+<p>$$<br>C_k &#x3D; \frac{\sum\limits_{x \in \Omega} U_k(x),f(x)}{\sum\limits_{x \in \Omega} U_k(x)}.<br>$$</p>
 <p>这就是 <strong>K-Means 中聚类中心的更新公式</strong>。在常见的离散数据立场下，上式意味着“该簇内所有样本特征的加权平均值”，权值由 $U_k(x)$ 决定。<br>若 $U_k(x)$ 只取 0 或 1（硬划分），则退化为简单的算术平均。</p>
 <blockquote>
 <p><strong>注：</strong></p>
 <ul>
 <li><p>在连续情况下，将“求和”换为对 $\Omega$ 的积分即可：</p>
-<h1 id="C-k-1"><a href="#C-k-1" class="headerlink" title="$$C_k "></a>$$<br>C_k </h1><p>\frac{\int_{\Omega} U_k(x),f(x),\mathrm{d}x}<br>  {\int_{\Omega} U_k(x),\mathrm{d}x}.<br>$$</p>
+<p>$$C_k &#x3D; \frac{\int_{\Omega} U_k(x),f(x),\mathrm{d}x}{\int_{\Omega} U_k(x),\mathrm{d}x}.$$</p>
 </li>
 <li><p>当 $U_k(x)$ 只取 0 或 1，即标准 K-Means，公式变为簇内样本的算术平均。</p>
 </li>
