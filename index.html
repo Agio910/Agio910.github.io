@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-03-13 12:08:07" itemprop="dateModified" datetime="2025-03-13T12:08:07+08:00">2025-03-13</time>
+                <time title="Modified: 2025-03-13 12:16:54" itemprop="dateModified" datetime="2025-03-13T12:16:54+08:00">2025-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,11 +265,12 @@
 <p>$$<br>\mathbf{U}^* &#x3D; \arg\min_{\mathbf{U} \in \mathcal{U}} \sum_{k&#x3D;1}^{K}U_k (f - C_k)^2<br>$$</p>
 <p>其中：</p>
 <ul>
-<li><p>$\mathcal{U}$ 是所有可能的独热编码集合：</p>
-<p>$$\mathcal{U} &#x3D; \left{ \mathbf{u} &#x3D; (U_1, U_2, \dots, U_K) \mid \sum_{k&#x3D;1}^{K} U_k &#x3D; 1, \quad 0 \leq U_k \leq 1 \right}$$</p>
-<p>表示每个样本点只能属于一个簇。</p>
-</li>
+<li>$\mathcal{U}$ 是所有可能的独热编码集合：</li>
 </ul>
+  
+  $$\mathcal{U} = \left\{ \mathbf{u} = (U_1, U_2, \dots, U_K) \,\middle|\, \sum_{k=1}^{K} U_k = 1, \quad 0 \leq U_k \leq 1 \right\}$$
+
+<p>  表示每个样本点只能属于一个簇。</p>
 <hr>
 <h3 id="定理及其证明"><a href="#定理及其证明" class="headerlink" title="定理及其证明"></a>定理及其证明</h3><h4 id="定理（Thm）"><a href="#定理（Thm）" class="headerlink" title="定理（Thm）"></a>定理（Thm）</h4><p>对于任意样本 $f$ 和聚类中心 $C_1, C_2, \dots, C_K$，定义：</p>
 
@@ -324,7 +325,7 @@ $$
 <h3 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h3><p>为了保证每个点 $x$ 仅归属于一个聚类簇，引入约束：</p>
 
 $$
-\mathcal{U} = \left\{ \mathbf{U}(x) = (U_1(x), U_2(x), \dots, U_K(x)) \,\right|\, \sum_{k=1}^{K} U_k(x) = 1, \quad 0 \leq U_k(x) \leq 1, \quad \forall x \in \Omega \right\}
+\mathcal{U} = \left\{ \mathbf{U}(x) = (U_1(x), U_2(x), \dots, U_K(x)) \,\middle|\, \sum_{k=1}^{K} U_k(x) = 1, \quad 0 \leq U_k(x) \leq 1, \quad \forall x \in \Omega \right\}
 $$
 
 
@@ -424,18 +425,18 @@ $$
 <p>$$<br>E\bigl(\mathbf{u}, \mathbf{c}\bigr)<br>&#x3D; \sum_{k&#x3D;1}^{K} \sum_{x \in \Omega}<br>U_k(x),\bigl(f(x) - C_k\bigr)^2.<br>$$</p>
 <h3 id="迭代过程（两步更新）"><a href="#迭代过程（两步更新）" class="headerlink" title="迭代过程（两步更新）"></a>迭代过程（两步更新）</h3><ul>
 <li><p><strong>Step 1：更新 $\mathbf{u}^{(t+1)}$</strong><br>固定 $\mathbf{c}^{(t)}$，令</p>
-<p>$$<br>\mathbf{u}^{(t+1)}<br>&#x3D; \arg\min_{\mathbf{u} \in \mathcal{U}}<br>  E\bigl(\mathbf{u}, \mathbf{c}^{(t)}\bigr).<br>$$</p>
+<p>$$<br>\mathbf{u}^{(t+1)}<br>&#x3D; \arg\min_{\mathbf{u} \in \mathcal{U}}<br>  E\bigl(\mathbf{u}, \mathbf{c}^{(t)}\bigr)<br>$$</p>
 <p>由于独热编码的性质，每个样本 $x$ 归于距离最近的中心 $C_k^{(t)}$。<br>这样得到</p>
-<p>$$<br>E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}^{(t)}\bigr)<br>;\le;<br>E\bigl(\mathbf{u}^{(t)}, \mathbf{c}^{(t)}\bigr).<br>$$</p>
+<p>$$<br>E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}^{(t)}\bigr)<br>\le<br>E\bigl(\mathbf{u}^{(t)}, \mathbf{c}^{(t)}\bigr)<br>$$</p>
 </li>
 <li><p><strong>Step 2：更新 $\mathbf{c}^{(t+1)}$</strong><br>固定 $\mathbf{u}^{(t+1)}$，令</p>
 <p>$$<br>\mathbf{c}^{(t+1)}<br>&#x3D; \arg\min_{\mathbf{c}}<br>  E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}\bigr).<br>$$</p>
 <p>对每个 $C_k$ 求导并令其为 0，得到聚类中心是该簇内样本的加权平均。于是</p>
-<p>$$<br>E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}^{(t+1)}\bigr)<br>;\le;<br>E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}^{(t)}\bigr).<br>$$</p>
+<p>$$<br>E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}^{(t+1)}\bigr)<br>\le<br>E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}^{(t)}\bigr)<br>$$</p>
 </li>
 </ul>
 <h3 id="能量严格下降的证明思路"><a href="#能量严格下降的证明思路" class="headerlink" title="能量严格下降的证明思路"></a>能量严格下降的证明思路</h3><p>上两步结合，可得：</p>
-<p>$$<br>E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}^{(t+1)}\bigr)<br>;\le;<br>E\bigl(\mathbf{u}^{(t)}, \mathbf{c}^{(t)}\bigr).<br>$$</p>
+<p>$$<br>E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}^{(t+1)}\bigr)<br>\le<br>E\bigl(\mathbf{u}^{(t)}, \mathbf{c}^{(t)}\bigr)<br>$$</p>
 <p>这说明每一轮迭代后，目标函数都会朝着不增的方向变化，从而收敛到某个局部最优或鞍点。</p>
 <h3 id="结论-2"><a href="#结论-2" class="headerlink" title="结论"></a>结论</h3><ul>
 <li>K-Means 通过交替最小化簇分配 $\mathbf{u}$ 和聚类中心 $\mathbf{c}$，使目标函数在每次迭代中不增。  </li>
