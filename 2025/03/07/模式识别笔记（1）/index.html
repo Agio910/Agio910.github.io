@@ -28,7 +28,7 @@
 <meta property="og:description" content="引言Word2Vec Embedding 技术Word2Vec 是一种用于将单词映射到向量空间的技术，通过训练语料库来学习单词的语义关系。核心思想是将单词转换为一个高维向量，使得语义相近的单词在向量空间中距离较近。 Word2Vec 过程 输入文本（例如：”我”、”是”、”中国”、”人民”） 嵌入层（Embedding）：将单词转换为向量表示 训练：使用 Skip-gram 或 CBOW 模型进行">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-07T10:42:46.000Z">
-<meta property="article:modified_time" content="2025-03-13T04:16:54.759Z">
+<meta property="article:modified_time" content="2025-03-14T09:39:11.435Z">
 <meta property="article:author" content="AgioPan">
 <meta name="twitter:card" content="summary">
 
@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-03-13 12:16:54" itemprop="dateModified" datetime="2025-03-13T12:16:54+08:00">2025-03-13</time>
+                <time title="Modified: 2025-03-14 17:39:11" itemprop="dateModified" datetime="2025-03-14T17:39:11+08:00">2025-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -299,7 +299,7 @@ $$
 </li>
 <li><p>取 $U_k^*$ 使得 $k$ 取最小距离的索引，则：</p>
 <p>$$<br>\sum_{k&#x3D;1}^{K} U_k^* (f - C_k)^2 &#x3D; m.<br>$$</p>
-<p>这说明只有当 $U_k^<em>$ 取最优独热编码时，目标函数才能取到最小值 $m$，从而证明了 $U_k^</em>$ 具有唯一最优解。</p>
+<p>这说明只有当 $U_k^<em>$ 取最优独热编码时，目标函数才能取到最小值 $m$ ，从而证明了 $U_k^</em>$ 具有唯一最优解。</p>
 </li>
 </ol>
 <hr>
@@ -381,7 +381,7 @@ $$
 <ul>
 <li>$\Omega_k$ 是当前属于第 $k$ 个簇的所有样本点集合。</li>
 <li>上式表示：新的聚类中心是该簇内所有样本的加权平均值。</li>
-<li>也可以把$\Omega_k$替换成$\sum_{x \in \Omega} U_k^{t+1} :&#x3D; \Omega^{t+1}$</li>
+<li>也可以把$\Omega_k$替换成$\sum_{x \in \Omega} U_k^{t+1} (x) :&#x3D; \Omega^{t+1}_{k}$</li>
 </ul>
 <h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ul>
 <li><strong>Step 1</strong>：更新簇分配，使得每个点归属于与其最近的聚类中心。  </li>
@@ -391,26 +391,26 @@ $$
 <hr>
 <h2 id="目标函数关于聚类中心的推导"><a href="#目标函数关于聚类中心的推导" class="headerlink" title="目标函数关于聚类中心的推导"></a>目标函数关于聚类中心的推导</h2><p>以下演示 <strong>Step 2</strong>（更新聚类中心）中，如何对目标函数关于聚类中心 $C_k$ 求导并得到更新公式。为简化，只对离散情形展示，连续情形可将求和替换为积分，思路相同。</p>
 <h3 id="目标函数拆分"><a href="#目标函数拆分" class="headerlink" title="目标函数拆分"></a>目标函数拆分</h3><p>K-Means 的目标函数（离散情形）：</p>
-<p>$$<br>E(\mathbf{U}, \mathbf{C})<br>&#x3D; \sum_{k&#x3D;1}^{K} \sum_{x \in \Omega} U_k(x),\bigl(f(x) - C_k\bigr)^2.<br>$$</p>
+<p>$$<br>E(\mathbf{U}, \mathbf{C})<br>&#x3D; \sum_{k&#x3D;1}^{K} \sum_{x \in \Omega} U_k(x)\bigl(f(x) - C_k\bigr)^2<br>$$</p>
 <p>我们先单独关注属于簇 $k$ 的部分：</p>
-<p>$$<br>E_k(\mathbf{U}, C_k)<br>&#x3D; \sum_{x \in \Omega} U_k(x),\bigl(f(x) - C_k\bigr)^2.<br>$$</p>
+<p>$$<br>E_k(\mathbf{U}, C_k)<br>&#x3D; \sum_{x \in \Omega} U_k(x)\bigl(f(x) - C_k\bigr)^2<br>$$</p>
 <p>在更新 $C_k$ 时，$U_k(x)$ 固定，只需对 $C_k$ 进行最优化。</p>
 <h3 id="对-C-k-求偏导"><a href="#对-C-k-求偏导" class="headerlink" title="对 $C_k$ 求偏导"></a>对 $C_k$ 求偏导</h3><p>令</p>
-<p>$$<br>E_k(\mathbf{U}, C_k)<br>&#x3D; \sum_{x \in \Omega} U_k(x),\bigl(f(x) - C_k\bigr)^2.<br>$$</p>
+<p>$$<br>E_k(\mathbf{U}, C_k)<br>&#x3D; \sum_{x \in \Omega} U_k(x)\bigl(f(x) - C_k\bigr)^2<br>$$</p>
 <p>对 $C_k$ 求导并令其为 0：</p>
-<p>$$<br>\frac{\partial}{\partial C_k} E_k(\mathbf{U}, C_k)<br>&#x3D; \sum_{x \in \Omega} U_k(x),2,\bigl(C_k - f(x)\bigr).<br>$$</p>
+<p>$$<br>\frac{\partial}{\partial C_k} E_k(\mathbf{U}, C_k)<br>&#x3D; \sum_{x \in \Omega} 2 U_k(x)  \bigl(C_k - f(x)\bigr).<br>$$</p>
 <p>令其为 0，可得：</p>
-<p>$$<br>\sum_{x \in \Omega} U_k(x),\bigl(C_k - f(x)\bigr) &#x3D; 0.<br>$$</p>
+<p>$$<br>\sum_{x \in \Omega} U_k(x)\bigl(C_k - f(x)\bigr) &#x3D; 0<br>$$</p>
 <h3 id="解方程，得到更新公式"><a href="#解方程，得到更新公式" class="headerlink" title="解方程，得到更新公式"></a>解方程，得到更新公式</h3><p>整理可得：</p>
-<p>$$<br>C_k \sum_{x \in \Omega} U_k(x)<br>&#x3D; \sum_{x \in \Omega} U_k(x),f(x).<br>$$</p>
+<p>$$<br>C_k \sum_{x \in \Omega} U_k(x)<br>&#x3D; \sum_{x \in \Omega} U_k(x)f(x)<br>$$</p>
 <p>若分母不为 0（该簇有样本），则</p>
-<p>$$<br>C_k &#x3D; \frac{\sum\limits_{x \in \Omega} U_k(x),f(x)}{\sum\limits_{x \in \Omega} U_k(x)}.<br>$$</p>
+<p>$$<br>C_k &#x3D; \frac{\sum\limits_{x \in \Omega} U_k(x),f(x)}{\sum\limits_{x \in \Omega} U_k(x)}<br>$$</p>
 <p>这就是 <strong>K-Means 中聚类中心的更新公式</strong>。在常见的离散数据立场下，上式意味着“该簇内所有样本特征的加权平均值”，权值由 $U_k(x)$ 决定。<br>若 $U_k(x)$ 只取 0 或 1（硬划分），则退化为简单的算术平均。</p>
 <blockquote>
 <p><strong>注：</strong></p>
 <ul>
 <li><p>在连续情况下，将“求和”换为对 $\Omega$ 的积分即可：</p>
-<p>$$C_k &#x3D; \frac{\int_{\Omega} U_k(x),f(x),\mathrm{d}x}{\int_{\Omega} U_k(x),\mathrm{d}x}.$$</p>
+<p>$$C_k &#x3D; \frac{\int_{\Omega} U_k(x),f(x),\mathrm{d}x}{\int_{\Omega} U_k(x),\mathrm{d}x}$$</p>
 </li>
 <li><p>当 $U_k(x)$ 只取 0 或 1，即标准 K-Means，公式变为簇内样本的算术平均。</p>
 </li>
@@ -420,11 +420,11 @@ $$
 <h2 id="K-Means-能量单调下降（不增）性"><a href="#K-Means-能量单调下降（不增）性" class="headerlink" title="K-Means 能量单调下降（不增）性"></a>K-Means 能量单调下降（不增）性</h2><p>以下笔记基于黑板内容，<strong>严格按照板书逻辑</strong> 展示 K-Means 迭代过程中目标函数（也称“能量”或“误差”）如何在每一步都单调下降（或不增），从而收敛到局部最优解。</p>
 <h3 id="引理-定理描述"><a href="#引理-定理描述" class="headerlink" title="引理 &#x2F; 定理描述"></a>引理 &#x2F; 定理描述</h3><blockquote>
 <p><strong>定理：</strong><br>由 K-Means 算法产生的迭代序列 $(\mathbf{u}^{(t)}, \mathbf{c}^{(t)})$ 满足</p>
-<p>$$<br>E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}^{(t+1)}\bigr)<br>;;\le;;<br>E\bigl(\mathbf{u}^{(t)}, \mathbf{c}^{(t)}\bigr),<br>$$</p>
+<p>$$<br>E\bigl(\mathbf{u}^{(t+1)}, \mathbf{c}^{(t+1)}\bigr)<br>\le<br>E\bigl(\mathbf{u}^{(t)}, \mathbf{c}^{(t)}\bigr),<br>$$</p>
 <p>即每次迭代更新后，目标函数 $E(\cdot)$ 不会增大，从而保证了算法的单调收敛性。</p>
 </blockquote>
 <h3 id="目标函数回顾"><a href="#目标函数回顾" class="headerlink" title="目标函数回顾"></a>目标函数回顾</h3><p>离散情形下的 K-Means 目标函数：</p>
-<p>$$<br>E\bigl(\mathbf{u}, \mathbf{c}\bigr)<br>&#x3D; \sum_{k&#x3D;1}^{K} \sum_{x \in \Omega}<br>U_k(x),\bigl(f(x) - C_k\bigr)^2.<br>$$</p>
+<p>$$<br>E\bigl(\mathbf{u}, \mathbf{c}\bigr)<br>&#x3D; \sum_{k&#x3D;1}^{K} \sum_{x \in \Omega}<br>U_k(x),\bigl(f(x) - C_k\bigr)^2<br>$$</p>
 <h3 id="迭代过程（两步更新）"><a href="#迭代过程（两步更新）" class="headerlink" title="迭代过程（两步更新）"></a>迭代过程（两步更新）</h3><ul>
 <li><p><strong>Step 1：更新 $\mathbf{u}^{(t+1)}$</strong><br>固定 $\mathbf{c}^{(t)}$，令</p>
 <p>$$<br>\mathbf{u}^{(t+1)}<br>&#x3D; \arg\min_{\mathbf{u} \in \mathcal{U}}<br>  E\bigl(\mathbf{u}, \mathbf{c}^{(t)}\bigr)<br>$$</p>
