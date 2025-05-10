@@ -186,7 +186,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-05-10 18:42:46 / Modified: 18:53:14" itemprop="dateCreated datePublished" datetime="2025-05-10T18:42:46+08:00">2025-05-10</time>
+              <time title="Created: 2025-05-10 18:42:46 / Modified: 18:57:24" itemprop="dateCreated datePublished" datetime="2025-05-10T18:42:46+08:00">2025-05-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -375,30 +375,86 @@ $$
 <p>$$<br>\lim_{\varepsilon \to 0^+}<br>\frac{\exp\bigl(-O_k(x)&#x2F;\varepsilon\bigr)}{\sum_{j&#x3D;1}^K \exp\bigl(-O_j(x)&#x2F;\varepsilon\bigr)}<br>&#x3D;\lim_{\varepsilon \to 0^+}\frac{\exp\bigl(-O_k(x)+m(x)&#x2F;\varepsilon\bigr)}{\sum_{j\in M} \exp\bigl(-O_j(x)+m(x)&#x2F;\varepsilon\bigr)+\sum_{j\notin M} \exp\bigl(-O_j(x)+m(x)&#x2F;\varepsilon\bigr)}<br>$$</p>
 <p>令 $m &#x3D; \min \bigl{ O_1(x), O_2(x), \dots, O_K(x) \bigr}, \quad M &#x3D; \arg\min_{k \in \bigl{ 1, \dots, K \bigr}} O_k(x)$。<br>当 $\varepsilon \to 0^+$，对于属于最优集 $M$ 的索引 $k$，$\exp(-O_k&#x2F;\varepsilon)$ 主导；而不是最优集的 $\exp(-O_k&#x2F;\varepsilon)$ 迅速衰减为 0。因此极限结果为：</p>
 <h1 id="lim-varepsilon-to-0-text-Softmin-varepsilon-vec-O"><a href="#lim-varepsilon-to-0-text-Softmin-varepsilon-vec-O" class="headerlink" title="$$\lim_{\varepsilon \to 0^+}\text{Softmin}_{\varepsilon}(\vec{O})"></a>$$<br>\lim_{\varepsilon \to 0^+}<br>\text{Softmin}_{\varepsilon}(\vec{O})</h1><p>\begin{cases}<br>1, &amp; \text{if } k \in M \<br>0, &amp; \text{if } k \notin M<br>\end{cases}<br>\quad \text{where } M &#x3D; \left{ k \mid O_k &#x3D; \min_j O_j \right}<br>$$</p>
-<h2 id="这与-k-means-硬分类（一次只属于距离最近的簇）相一致。称-min-vec-u-in-U，-vec-C-Bigl-E-vec-u-vec-C-varepsilon-H-u-为softmin-softmax的分类的变分优化问题"><a href="#这与-k-means-硬分类（一次只属于距离最近的簇）相一致。称-min-vec-u-in-U，-vec-C-Bigl-E-vec-u-vec-C-varepsilon-H-u-为softmin-softmax的分类的变分优化问题" class="headerlink" title="这与 k-means 硬分类（一次只属于距离最近的簇）相一致。称 $\min_{\vec{u}\in U，\vec{C}}\Bigl[E(\vec{u}, \vec{C})-\varepsilon H(u)]$ 为softmin&#x2F;softmax的分类的变分优化问题"></a>这与 k-means 硬分类（一次只属于距离最近的簇）相一致。<br>称 $\min_{\vec{u}\in U，\vec{C}}\Bigl[E(\vec{u}, \vec{C})-\varepsilon H(u)]$ 为softmin&#x2F;softmax的分类的变分优化问题</h2><h2 id="k-means-的光滑化与-Softmax-溢出问题"><a href="#k-means-的光滑化与-Softmax-溢出问题" class="headerlink" title="k-means 的光滑化与 Softmax 溢出问题"></a>k-means 的光滑化与 Softmax 溢出问题</h2><h3 id="k-means-的光滑化"><a href="#k-means-的光滑化" class="headerlink" title="k-means 的光滑化"></a>k-means 的光滑化</h3><p>通过在 k-means 能量函数中加入熵项并令 $\varepsilon&gt;0$，可以将硬分类变为软分类，使其输出变得连续可导。</p>
+<h2 id="这与-k-means-硬分类（一次只属于距离最近的簇）相一致。称-为softmin-softmax的分类的变分优化问题"><a href="#这与-k-means-硬分类（一次只属于距离最近的簇）相一致。称-为softmin-softmax的分类的变分优化问题" class="headerlink" title="这与 k-means 硬分类（一次只属于距离最近的簇）相一致。称   为softmin&#x2F;softmax的分类的变分优化问题"></a>这与 k-means 硬分类（一次只属于距离最近的簇）相一致。<br>称   $\min_{\vec{u}\in U，\vec{C}}\Bigl[E(\vec{u}, \vec{C})-\varepsilon H(u)]$   为softmin&#x2F;softmax的分类的变分优化问题</h2><h2 id="k-means-的光滑化与-Softmax-溢出问题"><a href="#k-means-的光滑化与-Softmax-溢出问题" class="headerlink" title="k-means 的光滑化与 Softmax 溢出问题"></a>k-means 的光滑化与 Softmax 溢出问题</h2><h3 id="k-means-的光滑化"><a href="#k-means-的光滑化" class="headerlink" title="k-means 的光滑化"></a>k-means 的光滑化</h3><p>通过在 k-means 能量函数中加入熵项并令 $\varepsilon&gt;0$，可以将硬分类变为软分类，使其输出变得连续可导。</p>
 <ul>
 <li>当 $\varepsilon \to 0$，Softmin 退化为 k-means 硬分类；</li>
 <li>当 $\varepsilon$ 较大时，软分类更加显著。</li>
 </ul>
 <h3 id="Softmax-的数值溢出问题"><a href="#Softmax-的数值溢出问题" class="headerlink" title="Softmax 的数值溢出问题"></a>Softmax 的数值溢出问题</h3><p><strong>Softmax 标准形式</strong>：</p>
-<h1 id="text-Softmax-bigl-vec-O-bigr-k"><a href="#text-Softmax-bigl-vec-O-bigr-k" class="headerlink" title="$$\text{Softmax}\bigl(\vec{O}\bigr)_k"></a>$$<br>\text{Softmax}\bigl(\vec{O}\bigr)_k</h1><p>\frac{e^{O_k}}{\sum_{j&#x3D;1}^K e^{O_j}}.<br>$$</p>
+  
+$$
+\text{Softmax}\bigl(\vec{O}\bigr)_k
+=
+\frac{e^{O_k}}{\sum_{j=1}^K e^{O_j}}.
+$$
+  
+
 <p>若 $O_k$ 值过大，$e^{O_k}$ 可能数值溢出。</p>
-<p><strong>解决方案：数值稳定化</strong><br>取 $\displaystyle M &#x3D; \max{O_1, O_2, \dots, O_K}$，将所有项减去 $M$：</p>
-<h1 id="text-Softmax-vec-O-k"><a href="#text-Softmax-vec-O-k" class="headerlink" title="$$\text{Softmax}(\vec{O})_k"></a>$$<br>\text{Softmax}(\vec{O})_k</h1><p>\frac{e^{O_k - M}}{\sum_{j&#x3D;1}^K e^{O_j - M}},<br>$$</p>
+<p><strong>解决方案：数值稳定化</strong><br>取   $\displaystyle M = \max\{O_1, O_2, \dots, O_K\}$  ，将所有项减去 $M$：</p>
+  
+$$
+\text{Softmax}(\vec{O})_k
+=
+\frac{e^{O_k - M}}{\sum_{j=1}^K e^{O_j - M}},
+$$
+
+
 <p>这样可防止溢出，保持结果不变。</p>
 <hr>
 <h2 id="泛函分析与方向导数"><a href="#泛函分析与方向导数" class="headerlink" title="泛函分析与方向导数"></a>泛函分析与方向导数</h2><h3 id="泛函与方向导数基本概念"><a href="#泛函与方向导数基本概念" class="headerlink" title="泛函与方向导数基本概念"></a>泛函与方向导数基本概念</h3><p>在更高层次，令</p>
-<p>$$<br>J: \mathcal{F} \to \mathbb{R}<br>$$</p>
+  
+$$
+J: \mathcal{F} \to \mathbb{R}
+$$
+  
+
 <p>是作用于函数空间 $\mathcal{F}$ 的一个泛函（functional）。对于 $u(x)$ 的变化，可以定义方向导数：</p>
-<h1 id="lim-h-to-0-frac-J-bigl-x-hv-bigr-J-x-h"><a href="#lim-h-to-0-frac-J-bigl-x-hv-bigr-J-x-h" class="headerlink" title="$$\lim_{h \to 0}\frac{J\bigl(x + hv\bigr) - J(x)}{h}"></a>$$<br>\lim_{h \to 0}<br>\frac{J\bigl(x + hv\bigr) - J(x)}{h}</h1><p>\left.<br>\frac{d}{dh}<br>J\bigl(x + hv\bigr)<br>\right|_{h&#x3D;0}.<br>$$</p>
+  
+$$
+\lim_{h \to 0}
+\frac{J\bigl(x + hv\bigr) - J(x)}{h}
+=
+\left.
+\frac{d}{dh} 
+J\bigl(x + hv\bigr)
+\right|_{h=0}.
+$$
+  
+
 <p>方向导数与梯度存在对应关系：若把 $\nabla J&#x3D;(\tfrac{\delta J}{\delta x_1}，\tfrac{\delta J}{\delta x_2} \cdot \cdot \cdot \tfrac{\delta J}{\delta x_n})$ 类比于有限维中的梯度，则方向导数可理解为梯度在 $v$ 方向的投影。</p>
 <hr>
 <h3 id="方向导数与梯度的关系"><a href="#方向导数与梯度的关系" class="headerlink" title="方向导数与梯度的关系"></a>方向导数与梯度的关系</h3><p>对 $J(U_k)$ 做微分：</p>
-<h1 id="langle-tfrac-delta-J-delta-U-k-V-k-rangle"><a href="#langle-tfrac-delta-J-delta-U-k-V-k-rangle" class="headerlink" title="$$\langle \tfrac{\delta J}{\delta U_k},  V_k \rangle"></a>$$<br>\langle \tfrac{\delta J}{\delta U_k},  V_k \rangle</h1><p>\left.<br>\tfrac{d}{dh}<br>J\bigl(U_k + hV_k\bigr)<br>\right|_{h&#x3D;0}.<br>$$</p>
+  
+$$
+\langle \tfrac{\delta J}{\delta U_k},  V_k \rangle
+=
+\left.
+\tfrac{d}{dh}
+J\bigl(U_k + hV_k\bigr)
+\right|_{h=0}.
+$$
+  
+
 <p>例如，若</p>
-<h1 id="J-U-k"><a href="#J-U-k" class="headerlink" title="$$J(U_k)"></a>$$<br>J(U_k)</h1><p>\sum_{x\in \Omega}<br>O_k(x)\ln U_k(x),<br>$$</p>
+  
+$$
+J(U_k)
+=
+\sum_{x\in \Omega}
+O_k(x)\ln U_k(x),
+$$
+  
+
 <p>则</p>
-<h1 id="J-U-k-hV-k"><a href="#J-U-k-hV-k" class="headerlink" title="$$J(U_k + hV_k)"></a>$$<br>J(U_k + hV_k)</h1><p>\sum_{x\in \Omega}<br>O_k(x)\ln\bigl(U_k(x) + hV_k(x)\bigr).<br>$$</p>
+  
+$$
+J(U_k + hV_k)
+=
+\sum_{x\in \Omega}
+O_k(x)\ln\bigl(U_k(x) + hV_k(x)\bigr).
+$$
+  
+
 <p>对其在 $h&#x3D;0$ 处求导，可得到对应的偏导，从而确定梯度形式。</p>
 <hr>
 <h2 id="九、总结与要点"><a href="#九、总结与要点" class="headerlink" title="九、总结与要点"></a>九、总结与要点</h2><ol>
