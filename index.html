@@ -186,7 +186,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-05-10 18:42:46 / Modified: 17:59:14" itemprop="dateCreated datePublished" datetime="2025-05-10T18:42:46+08:00">2025-05-10</time>
+              <time title="Created: 2025-05-10 18:42:46 / Modified: 18:10:53" itemprop="dateCreated datePublished" datetime="2025-05-10T18:42:46+08:00">2025-05-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -232,7 +232,7 @@
 <li><p><strong>更新归属矩阵</strong> $\vec{U}^{t+1}$：</p>
 <p>$$<br>\vec{U}^{t+1} &#x3D; \arg \min_{\vec{U}}  E(\vec{U}, \vec{C}^t)<br>$$</p>
 <p>具体到每个样本点 $x$ 的更新规则为：</p>
-<p>$$<br>U_k^{t+1}(x)&#x3D;<br>\begin{cases}<br>1, &amp; k &#x3D; \displaystyle \arg\min_{k \in {1, \dots, K}} \bigl(f(x) - C_k^t\bigr)^2 \<br>0, &amp; \text{otherwise}<br>\end{cases}<br>$$</p>
+<p>$$<br>U_k^{t+1}(x)&#x3D;<br>\begin{cases}<br>1, &amp; k &#x3D; \displaystyle \arg\min\limits_{k \in {1, \dots, K}} \bigl( f(x) - C_k^t \bigr)^2, \<br>0, &amp; \text{otherwise}.<br>\end{cases}<br>$$</p>
 <p>即将每个数据点分配给距离其最近的簇中心。</p>
 </li>
 <li><p><strong>更新聚类中心</strong> $\vec{C}^{t+1}$：</p>
@@ -351,15 +351,15 @@
 <p>其中 $O_k$ 是某类损失（例如 $(f(x)-C_k)^2$ ）或能量。</p>
 <p>结合约束 $\sum_{k&#x3D;1}^K u_k(x)&#x3D;1$，可得<strong>Softmin</strong>形式：</p>
 <p>$$<br>u_k^{t+1}(x)&#x3D; \frac{\exp\Bigl(\dfrac{-O_k(x)}{\varepsilon}\Bigr)}{\sum_{j&#x3D;1}^{K} \exp\Bigl(\dfrac{-O_j(x)}{\varepsilon}\Bigr)}<br>$$</p>
-<p>也可写成 softmax 形式：</p>
-<p>$$<br>\text{Softmax}<em>{\varepsilon}(-\vec{O})&#x3D;<br>\bigl[<br>\text{Softmin}</em>{\varepsilon}(\vec{O})<br>\bigr]_k<br>$$</p>
+<p>也可写成<strong>softmax</strong>形式：</p>
+<p>$$<br>\text{Softmax}<em>{\varepsilon}(-\vec{O}) &#x3D;<br>\bigl[<br>    \text{Softmin}</em>{\varepsilon}(\vec{O})<br>\bigr]_k<br>$$</p>
 <hr>
 <h2 id="极限问题与分母拆分"><a href="#极限问题与分母拆分" class="headerlink" title="极限问题与分母拆分"></a>极限问题与分母拆分</h2><h3 id="k-means-硬分类更新公式"><a href="#k-means-硬分类更新公式" class="headerlink" title="k-means 硬分类更新公式"></a>k-means 硬分类更新公式</h3><p>当不考虑熵正则化时，k-means 的硬分类可写为：</p>
 <p>$$<br>u_k^{t+1}(x) &#x3D;<br>\begin{cases}<br>    1, &amp; \text{if } k &#x3D; \displaystyle \arg\min\limits_{k \in {1, \dots, K}} O_k, \<br>    0, &amp; \text{otherwise}.<br>\end{cases}<br>$$</p>
 <h3 id="Softmin-的极限"><a href="#Softmin-的极限" class="headerlink" title="Softmin 的极限"></a>Softmin 的极限</h3><p>考虑</p>
 <p>$$<br>\lim_{\varepsilon \to 0^+}<br>\frac{\exp\bigl(-O_k(x)&#x2F;\varepsilon\bigr)}{\sum_{j&#x3D;1}^K \exp\bigl(-O_j(x)&#x2F;\varepsilon\bigr)}<br>&#x3D;\lim_{\varepsilon \to 0^+}\frac{\exp\bigl(-O_k(x)+m(x)&#x2F;\varepsilon\bigr)}{\sum_{j\in M} \exp\bigl(-O_j(x)+m(x)&#x2F;\varepsilon\bigr)+\sum_{j\notin M} \exp\bigl(-O_j(x)+m(x)&#x2F;\varepsilon\bigr)}<br>$$</p>
-<p>令 $m&#x3D;\min {O_1(x), O_2(x),\dots, O_K(x)},\displaystyle M &#x3D; \arg\min {O_1(x), O_2(x),\dots, O_K(x)}$。<br>当 $\varepsilon \to 0^+$，对于属于最优集 $M$ 的索引 $k$，$\exp(-O_k&#x2F;\varepsilon)$ 主导；而不是最优集的 $\exp(-O_k&#x2F;\varepsilon)$ 迅速衰减为 0。因此极限结果为：</p>
-<h1 id="lim-varepsilon-to-0-text-Softmin-varepsilon-bigl-vec-O-bigr"><a href="#lim-varepsilon-to-0-text-Softmin-varepsilon-bigl-vec-O-bigr" class="headerlink" title="$$\lim_{\varepsilon \to 0^+}\text{Softmin}_{\varepsilon}\bigl(\vec{O}\bigr)"></a>$$<br>\lim_{\varepsilon \to 0^+}<br>\text{Softmin}_{\varepsilon}\bigl(\vec{O}\bigr)</h1><h1 id="begin-cases-1-k-in-M-0-k-notin-M-end-cases"><a href="#begin-cases-1-k-in-M-0-k-notin-M-end-cases" class="headerlink" title="\begin{cases}1, &amp; k \in M \0, &amp; k \notin M,\end{cases}"></a>\begin{cases}<br>1, &amp; k \in M \<br>0, &amp; k \notin M,<br>\end{cases}</h1><p>\begin{cases}<br>1, &amp; k &#x3D; argmin{O_k}\<br>0, &amp; else<br>\end{cases}<br>$$</p>
+<p>令 $m&#x3D;min {O_1(x), O_2(x),\dots, O_K(x)},\displaystyle M &#x3D; argmin {O_1(x), O_2(x),\dots, O_K(x)}$。<br>当 $\varepsilon \to 0^+$，对于属于最优集 $M$ 的索引 $k$，$\exp(-O_k&#x2F;\varepsilon)$ 主导；而不是最优集的 $\exp(-O_k&#x2F;\varepsilon)$ 迅速衰减为 0。因此极限结果为：</p>
+<h1 id="lim-varepsilon-to-0-text-Softmin-varepsilon-bigl-vec-O-bigr"><a href="#lim-varepsilon-to-0-text-Softmin-varepsilon-bigl-vec-O-bigr" class="headerlink" title="$$\lim_{\varepsilon \to 0^+}\text{Softmin}_{\varepsilon}\bigl(\vec{O}\bigr)"></a>$$<br>\lim_{\varepsilon \to 0^+}<br>\text{Softmin}_{\varepsilon}\bigl(\vec{O}\bigr)</h1><p>\begin{cases}<br>1, &amp; \text{if } k \in M, \<br>0, &amp; \text{if } k \notin M,<br>\end{cases}<br>\quad \text{where } M &#x3D; \bigl{ k \mid k &#x3D; \arg\min O_k \bigr}<br>$$</p>
 <h2 id="这与-k-means-硬分类（一次只属于距离最近的簇）相一致。称-min-vec-u-in-U，-vec-C-Bigl-E-vec-u-vec-C-varepsilon-H-u-为softmin-softmax的分类的变分优化问题"><a href="#这与-k-means-硬分类（一次只属于距离最近的簇）相一致。称-min-vec-u-in-U，-vec-C-Bigl-E-vec-u-vec-C-varepsilon-H-u-为softmin-softmax的分类的变分优化问题" class="headerlink" title="这与 k-means 硬分类（一次只属于距离最近的簇）相一致。称 $\min_{\vec{u}\in U，\vec{C}}\Bigl[E(\vec{u}, \vec{C})-\varepsilon H(u)]$ 为softmin&#x2F;softmax的分类的变分优化问题"></a>这与 k-means 硬分类（一次只属于距离最近的簇）相一致。<br>称 $\min_{\vec{u}\in U，\vec{C}}\Bigl[E(\vec{u}, \vec{C})-\varepsilon H(u)]$ 为softmin&#x2F;softmax的分类的变分优化问题</h2><h2 id="k-means-的光滑化与-Softmax-溢出问题"><a href="#k-means-的光滑化与-Softmax-溢出问题" class="headerlink" title="k-means 的光滑化与 Softmax 溢出问题"></a>k-means 的光滑化与 Softmax 溢出问题</h2><h3 id="k-means-的光滑化"><a href="#k-means-的光滑化" class="headerlink" title="k-means 的光滑化"></a>k-means 的光滑化</h3><p>通过在 k-means 能量函数中加入熵项并令 $\varepsilon&gt;0$，可以将硬分类变为软分类，使其输出变得连续可导。</p>
 <ul>
 <li>当 $\varepsilon \to 0$，Softmin 退化为 k-means 硬分类；</li>
