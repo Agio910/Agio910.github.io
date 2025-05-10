@@ -186,7 +186,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-05-10 18:42:46 / Modified: 17:42:16" itemprop="dateCreated datePublished" datetime="2025-05-10T18:42:46+08:00">2025-05-10</time>
+              <time title="Created: 2025-05-10 18:42:46 / Modified: 17:54:13" itemprop="dateCreated datePublished" datetime="2025-05-10T18:42:46+08:00">2025-05-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -232,7 +232,7 @@
 <li><p><strong>更新归属矩阵</strong> $\vec{U}^{t+1}$：</p>
 <p>$$<br>\vec{U}^{t+1} &#x3D; \arg \min_{\vec{U}}  E(\vec{U}, \vec{C}^t)<br>$$</p>
 <p>具体到每个样本点 $x$ 的更新规则为：</p>
-<h1 id="U-k-t-1-x"><a href="#U-k-t-1-x" class="headerlink" title="$$U_k^{t+1}(x) "></a>$$<br>U_k^{t+1}(x) </h1><p>\begin{cases}<br>1, &amp; k &#x3D; \displaystyle \arg\min_{k \in {1, \dots, K}} \bigl(f(x) - C_k^t\bigr)^2 \[6pt]<br>0, &amp; \text{otherwise}<br>\end{cases}<br>$$</p>
+<h1 id="U-k-t-1-x"><a href="#U-k-t-1-x" class="headerlink" title="$$U_k^{t+1}(x) "></a>$$<br>U_k^{t+1}(x) </h1><p>\begin{cases}<br>1, &amp; k &#x3D; \displaystyle \arg\min_{k \in {1, \dots, K}} \bigl(f(x) - C_k^t\bigr)^2 \<br>0, &amp; \text{otherwise}<br>\end{cases}<br>$$</p>
 <p>即将每个数据点分配给距离其最近的簇中心。</p>
 </li>
 <li><p><strong>更新聚类中心</strong> $\vec{C}^{t+1}$：</p>
@@ -255,12 +255,12 @@
 </ul>
 <hr>
 <h2 id="K-Means-的变分问题与熵的性质"><a href="#K-Means-的变分问题与熵的性质" class="headerlink" title="K-Means 的变分问题与熵的性质"></a>K-Means 的变分问题与熵的性质</h2><h3 id="K-Means-变分问题"><a href="#K-Means-变分问题" class="headerlink" title="K-Means 变分问题"></a>K-Means 变分问题</h3><p>我们希望最小化下述能量函数：</p>
-<p>$$<br>\min_{\vec{U}, \vec{C}} E(\vec{U}, \vec{C}),<br>$$</p>
-<p>其中<br>$\vec{U}$ 为归属矩阵，$\vec{C}$ 为聚类中心。</p>
+<p>$$<br>\min_{\vec{U}, \vec{C}} E(\vec{U}, \vec{C})<br>$$</p>
+<p>其中 $\vec{U}$ 为归属矩阵，$\vec{C}$ 为聚类中心。</p>
 <p>除硬划分之外，还可使用许多优化或正则化技巧，例如引入<strong>软分类</strong>思想（softmax &#x2F; softmin）的方法。</p>
 <hr>
 <h3 id="熵的性质"><a href="#熵的性质" class="headerlink" title="熵的性质"></a>熵的性质</h3><p>在分析 K-Means 变分问题时，引入熵的一条不等式，用于约束归属矩阵的对数项：</p>
-<p>$$<br>-\ln K<br>\le \langle \vec{U}, \ln \vec{U} \rangle<br>\le 0.<br>$$</p>
+<p>$$<br>-\ln K<br>\le \langle \vec{U}, \ln \vec{U} \rangle<br>\le 0<br>$$</p>
 <p>其中：</p>
 <ul>
 <li>$U_k$ 表示数据点对第 $k$ 个簇的归属概率（软分类时可在 $[0,1]$ 之间）；</li>
@@ -286,19 +286,19 @@
 <p>$$<br>-\ln K<br>\leq \langle \vec{U}, \ln \vec{U} \rangle<br>\leq 0<br>$$</p>
 <p>的推导思路详述如下：</p>
 <h3 id="证明-f-u-ln-u-是凸函数："><a href="#证明-f-u-ln-u-是凸函数：" class="headerlink" title="证明 $f(u)&#x3D;-\ln u$ 是凸函数："></a>证明 $f(u)&#x3D;-\ln u$ 是凸函数：</h3><p>函数 $f(u) &#x3D; -\ln u$ 的一阶导数和二阶导数分别为：</p>
-<p>$$<br>f’(u) &#x3D; -\frac{1}{u},<br>\quad<br>f’’(u) &#x3D; \frac{1}{u^2} &gt; 0 \quad (u&gt;0).<br>$$</p>
+<p>$$<br>f’(u) &#x3D; -\frac{1}{u},<br>\quad<br>f’’(u) &#x3D; \frac{1}{u^2} &gt; 0 \quad (u&gt;0)<br>$$</p>
 <p>由于 $f’’(u) &gt; 0$，可知 $f(u)$ 是凸函数。</p>
 <h3 id="计算极限-lim-limits-u-to0-u-ln-u-："><a href="#计算极限-lim-limits-u-to0-u-ln-u-：" class="headerlink" title="计算极限 $\lim\limits_{u\to0^+} u \ln u$："></a>计算极限 $\lim\limits_{u\to0^+} u \ln u$：</h3><p>令 $g(u) &#x3D; -u \ln u$，求其极限：</p>
-<p>$$<br>\lim_{u\to0^+} u \ln u &#x3D; \lim_{u\to0^+} \frac{\ln u}{1&#x2F;u}.<br>$$</p>
+<p>$$<br>\lim_{u\to0^+} u \ln u &#x3D; \lim_{u\to0^+} \frac{\ln u}{1&#x2F;u}<br>$$</p>
 <p>利用洛必达法则，分子求导得$1&#x2F;u$，分母求导得 $-1&#x2F;u^2$，因此：</p>
-<p>$$<br>\lim_{u\to0^+} \frac{\ln u}{1&#x2F;u} &#x3D; \lim_{u\to0^+} \frac{1&#x2F;u}{-1&#x2F;u^2} &#x3D; \lim_{u\to0^+} -u &#x3D; 0.<br>$$</p>
+<p>$$<br>\lim_{u\to0^+} \frac{\ln u}{1&#x2F;u} &#x3D; \lim_{u\to0^+} \frac{1&#x2F;u}{-1&#x2F;u^2} &#x3D; \lim_{u\to0^+} -u &#x3D; 0<br>$$</p>
 <p>所以：</p>
 <p>$$<br>\lim_{u\to0^+} u \ln u &#x3D; 0.<br>$$</p>
 <p>这表明当 $u \to 0$ 时，$u \ln u$ 趋于 0。</p>
 <h3 id="用-Jensen-不等式推导熵不等式："><a href="#用-Jensen-不等式推导熵不等式：" class="headerlink" title="用 Jensen 不等式推导熵不等式："></a>用 Jensen 不等式推导熵不等式：</h3><p>由于 $f(x)&#x3D;-\ln x$ 是凸函数，因此对于满足 $\sum_{k&#x3D;1}^{K} \alpha_k &#x3D; 1$ 且 $ 0 \leq \alpha_k \leq 1$ 的权重  $\alpha_{k} $ ，有：</p>
 <p>$$<br>\left( \sum_{k&#x3D;1}^{K} \alpha_k x_k \right) \leq \sum_{k&#x3D;1}^{K} \alpha_k f(x_k)<br>$$</p>
 <p>取 $\alpha_k &#x3D; U_k$，$x_k &#x3D; \frac{1}{U_k}$，则：</p>
-<p>$$<br>-ln \left( \sum_{k&#x3D;1}^{K} U_k \cdot \frac{1}{U_k} \right) \leq \sum_{k&#x3D;1}^{K} U_k (-\ln \frac{1}{U_k}).<br>$$</p>
+<p>$$<br>-ln \left( \sum_{k&#x3D;1}^{K} U_k \cdot \frac{1}{U_k} \right) \leq \sum_{k&#x3D;1}^{K} U_k (-\ln \frac{1}{U_k})<br>$$</p>
 <p>由于 $\sum_{k&#x3D;1}^{K} U_k &#x3D; 1$，所以：</p>
 <p>$$<br>-ln K \leq \sum_{k&#x3D;1}^{K} U_k \ln U_k \leq 0<br>$$</p>
 <p>即</p>
@@ -307,10 +307,10 @@
 <li><strong>左边等号成立条件</strong>：当所有 $U_k$ 相等，即 $U_k &#x3D; 1&#x2F;K$ 时，左侧等号成立。</li>
 <li><strong>右边等号成立条件</strong>：当仅有一个 $U_k&#x3D;1$，其余 $U_k&#x3D;0$ 时，右侧等号成立。</li>
 </ul>
-<h3 id="5-熵不等式在-K-Means-变分问题中的作用："><a href="#5-熵不等式在-K-Means-变分问题中的作用：" class="headerlink" title="5. 熵不等式在 K-Means 变分问题中的作用："></a>5. 熵不等式在 K-Means 变分问题中的作用：</h3><p>该不等式用于限制聚类的过度集中，即防止所有数据点都归属于同一簇。同时，它也鼓励一定程度的分散度，使簇划分更加均匀，从而优化聚类效果。</p>
+<h3 id="熵不等式在-K-Means-变分问题中的作用："><a href="#熵不等式在-K-Means-变分问题中的作用：" class="headerlink" title="熵不等式在 K-Means 变分问题中的作用："></a>熵不等式在 K-Means 变分问题中的作用：</h3><p>该不等式用于限制聚类的过度集中，即防止所有数据点都归属于同一簇。同时，它也鼓励一定程度的分散度，使簇划分更加均匀，从而优化聚类效果。</p>
 <hr>
 <h2 id="K-Means-的变分问题扩展"><a href="#K-Means-的变分问题扩展" class="headerlink" title="K-Means 的变分问题扩展"></a>K-Means 的变分问题扩展</h2><p>在传统 K-Means 的能量函数 $E(\vec{U}, \vec{C})$ 基础上，引入一项基于熵的正则化：</p>
-<p>$$<br>\min_{\vec{u}\in U}<br>\Bigl[<br>E(\vec{u}, \vec{C})<br>+\varepsilon \langle \vec{u}, \ln \vec{u}\rangle<br>\Bigr],<br>$$</p>
+<p>$$<br>\min_{\vec{u}\in U}<br>\Bigl[<br>E(\vec{u}, \vec{C})<br>+\varepsilon \langle \vec{u}, \ln \vec{u}\rangle<br>\Bigr]<br>$$</p>
 <p>其中 $\varepsilon &gt; 0$ 为权衡系数（正则化参数）。当 $\varepsilon \to 0$ 时，该模型接近传统 K-Means 硬分类；当 $\varepsilon$ 较大时，模型更倾向于<strong>软聚类</strong>。</p>
 <p>更新过程：</p>
 <ol>
@@ -321,55 +321,45 @@
 <p>$$<br>H(\vec{u})<br>&#x3D; - \sum_{k&#x3D;1}^{K} \sum_{x\in X\Omega} u_k(x)\ln u_k(x)<br>$$</p>
 <p>作为“软化”或正则化手段，避免完全的 0-1 硬分类。</p>
 <h3 id="偏导数计算"><a href="#偏导数计算" class="headerlink" title="偏导数计算"></a>偏导数计算</h3><p>熵项 $H(\vec{u})$ 可重写为</p>
-<p>$$</p>
-<ul>
-<li>H(\vec{u}) &#x3D; \langle \vec{u}, \ln \vec{u} \rangle.<br>$$</li>
-</ul>
+<p>$$<br> -H(\vec{u}) &#x3D; \langle \vec{u}, \ln \vec{u} \rangle.<br>$$</p>
 <p>对于目标函数 $E(\vec{u}, \vec{C}) - \varepsilon H(\vec{u})$，计算其关于 $u_k$ 的偏导数：</p>
 <ol>
 <li><p>设 $E(\vec{u}, \vec{C})$ 关于 $u_k$ 的偏导数为：</p>
-<p>$$<br>\frac{\delta E}{\delta u_k} &#x3D; O_k.<br>$$</p>
+<p>$$<br>\frac{\delta E}{\delta u_k} &#x3D; O_k<br>$$</p>
 </li>
 <li><p>对于熵项：</p>
-<p>$$<br>\frac{\delta (-H)}{\delta u_k} &#x3D; \ln u_k + 1.<br>$$</p>
+<p>$$<br>\frac{\delta (-H)}{\delta u_k} &#x3D; \ln u_k + 1<br>$$</p>
 </li>
 <li><p>结合上述结果，求解极值条件：</p>
-<p>$$<br>O_k - \varepsilon (\ln u_k + 1) &#x3D; 0.<br>$$</p>
+<p>$$<br>O_k - \varepsilon (\ln u_k + 1) &#x3D; 0<br>$$</p>
 </li>
 <li><p>化简得：</p>
-<p>$$<br>u_k &#x3D; \exp\left(-\frac{O_k}{\varepsilon} - 1\right).<br>$$</p>
+<p>$$<br>u_k &#x3D; \exp\left(-\frac{O_k}{\varepsilon} - 1\right)<br>$$</p>
 </li>
 </ol>
 <p>这表明更新 $u_k$ 时，其值受 $\varepsilon$ 控制，较大的 $\varepsilon$ 使得 $u_k$ 更加平滑，有助于软聚类。</p>
 <hr>
 <h2 id="拉格朗日函数与-Softmax-分析"><a href="#拉格朗日函数与-Softmax-分析" class="headerlink" title="拉格朗日函数与 Softmax 分析"></a>拉格朗日函数与 Softmax 分析</h2><h3 id="拉格朗日函数"><a href="#拉格朗日函数" class="headerlink" title="拉格朗日函数"></a>拉格朗日函数</h3><p>定义拉格朗日函数：</p>
-<p>$$<br>\mathcal{L}(\vec{u}, \lambda)<br>&#x3D; E(\vec{u}, \vec{c})</p>
-<ul>
-<li>\varepsilonH(\vec{u})</li>
-</ul>
-<ul>
-<li>\sum_{x \in \Omega} \lambda(x)<br>\Bigl(<br>\sum_{k&#x3D;1}^{K} u_k(x)-1<br>\Bigr).<br>$$</li>
-</ul>
+<p>$$<br>\mathcal{L}(\vec{u}, \lambda)<br>&#x3D; E(\vec{u}, \vec{c})<br>-\varepsilonH(\vec{u})+\sum_{x \in \Omega} \lambda(x)<br>\Bigl(<br>\sum_{k&#x3D;1}^{K} u_k(x)-1<br>\Bigr)<br>$$</p>
 <p>其中：</p>
 <ul>
 <li>$H(\vec{u})$ 是熵项；</li>
 <li>$\lambda(x)$ 为拉格朗日乘子，用于保证 $\sum_{k&#x3D;1}^{K} u_k(x)&#x3D;1$。</li>
 </ul>
 <h3 id="软分类-Softmin-Softmax-的推导"><a href="#软分类-Softmin-Softmax-的推导" class="headerlink" title="软分类 (Softmin &#x2F; Softmax) 的推导"></a>软分类 (Softmin &#x2F; Softmax) 的推导</h3><p>对 $\mathcal{L}(\vec{u}, \lambda)$ 关于 $u_k$ 取偏导为 0，可得到：</p>
-<h1 id="ln-u-k-x"><a href="#ln-u-k-x" class="headerlink" title="$$\ln u_k(x) "></a>$$<br>\ln u_k(x) </h1><p>-\frac{ O_k(x) + \lambda(x) }{ \varepsilon },<br>$$</p>
+<p>$$<br>\ln u_k(x)&#x3D; -\frac{O_k(x) +\lambda(x)}{\varepsilon}<br>$$</p>
 <p>其中 $O_k$ 是某类损失（例如 $(f(x)-C_k)^2$ ）或能量。</p>
 <p>结合约束 $\sum_{k&#x3D;1}^K u_k(x)&#x3D;1$，可得<strong>Softmin</strong>形式：</p>
-<h1 id="u-k-t-1-x"><a href="#u-k-t-1-x" class="headerlink" title="$$u_k^{t+1}(x)"></a>$$<br>u_k^{t+1}(x)</h1><p>\frac{\exp\Bigl(\dfrac{-O_k(x)}{\varepsilon}\Bigr)}<br>{\sum_{j&#x3D;1}^{K} \exp\Bigl(\dfrac{-O_j(x)}{\varepsilon}\Bigr)},<br>$$</p>
+<p>$$<br>u_k^{t+1}(x)&#x3D; \frac{\exp\Bigl(\dfrac{-O_k(x)}{\varepsilon}\Bigr)}{\sum_{j&#x3D;1}^{K} \exp\Bigl(\dfrac{-O_j(x)}{\varepsilon}\Bigr)}<br>$$</p>
 <p>也可写成 softmax 形式：</p>
-<h1 id="text-Softmax-varepsilon-vec-O"><a href="#text-Softmax-varepsilon-vec-O" class="headerlink" title="$$\text{Softmax}_{\varepsilon}(-\vec{O})"></a>$$<br>\text{Softmax}_{\varepsilon}(-\vec{O})</h1><p>\bigl[<br>\text{Softmin}_{\varepsilon}(\vec{O})<br>\bigr]_k.<br>$$</p>
+<p>$$\text{Softmax}<em>{\varepsilon}(-\vec{O})&#x3D;<br>\bigl[<br>\text{Softmin}</em>{\varepsilon}(\vec{O})<br>\bigr]_k<br>$$</p>
 <hr>
 <h2 id="极限问题与分母拆分"><a href="#极限问题与分母拆分" class="headerlink" title="极限问题与分母拆分"></a>极限问题与分母拆分</h2><h3 id="k-means-硬分类更新公式"><a href="#k-means-硬分类更新公式" class="headerlink" title="k-means 硬分类更新公式"></a>k-means 硬分类更新公式</h3><p>当不考虑熵正则化时，k-means 的硬分类可写为：</p>
-<h1 id="u-k-t-1-x-1"><a href="#u-k-t-1-x-1" class="headerlink" title="$$u_k^{t+1}(x)"></a>$$<br>u_k^{t+1}(x)</h1><p>\begin{cases}<br>1, &amp; k &#x3D; \displaystyle \arg\min_{k \in {1,\dots,K}} {O_k}, \<br>0, &amp; \text{else}.<br>\end{cases}<br>$$</p>
+<p>$$<br>u_k^{t+1}(x)&#x3D;<br>\begin{cases}<br>1, &amp; k &#x3D; \displaystyle \arg\min_{k \in {1,\dots,K}} {O_k}, \<br>0, &amp; \text{else}<br>\end{cases}<br>$$</p>
 <h3 id="Softmin-的极限"><a href="#Softmin-的极限" class="headerlink" title="Softmin 的极限"></a>Softmin 的极限</h3><p>考虑</p>
 <p>$$<br>\lim_{\varepsilon \to 0^+}<br>\frac{\exp\bigl(-O_k(x)&#x2F;\varepsilon\bigr)}{\sum_{j&#x3D;1}^K \exp\bigl(-O_j(x)&#x2F;\varepsilon\bigr)}<br>&#x3D;\lim_{\varepsilon \to 0^+}\frac{\exp\bigl(-O_k(x)+m(x)&#x2F;\varepsilon\bigr)}{\sum_{j\in M} \exp\bigl(-O_j(x)+m(x)&#x2F;\varepsilon\bigr)+\sum_{j\notin M} \exp\bigl(-O_j(x)+m(x)&#x2F;\varepsilon\bigr)}<br>$$</p>
 <p>令 $m&#x3D;\min {O_1(x), O_2(x),\dots, O_K(x)},\displaystyle M &#x3D; \arg\min {O_1(x), O_2(x),\dots, O_K(x)}$。<br>当 $\varepsilon \to 0^+$，对于属于最优集 $M$ 的索引 $k$，$\exp(-O_k&#x2F;\varepsilon)$ 主导；而不是最优集的 $\exp(-O_k&#x2F;\varepsilon)$ 迅速衰减为 0。因此极限结果为：</p>
-<h1 id="lim-varepsilon-to-0-text-Softmin-varepsilon-bigl-vec-O-bigr"><a href="#lim-varepsilon-to-0-text-Softmin-varepsilon-bigl-vec-O-bigr" class="headerlink" title="$$\lim_{\varepsilon \to 0^+}\text{Softmin}_{\varepsilon}\bigl(\vec{O}\bigr)"></a>$$<br>\lim_{\varepsilon \to 0^+}<br>\text{Softmin}_{\varepsilon}\bigl(\vec{O}\bigr)</h1><h1 id="begin-cases-1-k-in-M-0-k-notin-M-end-cases"><a href="#begin-cases-1-k-in-M-0-k-notin-M-end-cases" class="headerlink" title="\begin{cases}1, &amp; k \in M \0, &amp; k \notin M,\end{cases}"></a>\begin{cases}<br>1, &amp; k \in M \<br>0, &amp; k \notin M,<br>\end{cases}</h1><p>\begin{cases}<br>1, &amp; k &#x3D; argmin{O_k}\<br>0, &amp; else<br>\end{cases}</p>
-<p>$$</p>
+<h1 id="lim-varepsilon-to-0-text-Softmin-varepsilon-bigl-vec-O-bigr"><a href="#lim-varepsilon-to-0-text-Softmin-varepsilon-bigl-vec-O-bigr" class="headerlink" title="$$\lim_{\varepsilon \to 0^+}\text{Softmin}_{\varepsilon}\bigl(\vec{O}\bigr)"></a>$$<br>\lim_{\varepsilon \to 0^+}<br>\text{Softmin}_{\varepsilon}\bigl(\vec{O}\bigr)</h1><h1 id="begin-cases-1-k-in-M-0-k-notin-M-end-cases"><a href="#begin-cases-1-k-in-M-0-k-notin-M-end-cases" class="headerlink" title="\begin{cases}1, &amp; k \in M \0, &amp; k \notin M,\end{cases}"></a>\begin{cases}<br>1, &amp; k \in M \<br>0, &amp; k \notin M,<br>\end{cases}</h1><p>\begin{cases}<br>1, &amp; k &#x3D; argmin{O_k}\<br>0, &amp; else<br>\end{cases}<br>$$</p>
 <h2 id="这与-k-means-硬分类（一次只属于距离最近的簇）相一致。称-min-vec-u-in-U，-vec-C-Bigl-E-vec-u-vec-C-varepsilon-H-u-为softmin-softmax的分类的变分优化问题"><a href="#这与-k-means-硬分类（一次只属于距离最近的簇）相一致。称-min-vec-u-in-U，-vec-C-Bigl-E-vec-u-vec-C-varepsilon-H-u-为softmin-softmax的分类的变分优化问题" class="headerlink" title="这与 k-means 硬分类（一次只属于距离最近的簇）相一致。称 $\min_{\vec{u}\in U，\vec{C}}\Bigl[E(\vec{u}, \vec{C})-\varepsilon H(u)]$ 为softmin&#x2F;softmax的分类的变分优化问题"></a>这与 k-means 硬分类（一次只属于距离最近的簇）相一致。<br>称 $\min_{\vec{u}\in U，\vec{C}}\Bigl[E(\vec{u}, \vec{C})-\varepsilon H(u)]$ 为softmin&#x2F;softmax的分类的变分优化问题</h2><h2 id="k-means-的光滑化与-Softmax-溢出问题"><a href="#k-means-的光滑化与-Softmax-溢出问题" class="headerlink" title="k-means 的光滑化与 Softmax 溢出问题"></a>k-means 的光滑化与 Softmax 溢出问题</h2><h3 id="k-means-的光滑化"><a href="#k-means-的光滑化" class="headerlink" title="k-means 的光滑化"></a>k-means 的光滑化</h3><p>通过在 k-means 能量函数中加入熵项并令 $\varepsilon&gt;0$，可以将硬分类变为软分类，使其输出变得连续可导。</p>
 <ul>
 <li>当 $\varepsilon \to 0$，Softmin 退化为 k-means 硬分类；</li>
