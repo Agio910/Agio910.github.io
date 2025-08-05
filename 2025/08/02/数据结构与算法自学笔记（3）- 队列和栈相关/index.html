@@ -22,13 +22,13 @@
 
   <meta name="description" content="引言参照的是左程云的课程：https:&#x2F;&#x2F;space.bilibili.com&#x2F;8888480&#x2F;lists&#x2F;3509640?type&#x3D;series本笔记包括了栈和队列的基础实现、相互转换以及最小栈等核心内容，涵盖了链表实现、数组实现、循环队列等多种实现方式,包括了class013 -&gt; class016的内容。  013【入门】队列和栈-链表、数组实现队列的基本概念队列（Queue）是一种先">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构与算法自学笔记（3）">
-<meta property="og:url" content="http://example.com/2025/08/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89/index.html">
+<meta property="og:title" content="数据结构与算法自学笔记（3）- 队列和栈相关">
+<meta property="og:url" content="http://example.com/2025/08/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89-%20%E9%98%9F%E5%88%97%E5%92%8C%E6%A0%88%E7%9B%B8%E5%85%B3/index.html">
 <meta property="og:site_name" content="Blog of AgioPan">
 <meta property="og:description" content="引言参照的是左程云的课程：https:&#x2F;&#x2F;space.bilibili.com&#x2F;8888480&#x2F;lists&#x2F;3509640?type&#x3D;series本笔记包括了栈和队列的基础实现、相互转换以及最小栈等核心内容，涵盖了链表实现、数组实现、循环队列等多种实现方式,包括了class013 -&gt; class016的内容。  013【入门】队列和栈-链表、数组实现队列的基本概念队列（Queue）是一种先">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-08-02T06:42:46.000Z">
-<meta property="article:modified_time" content="2025-08-04T08:07:21.533Z">
+<meta property="article:modified_time" content="2025-08-05T08:02:11.274Z">
 <meta property="article:author" content="AgioPan">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="Python">
@@ -39,7 +39,7 @@
 <meta property="article:tag" content="数组">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2025/08/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89/">
+<link rel="canonical" href="http://example.com/2025/08/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89-%20%E9%98%9F%E5%88%97%E5%92%8C%E6%A0%88%E7%9B%B8%E5%85%B3/">
 
 
 <script id="page-configurations">
@@ -52,7 +52,7 @@
   };
 </script>
 
-  <title>数据结构与算法自学笔记（3） | Blog of AgioPan</title>
+  <title>数据结构与算法自学笔记（3）- 队列和栈相关 | Blog of AgioPan</title>
   
 
 
@@ -199,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89-%20%E9%98%9F%E5%88%97%E5%92%8C%E6%A0%88%E7%9B%B8%E5%85%B3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -212,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          数据结构与算法自学笔记（3）
+          数据结构与算法自学笔记（3）- 队列和栈相关
         </h1>
 
         <div class="post-meta">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-04 16:07:21" itemprop="dateModified" datetime="2025-08-04T16:07:21+08:00">2025-08-04</time>
+                <time title="Modified: 2025-08-05 16:02:11" itemprop="dateModified" datetime="2025-08-05T16:02:11+08:00">2025-08-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -550,8 +550,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2025/08/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89/" rel="prev" title="数据结构与算法自学笔记（2）">
-      <i class="fa fa-chevron-left"></i> 数据结构与算法自学笔记（2）
+    <a href="/2025/08/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%882%EF%BC%89-%20%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%85%B3/" rel="prev" title="数据结构与算法自学笔记（2）- 链表相关">
+      <i class="fa fa-chevron-left"></i> 数据结构与算法自学笔记（2）- 链表相关
     </a></div>
       <div class="post-nav-item">
     <a href="/2025/08/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E8%AF%BE%E4%BB%B6%E7%95%99%E6%A1%A3/" rel="next" title="吴恩达机器学习课程资料归档">
@@ -631,7 +631,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -644,7 +644,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">53</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
