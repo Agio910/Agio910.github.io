@@ -28,7 +28,7 @@
 <meta property="og:description" content="引言参照的是左程云的课程：https:&#x2F;&#x2F;space.bilibili.com&#x2F;8888480&#x2F;lists&#x2F;3509640?type&#x3D;series 是class019的内容，本笔记重点介绍Python在算法竞赛和笔试中的高效输入输出处理技巧，包含子矩阵最大累加和问题的完整实现，以及与Java的性能对比分析。 019【必备】算法笔试中处理输入和输出概述在算法竞赛和大厂笔试中，输入输出的处理效率往往是">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-08-05T00:42:46.000Z">
-<meta property="article:modified_time" content="2025-08-05T08:29:23.853Z">
+<meta property="article:modified_time" content="2025-08-05T08:37:24.320Z">
 <meta property="article:author" content="AgioPan">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="Python">
@@ -221,7 +221,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-08-05 08:42:46 / Modified: 16:29:23" itemprop="dateCreated datePublished" datetime="2025-08-05T08:42:46+08:00">2025-08-05</time>
+              <time title="Created: 2025-08-05 08:42:46 / Modified: 16:37:24" itemprop="dateCreated datePublished" datetime="2025-08-05T08:42:46+08:00">2025-08-05</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -350,7 +350,7 @@
 <p><strong>主要作用</strong></p>
 <ul>
 <li>极速读取输入，尤其是大量数字（如百万级数据）。</li>
-<li>通过**一次性读取大块数据（8KB）**到内存，减少系统I&#x2F;O调用次数。</li>
+<li>通过 <strong>一次性读取大块数据（8KB）</strong> 到内存，减少系统I&#x2F;O调用次数。</li>
 <li>按字节处理并手动解析数字，比标准 input() 或 sys.stdin.readline() 更快。</li>
 </ul>
 <p><strong>工作原理</strong></p>
