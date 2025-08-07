@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(6)/class22-%E5%BD%92%E5%B9%B6%E5%88%86%E6%B2%BB/%E5%88%86%E6%B2%BB%E6%8C%87%E9%92%88%E6%BB%91%E5%8A%A8.png">
 <meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(6)/class22-%E5%BD%92%E5%B9%B6%E5%88%86%E6%B2%BB/%E5%B0%8F%E5%92%8C%E9%97%AE%E9%A2%98%E6%8B%86%E5%88%86%E6%88%90%E5%AD%90%E9%97%AE%E9%A2%98.png">
 <meta property="article:published_time" content="2025-08-06T00:42:46.000Z">
-<meta property="article:modified_time" content="2025-08-07T02:09:27.779Z">
+<meta property="article:modified_time" content="2025-08-07T06:18:07.283Z">
 <meta property="article:author" content="AgioPan">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="Python">
@@ -235,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-07 10:09:27" itemprop="dateModified" datetime="2025-08-07T10:09:27+08:00">2025-08-07</time>
+                <time title="Modified: 2025-08-07 14:18:07" itemprop="dateModified" datetime="2025-08-07T14:18:07+08:00">2025-08-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -383,6 +383,8 @@
 <h2 id="小和问题"><a href="#小和问题" class="headerlink" title="小和问题"></a>小和问题</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定数组arr，对于每个位置i，求出其左边所有小于等于arr[i]的数的累加和，所有位置的累加和即为数组的”小和”。</p>
 <p><strong>例子</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">数组: [1, 3, 5, 2, 4, 6]</span><br><span class="line"></span><br><span class="line">位置0(1): 左边小于等于1的数 → 0</span><br><span class="line">位置1(3): 左边小于等于3的数 → 1  </span><br><span class="line">位置2(5): 左边小于等于5的数 → 1+3 = 4</span><br><span class="line">位置3(2): 左边小于等于2的数 → 1</span><br><span class="line">位置4(4): 左边小于等于4的数 → 1+3+2 = 6</span><br><span class="line">位置5(6): 左边小于等于6的数 → 1+3+5+2+4 = 15</span><br><span class="line"></span><br><span class="line">小和 = 0+1+4+1+6+15 = 27</span><br></pre></td></tr></table></figure>
+
+
 <p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(6)/class22-%E5%BD%92%E5%B9%B6%E5%88%86%E6%B2%BB/%E5%88%86%E6%B2%BB%E6%8C%87%E9%92%88%E6%BB%91%E5%8A%A8.png" alt="分治指针滑动"><br><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(6)/class22-%E5%BD%92%E5%B9%B6%E5%88%86%E6%B2%BB/%E5%B0%8F%E5%92%8C%E9%97%AE%E9%A2%98%E6%8B%86%E5%88%86%E6%88%90%E5%AD%90%E9%97%AE%E9%A2%98.png" alt="小和问题拆分成子问题"></p>
 <p> <strong>测试链接</strong> ：<a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/edfe05a1d45c4ea89101d936cac32469">https://www.nowcoder.com/practice/edfe05a1d45c4ea89101d936cac32469</a></p>
 <h3 id="归并分治解法"><a href="#归并分治解法" class="headerlink" title="归并分治解法"></a>归并分治解法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">smallSum</span>(<span class="params">l, r</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    返回arr[l...r]范围上小和的累加和，同时让arr[l..r]变有序</span></span><br><span class="line"><span class="string">    时间复杂度O(n * logn)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> l == r:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    m = (l + r) // <span class="number">2</span></span><br><span class="line">    <span class="comment"># 递归统计左右部分和跨区部分的小和</span></span><br><span class="line">    <span class="keyword">return</span> smallSum(l, m) + smallSum(m + <span class="number">1</span>, r) + merge(l, m, r)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params">l, m, r</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    统计跨左右产生的小和，同时完成合并</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    ans = <span class="number">0</span>        <span class="comment"># 累计小和</span></span><br><span class="line">    i = l          <span class="comment"># 左侧指针</span></span><br><span class="line">    sum_left = <span class="number">0</span>   <span class="comment"># 累计左侧小于等于当前右侧元素的和</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 统计跨区贡献：对每个右侧元素，统计左侧贡献</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(m + <span class="number">1</span>, r + <span class="number">1</span>):</span><br><span class="line">        <span class="comment"># 左侧所有 &lt;= arr[j] 的元素都对arr[j]有贡献</span></span><br><span class="line">        <span class="keyword">while</span> i &lt;= m <span class="keyword">and</span> arr[i] &lt;= arr[j]:</span><br><span class="line">            sum_left += arr[i]  <span class="comment"># 累加左侧贡献</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        ans += sum_left  <span class="comment"># arr[j]的左侧贡献总和</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 正常归并过程</span></span><br><span class="line">    i = l</span><br><span class="line">    a = l</span><br><span class="line">    b = m + <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> a &lt;= m <span class="keyword">and</span> b &lt;= r:</span><br><span class="line">        <span class="keyword">if</span> arr[a] &lt;= arr[b]:</span><br><span class="line">            help_arr[i] = arr[a]</span><br><span class="line">            a += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            help_arr[i] = arr[b]</span><br><span class="line">            b += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> a &lt;= m:</span><br><span class="line">        help_arr[i] = arr[a]</span><br><span class="line">        a += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> b &lt;= r:</span><br><span class="line">        help_arr[i] = arr[b]</span><br><span class="line">        b += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> idx <span class="keyword">in</span> <span class="built_in">range</span>(l, r + <span class="number">1</span>):</span><br><span class="line">        arr[idx] = help_arr[idx]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
@@ -460,7 +462,10 @@
     <a href="/2025/08/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%885%EF%BC%89-%20%E7%AE%97%E6%B3%95%E7%AC%94%E8%AF%95%E4%B8%AD%E5%A4%84%E7%90%86%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA/" rel="prev" title="数据结构与算法自学笔记（5）- 算法笔试中处理输入和输出">
       <i class="fa fa-chevron-left"></i> 数据结构与算法自学笔记（5）- 算法笔试中处理输入和输出
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2025/08/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%887%EF%BC%89-%20%E9%9A%8F%E6%9C%BA%E6%8E%92%E5%BA%8F&%E9%9A%8F%E6%9C%BA%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95/" rel="next" title="数据结构与算法自学笔记（7）- 随机排序&随机选择算法">
+      数据结构与算法自学笔记（7）- 随机排序&随机选择算法 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -535,7 +540,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -548,7 +553,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-count">58</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

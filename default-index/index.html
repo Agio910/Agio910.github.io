@@ -189,6 +189,313 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%887%EF%BC%89-%20%E9%9A%8F%E6%9C%BA%E6%8E%92%E5%BA%8F&%E9%9A%8F%E6%9C%BA%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="AgioPan">
+      <meta itemprop="description" content="Solving equations, decoding life, exploring minds.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AgioPan">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/08/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%887%EF%BC%89-%20%E9%9A%8F%E6%9C%BA%E6%8E%92%E5%BA%8F&%E9%9A%8F%E6%9C%BA%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">数据结构与算法自学笔记（7）- 随机排序&随机选择算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-08-07 08:42:46 / Modified: 14:18:13" itemprop="dateCreated datePublished" datetime="2025-08-07T08:42:46+08:00">2025-08-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="数据结构与算法自学笔记（5）"><a href="#数据结构与算法自学笔记（5）" class="headerlink" title="数据结构与算法自学笔记（5）"></a>数据结构与算法自学笔记（5）</h1><p>参照的是左程云的课程：<a target="_blank" rel="noopener" href="https://space.bilibili.com/8888480/lists/3509640?type=series">https://space.bilibili.com/8888480/lists/3509640?type=series</a><br>本笔记包括了随机快速排序和随机选择算法的原理与实现，涵盖了荷兰国旗问题优化、时间复杂度分析等内容，包括了class023 -&gt; class024的内容</p>
+<h2 id="023【必备】随机快速排序"><a href="#023【必备】随机快速排序" class="headerlink" title="023【必备】随机快速排序"></a>023【必备】随机快速排序</h2><h3 id="快速排序的基本思想"><a href="#快速排序的基本思想" class="headerlink" title="快速排序的基本思想"></a>快速排序的基本思想</h3><p>快速排序是一种高效的分治排序算法，其核心思想是：</p>
+<ol>
+<li><strong>选择基准元素（pivot）</strong>：从数组中选择一个元素作为基准值</li>
+<li><strong>数组划分</strong>：将数组重新排列，使得所有小于基准值的元素放在基准值前面，所有大于基准值的元素放在基准值后面</li>
+<li><strong>递归排序</strong>：对基准值两侧的子数组递归地应用快速排序</li>
+</ol>
+<h3 id="随机化的重要性"><a href="#随机化的重要性" class="headerlink" title="随机化的重要性"></a>随机化的重要性</h3><p><strong>为什么需要随机化？</strong></p>
+<ul>
+<li><strong>普通快速排序</strong>：固定选择位置（如最右元素）作为基准，最坏情况时间复杂度为O(n²)</li>
+<li><strong>随机快速排序</strong>：随机选择基准元素，期望时间复杂度为O(n log n)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 随机选择基准元素是关键</span></span><br><span class="line">x = arr[random.randint(l, r)]  <span class="comment"># 在[l,r]范围内随机选择</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="经典快速排序实现（不推荐）"><a href="#经典快速排序实现（不推荐）" class="headerlink" title="经典快速排序实现（不推荐）"></a>经典快速排序实现（不推荐）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">quickSort1</span>(<span class="params">l, r</span>):</span><br><span class="line">    <span class="comment"># l == r，只有一个数</span></span><br><span class="line">    <span class="comment"># l &gt; r，范围不存在，不用管</span></span><br><span class="line">    <span class="keyword">if</span> l &gt;= r:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="comment"># 随机这一下，常数时间比较大</span></span><br><span class="line">    <span class="comment"># 但只有这一下随机，才能在概率上把快速排序的时间复杂度收敛到O(n * logn)</span></span><br><span class="line">    <span class="comment"># l......r 随机选一个位置，x这个值，做划分</span></span><br><span class="line">    x = arr[random.randint(l, r)]</span><br><span class="line">    mid = partition1(l, r, x) <span class="comment">#会返回x的下标即index</span></span><br><span class="line">    quickSort1(l, mid - <span class="number">1</span>)</span><br><span class="line">    quickSort1(mid + <span class="number">1</span>, r)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知arr[l....r]范围上一定有x这个值</span></span><br><span class="line"><span class="comment"># 划分数组 &lt;=x放左边，&gt;x放右边</span></span><br><span class="line"><span class="comment"># 并且确保划分完成后&lt;=x区域的最后一个数字是x</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">partition1</span>(<span class="params">l, r, x</span>):</span><br><span class="line">    <span class="comment"># a : arr[l....a-1]范围是&lt;=x的区域</span></span><br><span class="line">    <span class="comment"># xi : 记录在&lt;=x的区域上任何一个x的位置，哪一个都可以</span></span><br><span class="line">    a = l            <span class="comment"># 初始化指针a，表示&lt;=x区域的右边界，初值为l</span></span><br><span class="line">    xi = <span class="number">0</span>           <span class="comment"># 初始化xi，用于记录&lt;=x区域内某一个x的位置（后面需要与a-1交换）</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(l, r + <span class="number">1</span>):   <span class="comment"># 从l遍历到r，依次考察每个元素，每一步都会i++（重要，所以这里的代码没有显式写i++）</span></span><br><span class="line">        <span class="keyword">if</span> arr[i] &lt;= x:         <span class="comment"># 如果当前元素小于等于x</span></span><br><span class="line">            swap(a, i)          <span class="comment"># 把当前元素交换到a位置（即&lt;=x区的后面）</span></span><br><span class="line">            <span class="keyword">if</span> arr[a] == x:     <span class="comment"># 如果新放到a位置的元素等于x</span></span><br><span class="line">                xi = a          <span class="comment"># 记录下这个位置为xi</span></span><br><span class="line">            a += <span class="number">1</span>              <span class="comment"># &lt;=x区往右扩展一位</span></span><br><span class="line">    swap(xi, a - <span class="number">1</span>)             <span class="comment"># 把&lt;=x区域里某个x与区域最后一个元素交换，保证x落在最后</span></span><br><span class="line">    <span class="keyword">return</span> a - <span class="number">1</span>                <span class="comment"># 返回&lt;=x区域的最后一个下标（即x最终所在的位置）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">swap</span>(<span class="params">i, j</span>):</span><br><span class="line">    tmp = arr[i]        <span class="comment"># 先把arr[i]暂存到tmp</span></span><br><span class="line">    arr[i] = arr[j]     <span class="comment"># arr[i]赋值为arr[j]</span></span><br><span class="line">    arr[j] = tmp        <span class="comment"># arr[j]赋值为tmp，实现arr[i]和arr[j]交换</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>经典版本的问题</strong>：</p>
+<ul>
+<li>经典快排每次只排掉一个等于pivot的元素，重复元素多时递归深度大，容易爆栈突变为，pivot 只确定了它自己的最终位置，如果有很多元素等于 pivot，只有一个会归位，剩下的还在“乱序”的子区间里。</li>
+</ul>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(7)/class23-%E9%9A%8F%E6%9C%BA%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/partition%E5%87%BD%E6%95%B0%E7%90%86%E8%A7%A3-%E7%BB%8F%E5%85%B8%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F.png" alt="partition函数理解-经典快速排序"><br><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(7)/class23-%E9%9A%8F%E6%9C%BA%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/partition%E5%87%BD%E6%95%B0%E7%90%86%E8%A7%A3-%E6%94%B9%E8%BF%9B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F.png" alt="partition函数理解-改进快速排序"></p>
+<h3 id="荷兰国旗问题优化版（推荐）"><a href="#荷兰国旗问题优化版（推荐）" class="headerlink" title="荷兰国旗问题优化版（推荐）"></a>荷兰国旗问题优化版（推荐）</h3><p>荷兰国旗问题是快速排序的重要优化，将数组分为三个区域：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[小于x的区域] [等于x的区域] [大于x的区域]</span><br></pre></td></tr></table></figure>
+<p>能够一次处理所有等于pivot的元素，递归层数大大降低，所以不会爆栈，每次把所有等于pivot的数都一次性放到中间，只对小于和大于pivot的区间递归</p>
+<h4 id="核心优势"><a href="#核心优势" class="headerlink" title="核心优势"></a>核心优势</h4><ol>
+<li><strong>一次性处理所有相等元素</strong>：将所有等于pivot的元素都放到正确位置</li>
+<li><strong>减少递归层数</strong>：只需要对小于和大于pivot的区域递归</li>
+<li><strong>避免栈溢出</strong>：特别适合处理有大量重复元素的数组</li>
+</ol>
+<h4 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">quickSort2</span>(<span class="params">l, r</span>):</span><br><span class="line">    <span class="keyword">if</span> l &gt;= r:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="comment"># 随机这一下，常数时间比较大</span></span><br><span class="line">    <span class="comment"># 但只有这一下随机，才能在概率上把快速排序的时间复杂度收敛到O(n * logn)</span></span><br><span class="line">    x = arr[random.randint(l, r)]</span><br><span class="line">    partition2(l, r, x)</span><br><span class="line">    <span class="comment"># 为了防止底层的递归过程覆盖全局变量</span></span><br><span class="line">    <span class="comment"># 这里用临时变量记录first、last</span></span><br><span class="line">    left = first[<span class="number">0</span>]</span><br><span class="line">    right = last[<span class="number">0</span>]</span><br><span class="line">    quickSort2(l, left - <span class="number">1</span>)</span><br><span class="line">    quickSort2(right + <span class="number">1</span>, r)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 荷兰国旗问题</span></span><br><span class="line">first = [<span class="number">0</span>]  <span class="comment"># 用list模拟全局变量</span></span><br><span class="line">last = [<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知arr[l....r]范围上一定有x这个值</span></span><br><span class="line"><span class="comment"># 划分数组 &lt;x放左边，==x放中间，&gt;x放右边</span></span><br><span class="line"><span class="comment"># 把全局变量first, last，更新成==x区域的左右边界</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">partition2</span>(<span class="params">l, r, x</span>):</span><br><span class="line">    first[<span class="number">0</span>] = l</span><br><span class="line">    last[<span class="number">0</span>] = r</span><br><span class="line">    i = l</span><br><span class="line">    <span class="keyword">while</span> i &lt;= last[<span class="number">0</span>]:</span><br><span class="line">        <span class="keyword">if</span> arr[i] == x:</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> arr[i] &lt; x:</span><br><span class="line">            swap(first[<span class="number">0</span>], i)</span><br><span class="line">            first[<span class="number">0</span>] += <span class="number">1</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            swap(i, last[<span class="number">0</span>])</span><br><span class="line">            last[<span class="number">0</span>] -= <span class="number">1</span> <span class="comment">#i不变的原因是交换后 i 位置上的新元素还没考察过</span></span><br><span class="line"><span class="comment">#前两种情况i++的原因是x作为基准，在i位置上，顶着左边区域向右推进，此外快速排序算法不需要随机元素的index</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="荷兰国旗问题详细演示"><a href="#荷兰国旗问题详细演示" class="headerlink" title="荷兰国旗问题详细演示"></a>荷兰国旗问题详细演示</h4><p>以数组 <code>[7, 2, 6, 3, 1, 5, 4]</code>，pivot&#x3D;3 为例：</p>
+<p><strong>初始状态</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr = [7, 2, 6, 3, 1, 5, 4]</span><br><span class="line">first = 0, last = 6, i = 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 1</strong>：<code>arr[0] = 7 &gt; 3</code></p>
+<ul>
+<li>与 <code>arr[6]</code> 交换：<code>[4, 2, 6, 3, 1, 5, 7]</code></li>
+<li><code>last = 5</code>，<code>i</code> 不变</li>
+</ul>
+<p><strong>Step 2</strong>：<code>arr[0] = 4 &gt; 3</code></p>
+<ul>
+<li>与 <code>arr[5]</code> 交换：<code>[5, 2, 6, 3, 1, 4, 7]</code></li>
+<li><code>last = 4</code>，<code>i</code> 不变</li>
+</ul>
+<p><strong>Step 3</strong>：<code>arr[0] = 5 &gt; 3</code></p>
+<ul>
+<li>与 <code>arr[4]</code> 交换：<code>[1, 2, 6, 3, 5, 4, 7]</code></li>
+<li><code>last = 3</code>，<code>i</code> 不变</li>
+</ul>
+<p><strong>Step 4</strong>：<code>arr[0] = 1 &lt; 3</code></p>
+<ul>
+<li>与 <code>arr[0]</code> 交换（自己）：不变</li>
+<li><code>first = 1</code>，<code>i = 1</code></li>
+</ul>
+<p><strong>Step 5</strong>：<code>arr[1] = 2 &lt; 3</code></p>
+<ul>
+<li>与 <code>arr[1]</code> 交换（自己）：不变</li>
+<li><code>first = 2</code>，<code>i = 2</code></li>
+</ul>
+<p><strong>Step 6</strong>：<code>arr[2] = 6 &gt; 3</code></p>
+<ul>
+<li>与 <code>arr[3]</code> 交换：<code>[1, 2, 3, 6, 5, 4, 7]</code></li>
+<li><code>last = 2</code>，<code>i</code> 不变</li>
+</ul>
+<p><strong>Step 7</strong>：<code>arr[2] = 3 == 3</code></p>
+<ul>
+<li><code>i = 3</code>，此时 <code>i &gt; last</code>，循环结束</li>
+</ul>
+<p><strong>最终结果</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arr = [1, 2, 3, 6, 5, 4, 7]</span><br><span class="line">[0, 1]: 小于3的区域 [1, 2]</span><br><span class="line">[2, 2]: 等于3的区域 [3]</span><br><span class="line">[3, 6]: 大于3的区域 [6, 5, 4, 7]</span><br></pre></td></tr></table></figure>
+
+<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><h4 id="随机快速排序的复杂度"><a href="#随机快速排序的复杂度" class="headerlink" title="随机快速排序的复杂度"></a>随机快速排序的复杂度</h4><p><strong>时间复杂度：O(n log n)</strong> （期望）</p>
+<ul>
+<li>每层的划分操作需要O(n)时间</li>
+<li>随机选择使得平均递归深度为O(log n)</li>
+<li>总时间复杂度：O(n) × O(log n) &#x3D; O(n log n)</li>
+</ul>
+<p><strong>空间复杂度：O(log n)</strong> （期望）</p>
+<ul>
+<li>来自递归调用栈的深度</li>
+<li>最好情况：每次平分，深度为O(log n)</li>
+<li>最坏情况：退化为链式递归，深度为O(n)</li>
+</ul>
+<h4 id="与普通快速排序对比"><a href="#与普通快速排序对比" class="headerlink" title="与普通快速排序对比"></a>与普通快速排序对比</h4><p><strong>普通快速排序</strong></p>
+<ul>
+<li>普通快速排序的时间复杂度O(n^2)：固定流程考虑最坏情况（极端不平衡，每次都选到最小或最大元素为主元），每次只能划分出一个元素，剩下的 n-1 继续递归；额外空间复杂度O(n)取得是最坏情况递归的栈的深度。</li>
+<li>最好情况：T(n) &#x3D; 2 * T(n&#x2F;2) + O(n) &#x3D; O(n * logn),空间是O(logn)取得是递归的栈的深度。</li>
+<li>因为固定流程的话，可以构造出特定的数据，导致每次固定取最右最左的元素都是最差情况。</li>
+</ul>
+<p><strong>随机快速排序</strong></p>
+<ul>
+<li>随机快速排序，时间复杂度O(n * logn)随机取得是期望理论上每次能比较均匀划分为两半，递归深度约为 log𝑛，每一层的划分操作需要 O(n) 时间。额外空间复杂度O(logn)取得是递归的栈的深度，运气好每次都是区间二分，参考中序二叉树</li>
+<li>取期望，每个位置取1&#x2F;N的权重，最后能证明期望时间复杂度是O(n * logn)，额外空间复杂度O(logn)</li>
+<li>关于复杂度的分析，进行定性的说明，定量证明略，因为证明较为复杂，算法导论-7.4.2有详细证明</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>算法类型</th>
+<th>时间复杂度（平均）</th>
+<th>时间复杂度（最坏）</th>
+<th>空间复杂度（平均）</th>
+<th>空间复杂度（最坏）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>普通快排</td>
+<td>O(n log n)</td>
+<td>O(n²)</td>
+<td>O(log n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>随机快排</td>
+<td>O(n log n)</td>
+<td>O(n log n)*</td>
+<td>O(log n)</td>
+<td>O(log n)*</td>
+</tr>
+</tbody></table>
+<p>*期望意义下</p>
+<h2 id="024【必备】随机选择算法"><a href="#024【必备】随机选择算法" class="headerlink" title="024【必备】随机选择算法"></a>024【必备】随机选择算法</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p><strong>无序数组中第K大的元素问题</strong>：</p>
+<ul>
+<li>给定整数数组 <code>nums</code> 和整数 <code>k</code></li>
+<li>返回数组中第 <code>k</code> 个最大的元素</li>
+<li>要求时间复杂度为 O(n)</li>
+</ul>
+<p><strong>关键转换</strong>：第K大 &#x3D; 第(len-k)小</p>
+<h3 id="随机选择算法原理"><a href="#随机选择算法原理" class="headerlink" title="随机选择算法原理"></a>随机选择算法原理</h3><p>随机选择算法是快速排序的变种，核心思想：</p>
+<ol>
+<li><strong>只关心目标位置</strong>：不需要完全排序，只需要找到第K大的元素</li>
+<li><strong>单侧递归</strong>：每次只需要在包含目标位置的一侧继续查找</li>
+<li><strong>随机化优化</strong>：通过随机选择pivot避免最坏情况</li>
+</ol>
+<h3 id="实现代码-1"><a href="#实现代码-1" class="headerlink" title="实现代码"></a>实现代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RandomizedSelect</span>:</span><br><span class="line">    first = <span class="number">0</span>  <span class="comment"># 等于区域的左边界</span></span><br><span class="line">    last = <span class="number">0</span>   <span class="comment"># 等于区域的右边界</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">findKthLargest</span>(<span class="params">nums, k</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;找第K大元素&quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 转换为找第(len-k)小的元素</span></span><br><span class="line">        <span class="keyword">return</span> RandomizedSelect.randomizedSelect(nums, <span class="built_in">len</span>(nums) - k)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">randomizedSelect</span>(<span class="params">arr, i</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        连递归都没用，所以时间复杂度是O(n)左右的量级</span></span><br><span class="line"><span class="string">        在数组中找到如果排序后在位置i的元素</span></span><br><span class="line"><span class="string">        时间复杂度：O(n)</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        l = <span class="number">0</span></span><br><span class="line">        r = <span class="built_in">len</span>(arr) - <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> l &lt;= r:<span class="comment">#不断二分的过程中，l和r上是仍然有范围的，直到没有范围才终止</span></span><br><span class="line">            <span class="comment"># 随机这一下，常数时间比较大</span></span><br><span class="line">            <span class="comment"># 但只有这一下随机，才能在概率上把时间复杂度收敛到O(n)</span></span><br><span class="line">            pivot = arr[l + <span class="built_in">int</span>(random.random() * (r - l + <span class="number">1</span>))]</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 使用荷兰国旗问题进行划分</span></span><br><span class="line">            RandomizedSelect.partition(arr, l, r, pivot)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 因为左右两侧只需要走一侧</span></span><br><span class="line">            <span class="comment"># 所以不需要临时变量记录全局的first、last，直接用即可</span></span><br><span class="line">            <span class="comment"># 等于的区域即first，last包住的位置，i小于first则去左侧，i大于last则去右侧</span></span><br><span class="line">            <span class="keyword">if</span> i &lt; RandomizedSelect.first:</span><br><span class="line">                r = RandomizedSelect.first - <span class="number">1</span>  <span class="comment"># 目标在左侧，pivot左边变成r</span></span><br><span class="line">            <span class="keyword">elif</span> i &gt; RandomizedSelect.last:</span><br><span class="line">                l = RandomizedSelect.last + <span class="number">1</span>   <span class="comment"># 目标在右侧，pivot右边变成l</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ans = arr[i]  <span class="comment"># 找到目标</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">                </span><br><span class="line">        <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">partition</span>(<span class="params">arr, l, r, x</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;荷兰国旗问题划分&quot;&quot;&quot;</span></span><br><span class="line">        RandomizedSelect.first = l</span><br><span class="line">        RandomizedSelect.last = r</span><br><span class="line">        i = l</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> i &lt;= RandomizedSelect.last:</span><br><span class="line">            <span class="keyword">if</span> arr[i] == x:</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> arr[i] &lt; x:</span><br><span class="line">                RandomizedSelect.swap(arr, RandomizedSelect.first, i)</span><br><span class="line">                RandomizedSelect.first += <span class="number">1</span></span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                RandomizedSelect.swap(arr, i, RandomizedSelect.last)</span><br><span class="line">                RandomizedSelect.last -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">swap</span>(<span class="params">arr, i, j</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;交换数组元素&quot;&quot;&quot;</span></span><br><span class="line">        arr[i], arr[j] = arr[j], arr[i]</span><br></pre></td></tr></table></figure>
+
+<h3 id="算法执行示例"><a href="#算法执行示例" class="headerlink" title="算法执行示例"></a>算法执行示例</h3><p>以数组 <code>[7, 2, 6, 3, 1, 5, 4]</code>，查找第4小元素（下标为3）为例：</p>
+<p><strong>第一轮</strong>：</p>
+<ul>
+<li>随机选择 <code>pivot = 3</code></li>
+<li>划分后：<code>[1, 2, 3, 6, 5, 4, 7]</code></li>
+<li>等于区域：<code>first = 2, last = 2</code></li>
+<li>目标下标3 &gt; last&#x3D;2，继续在右侧 <code>[6, 5, 4, 7]</code> 查找</li>
+</ul>
+<p><strong>第二轮</strong>：</p>
+<ul>
+<li>在右侧区域随机选择 <code>pivot = 4</code></li>
+<li>划分后相对位置：<code>[4, 5, 6, 7]</code>（实际在原数组的3,4,5,6位置）</li>
+<li>等于区域：<code>first = 3, last = 3</code></li>
+<li>目标下标3 &#x3D;&#x3D; first &#x3D;&#x3D; last，找到答案 <code>arr[3] = 4</code></li>
+</ul>
+<h3 id="时间复杂度证明（定性分析）"><a href="#时间复杂度证明（定性分析）" class="headerlink" title="时间复杂度证明（定性分析）"></a>时间复杂度证明（定性分析）</h3><p><strong>为什么是O(n)？</strong></p>
+<p>每次划分后，下一次只需要处理一侧的数据：</p>
+<ul>
+<li>第一次处理：n个元素</li>
+<li>第二次处理：n&#x2F;2个元素（期望）</li>
+<li>第三次处理：n&#x2F;4个元素（期望）</li>
+<li>…</li>
+</ul>
+<p>总时间：<code>n + n/2 + n/4 + n/8 + ... ≈ 2n</code></p>
+<p>因此期望时间复杂度为 <strong>O(n)</strong>。</p>
+<h3 id="与其他算法的比较"><a href="#与其他算法的比较" class="headerlink" title="与其他算法的比较"></a>与其他算法的比较</h3><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>完全排序</td>
+<td>O(n log n)</td>
+<td>O(1)</td>
+<td>简单但过度</td>
+</tr>
+<tr>
+<td>堆排序K次</td>
+<td>O(n + k log n)</td>
+<td>O(1)</td>
+<td>适合K很小的情况</td>
+</tr>
+<tr>
+<td>随机选择</td>
+<td>O(n)</td>
+<td>O(1)</td>
+<td>最优解</td>
+</tr>
+<tr>
+<td>BFPRT算法</td>
+<td>O(n)</td>
+<td>O(log n)</td>
+<td>理论最优但常数大</td>
+</tr>
+</tbody></table>
+<h3 id="实际应用场景"><a href="#实际应用场景" class="headerlink" title="实际应用场景"></a>实际应用场景</h3><ol>
+<li><strong>Top-K问题</strong>：找出数组中最大&#x2F;最小的K个元素</li>
+<li><strong>中位数查找</strong>：快速找到数组的中位数</li>
+<li><strong>分位数计算</strong>：统计学中的百分位数计算</li>
+<li><strong>数据分析</strong>：快速找到数据集中的特定排名元素</li>
+</ol>
+<h3 id="关键要点总结"><a href="#关键要点总结" class="headerlink" title="关键要点总结"></a>关键要点总结</h3><ol>
+<li><p><strong>随机化的重要性</strong>：</p>
+<ul>
+<li>避免最坏情况的发生</li>
+<li>使算法在期望意义下达到最优复杂度</li>
+</ul>
+</li>
+<li><p><strong>荷兰国旗问题的优势</strong>：</p>
+<ul>
+<li>一次性处理所有相等元素</li>
+<li>减少递归&#x2F;迭代次数</li>
+<li>提高算法稳定性</li>
+</ul>
+</li>
+<li><p><strong>单侧处理的效率</strong>：</p>
+<ul>
+<li>与完全排序不同，只需要处理包含目标的一侧</li>
+<li>大大减少了计算量</li>
+</ul>
+</li>
+<li><p><strong>工程实践建议</strong>：</p>
+<ul>
+<li>对于一般规模的数据，随机选择算法是首选</li>
+<li>当需要多次查询不同K值时，可以考虑先排序</li>
+<li>在对稳定性要求极高的场合，可以考虑BFPRT算法</li>
+</ul>
+</li>
+</ol>
+<h3 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h3><ul>
+<li><strong>算法导论第9章</strong>：详细的数学证明和更深入的分析</li>
+<li><strong>BFPRT算法</strong>：确定性的O(n)选择算法，但实际常数较大</li>
+<li><strong>快速选择的变种</strong>：针对特定场景的优化版本</li>
+</ul>
+<p>这两个算法（随机快速排序和随机选择）是分治算法的经典应用，展示了随机化在算法设计中的重要作用。掌握这些算法不仅有助于解决实际问题，也为理解更复杂的分治算法奠定了基础。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%886%EF%BC%89-%20%E9%80%92%E5%BD%92%E4%B8%8Emaster%E5%85%AC%E5%BC%8F%E7%9B%B8%E5%85%B3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -220,7 +527,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-07 10:09:27" itemprop="dateModified" datetime="2025-08-07T10:09:27+08:00">2025-08-07</time>
+                <time title="Modified: 2025-08-07 14:18:07" itemprop="dateModified" datetime="2025-08-07T14:18:07+08:00">2025-08-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -368,6 +675,8 @@
 <h2 id="小和问题"><a href="#小和问题" class="headerlink" title="小和问题"></a>小和问题</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定数组arr，对于每个位置i，求出其左边所有小于等于arr[i]的数的累加和，所有位置的累加和即为数组的”小和”。</p>
 <p><strong>例子</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">数组: [1, 3, 5, 2, 4, 6]</span><br><span class="line"></span><br><span class="line">位置0(1): 左边小于等于1的数 → 0</span><br><span class="line">位置1(3): 左边小于等于3的数 → 1  </span><br><span class="line">位置2(5): 左边小于等于5的数 → 1+3 = 4</span><br><span class="line">位置3(2): 左边小于等于2的数 → 1</span><br><span class="line">位置4(4): 左边小于等于4的数 → 1+3+2 = 6</span><br><span class="line">位置5(6): 左边小于等于6的数 → 1+3+5+2+4 = 15</span><br><span class="line"></span><br><span class="line">小和 = 0+1+4+1+6+15 = 27</span><br></pre></td></tr></table></figure>
+
+
 <p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(6)/class22-%E5%BD%92%E5%B9%B6%E5%88%86%E6%B2%BB/%E5%88%86%E6%B2%BB%E6%8C%87%E9%92%88%E6%BB%91%E5%8A%A8.png" alt="分治指针滑动"><br><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(6)/class22-%E5%BD%92%E5%B9%B6%E5%88%86%E6%B2%BB/%E5%B0%8F%E5%92%8C%E9%97%AE%E9%A2%98%E6%8B%86%E5%88%86%E6%88%90%E5%AD%90%E9%97%AE%E9%A2%98.png" alt="小和问题拆分成子问题"></p>
 <p> <strong>测试链接</strong> ：<a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/edfe05a1d45c4ea89101d936cac32469">https://www.nowcoder.com/practice/edfe05a1d45c4ea89101d936cac32469</a></p>
 <h3 id="归并分治解法"><a href="#归并分治解法" class="headerlink" title="归并分治解法"></a>归并分治解法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">smallSum</span>(<span class="params">l, r</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    返回arr[l...r]范围上小和的累加和，同时让arr[l..r]变有序</span></span><br><span class="line"><span class="string">    时间复杂度O(n * logn)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> l == r:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    m = (l + r) // <span class="number">2</span></span><br><span class="line">    <span class="comment"># 递归统计左右部分和跨区部分的小和</span></span><br><span class="line">    <span class="keyword">return</span> smallSum(l, m) + smallSum(m + <span class="number">1</span>, r) + merge(l, m, r)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params">l, m, r</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    统计跨左右产生的小和，同时完成合并</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    ans = <span class="number">0</span>        <span class="comment"># 累计小和</span></span><br><span class="line">    i = l          <span class="comment"># 左侧指针</span></span><br><span class="line">    sum_left = <span class="number">0</span>   <span class="comment"># 累计左侧小于等于当前右侧元素的和</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 统计跨区贡献：对每个右侧元素，统计左侧贡献</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(m + <span class="number">1</span>, r + <span class="number">1</span>):</span><br><span class="line">        <span class="comment"># 左侧所有 &lt;= arr[j] 的元素都对arr[j]有贡献</span></span><br><span class="line">        <span class="keyword">while</span> i &lt;= m <span class="keyword">and</span> arr[i] &lt;= arr[j]:</span><br><span class="line">            sum_left += arr[i]  <span class="comment"># 累加左侧贡献</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        ans += sum_left  <span class="comment"># arr[j]的左侧贡献总和</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 正常归并过程</span></span><br><span class="line">    i = l</span><br><span class="line">    a = l</span><br><span class="line">    b = m + <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> a &lt;= m <span class="keyword">and</span> b &lt;= r:</span><br><span class="line">        <span class="keyword">if</span> arr[a] &lt;= arr[b]:</span><br><span class="line">            help_arr[i] = arr[a]</span><br><span class="line">            a += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            help_arr[i] = arr[b]</span><br><span class="line">            b += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> a &lt;= m:</span><br><span class="line">        help_arr[i] = arr[a]</span><br><span class="line">        a += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> b &lt;= r:</span><br><span class="line">        help_arr[i] = arr[b]</span><br><span class="line">        b += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> idx <span class="keyword">in</span> <span class="built_in">range</span>(l, r + <span class="number">1</span>):</span><br><span class="line">        arr[idx] = help_arr[idx]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
@@ -2190,84 +2499,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/06/17/%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%E7%AC%94%E8%AE%B0%EF%BC%885%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="AgioPan">
-      <meta itemprop="description" content="Solving equations, decoding life, exploring minds.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of AgioPan">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/06/17/%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%E7%AC%94%E8%AE%B0%EF%BC%885%EF%BC%89/" class="post-title-link" itemprop="url">25 Spring - 模式识别笔记(5)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-06-17 18:42:46" itemprop="dateCreated datePublished" datetime="2025-06-17T18:42:46+08:00">2025-06-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-02 12:21:04" itemprop="dateModified" datetime="2025-08-02T12:21:04+08:00">2025-08-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Notes/Course/" itemprop="url" rel="index"><span itemprop="name">Course</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="模式识别期末笔记"><a href="#模式识别期末笔记" class="headerlink" title="模式识别期末笔记"></a>模式识别期末笔记</h1><p>基于模式识别期末考纲最后一个part，符号源于课程讲义，整理了关于MLP及其网络训练、反向传播算法的相关笔记。</p>
-<h1 id="PDF-file"><a href="#PDF-file" class="headerlink" title="PDF file"></a>PDF file</h1><iframe src="/myjs/pdfjs/web/viewer.html?file=/pdf/模式识别期末_MLP.pdf" style='width:100%;height:800px'></iframe>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2339,7 +2570,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -2352,7 +2583,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-count">58</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
