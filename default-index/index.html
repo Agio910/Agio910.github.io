@@ -220,7 +220,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-15 14:24:09" itemprop="dateModified" datetime="2025-08-15T14:24:09+08:00">2025-08-15</time>
+                <time title="Modified: 2025-08-15 14:25:47" itemprop="dateModified" datetime="2025-08-15T14:25:47+08:00">2025-08-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -304,7 +304,7 @@
 <li>给定数组：缺少一个数字</li>
 <li>两者异或后，相同数字抵消，剩下的就是缺失数字</li>
 </ul>
-<h2 id="题目4：找到出现奇数次的数字"><a href="#题目4：找到出现奇数次的数字" class="headerlink" title="题目4：找到出现奇数次的数字"></a>题目4：找到出现奇数次的数字</h2><p><strong>题目</strong>：数组中只有一种数出现奇数次，其他数都出现偶数次，找到这个数。</p>
+<h3 id="题目4：找到出现奇数次的数字"><a href="#题目4：找到出现奇数次的数字" class="headerlink" title="题目4：找到出现奇数次的数字"></a>题目4：找到出现奇数次的数字</h3><p><strong>题目</strong>：数组中只有一种数出现奇数次，其他数都出现偶数次，找到这个数。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试链接 : https://leetcode.cn/problems/single-number/</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">singleNumber</span>(<span class="params">nums</span>):</span><br><span class="line">    eor = <span class="number">0</span>                     <span class="comment"># 初始化eor</span></span><br><span class="line">    <span class="keyword">for</span> num <span class="keyword">in</span> nums:            <span class="comment"># 遍历数组</span></span><br><span class="line">        eor ^= num              <span class="comment"># 累计异或</span></span><br><span class="line">    <span class="keyword">return</span> eor                  <span class="comment"># 返回结果，原理同code03</span></span><br><span class="line"><span class="comment"># 示例用法</span></span><br><span class="line"><span class="comment"># print(singleNumber([2,2,1]))  # 输出1</span></span><br></pre></td></tr></table></figure>
 
 
