@@ -27,11 +27,11 @@
 <meta property="og:site_name" content="Blog of AgioPan">
 <meta property="og:description" content="参照的是左程云的课程：https:&#x2F;&#x2F;space.bilibili.com&#x2F;8888480&#x2F;lists&#x2F;3509640?type&#x3D;series本笔记包括了基数排序的原理与实现，以及重要排序算法的性能总结与选择策略，包括了class028 -&gt; class029的内容 028【必备】基数排序基数排序概述基数排序是一种非基于比较的排序算法，它通过对数字的每一位进行排序来实现整体排序。与其他基于比">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(9">
-<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(9">
-<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(9">
+<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(9)/class28-%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F/%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F%E4%BE%8B%E5%AD%90.png">
+<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(9)/class28-%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F/%E6%A1%B6%E6%8E%92%E5%BA%8F%E4%BE%8B%E5%AD%90.png">
+<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(9)/class28-%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F/%E8%BF%9B%E4%BD%8D%E5%BE%97%E5%88%B0%E6%95%B0%E5%AD%97.png">
 <meta property="article:published_time" content="2025-08-10T00:42:46.000Z">
-<meta property="article:modified_time" content="2025-08-10T07:52:25.147Z">
+<meta property="article:modified_time" content="2025-08-16T09:19:16.384Z">
 <meta property="article:author" content="AgioPan">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="Python">
@@ -40,7 +40,7 @@
 <meta property="article:tag" content="计数排序">
 <meta property="article:tag" content="桶排序">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(9">
+<meta name="twitter:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(9)/class28-%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F/%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F%E4%BE%8B%E5%AD%90.png">
 
 <link rel="canonical" href="http://example.com/2025/08/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%889%EF%BC%89-%20%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F&%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">
 
@@ -224,10 +224,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2025-08-10 08:42:46 / Modified: 15:52:25" itemprop="dateCreated datePublished" datetime="2025-08-10T08:42:46+08:00">2025-08-10</time>
+              <time title="Created: 2025-08-10 08:42:46" itemprop="dateCreated datePublished" datetime="2025-08-10T08:42:46+08:00">2025-08-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-08-16 17:19:16" itemprop="dateModified" datetime="2025-08-16T17:19:16+08:00">2025-08-16</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -256,7 +262,7 @@
         <p>参照的是左程云的课程：<a target="_blank" rel="noopener" href="https://space.bilibili.com/8888480/lists/3509640?type=series">https://space.bilibili.com/8888480/lists/3509640?type=series</a><br>本笔记包括了基数排序的原理与实现，以及重要排序算法的性能总结与选择策略，包括了class028 -&gt; class029的内容</p>
 <h1 id="028【必备】基数排序"><a href="#028【必备】基数排序" class="headerlink" title="028【必备】基数排序"></a>028【必备】基数排序</h1><h2 id="基数排序概述"><a href="#基数排序概述" class="headerlink" title="基数排序概述"></a>基数排序概述</h2><p>基数排序是一种<strong>非基于比较</strong>的排序算法，它通过对数字的每一位进行排序来实现整体排序。与其他基于比较的排序算法不同，基数排序对数据类型有特定要求。</p>
 <p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1177">https://www.luogu.com.cn/problem/P1177</a></p>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(9" alt="基数排序例子">&#x2F;class28 - 基数排序&#x2F;基数排序例子.png)</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(9)/class28-%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F/%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F%E4%BE%8B%E5%AD%90.png" alt="基数排序例子"></p>
 <h3 id="基于比较-vs-非基于比较的排序"><a href="#基于比较-vs-非基于比较的排序" class="headerlink" title="基于比较 vs 非基于比较的排序"></a>基于比较 vs 非基于比较的排序</h3><p><strong>基于比较的排序</strong>：</p>
 <ul>
 <li>只需要定义好两个对象之间怎么比较即可</li>
@@ -282,7 +288,7 @@
 <li>桶排序每个桶存储一定范围的元素</li>
 <li>需要确定两个信息：桶的数量和每个桶的区间范围</li>
 </ul>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(9" alt="桶排序例子">&#x2F;class28 - 基数排序&#x2F;桶排序例子.png)</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(9)/class28-%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F/%E6%A1%B6%E6%8E%92%E5%BA%8F%E4%BE%8B%E5%AD%90.png" alt="桶排序例子"></p>
 <h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><p>基数排序进一步优化了桶的使用：</p>
 <ul>
 <li>按位进行排序，比如先按个位数字放进桶里再倒出，再按十位数字放进桶里再倒出</li>
@@ -305,7 +311,7 @@
 <h3 id="处理负数的技巧"><a href="#处理负数的技巧" class="headerlink" title="处理负数的技巧"></a>处理负数的技巧</h3><p>由于基数排序要求非负整数，需要特殊处理负数：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sort</span>():</span><br><span class="line">    <span class="comment"># 找到数组中的最小值</span></span><br><span class="line">    min_val = arr[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n):</span><br><span class="line">        min_val = <span class="built_in">min</span>(min_val, arr[i])</span><br><span class="line">    </span><br><span class="line">    max_val = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        arr[i] -= min_val  <span class="comment"># 全部减去最小值，转为非负数</span></span><br><span class="line">        max_val = <span class="built_in">max</span>(max_val, arr[i])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 根据最大值在BASE进制下的位数，决定基数排序做多少轮</span></span><br><span class="line">    radixSort(bits(max_val))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 数组中所有数都减去了最小值，所以最后不要忘了还原</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        arr[i] += min_val</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(9" alt="进位得到数字">&#x2F;class28 - 基数排序&#x2F;进位得到数字.png)</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(9)/class28-%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F/%E8%BF%9B%E4%BD%8D%E5%BE%97%E5%88%B0%E6%95%B0%E5%AD%97.png" alt="进位得到数字"></p>
 <h3 id="计算位数"><a href="#计算位数" class="headerlink" title="计算位数"></a>计算位数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">bits</span>(<span class="params">number</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;返回number在BASE进制下有几位&quot;&quot;&quot;</span></span><br><span class="line">    ans = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> number &gt; <span class="number">0</span>:</span><br><span class="line">        ans += <span class="number">1</span></span><br><span class="line">        number //= BASE</span><br><span class="line">    <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
 
 <h3 id="基数排序核心算法"><a href="#基数排序核心算法" class="headerlink" title="基数排序核心算法"></a>基数排序核心算法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">radixSort</span>(<span class="params">bits_</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    基数排序核心代码</span></span><br><span class="line"><span class="string">    arr内要保证没有负数</span></span><br><span class="line"><span class="string">    bits_是arr中最大值在BASE进制下有几位</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    offset = <span class="number">1</span>  <span class="comment"># 当前位权重</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(bits_):</span><br><span class="line">        <span class="comment"># 每一轮针对某一位排序</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 1. 计数数组清零</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(BASE):</span><br><span class="line">            cnts[i] = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 2. 统计该位各数字出现次数</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            cnts[(arr[i] // offset) % BASE] += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 3. 转换为前缀和（确定位置）</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, BASE):</span><br><span class="line">            cnts[i] += cnts[i - <span class="number">1</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 4. 从后往前放入辅助数组（保证稳定性）</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            idx = (arr[i] // offset) % BASE  <span class="comment"># 该位的值</span></span><br><span class="line">            cnts[idx] -= <span class="number">1</span></span><br><span class="line">            help_arr[cnts[idx]] = arr[i]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 5. 拷回原数组</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            arr[i] = help_arr[i]</span><br><span class="line">        </span><br><span class="line">        offset *= BASE  <span class="comment"># 下一位</span></span><br></pre></td></tr></table></figure>
@@ -609,7 +615,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -622,7 +628,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-count">70</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

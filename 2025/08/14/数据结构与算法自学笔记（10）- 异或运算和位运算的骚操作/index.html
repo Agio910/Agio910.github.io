@@ -27,11 +27,11 @@
 <meta property="og:site_name" content="Blog of AgioPan">
 <meta property="og:description" content="引言参照的是左程云的课程：https:&#x2F;&#x2F;space.bilibili.com&#x2F;8888480&#x2F;lists&#x2F;3509640?type&#x3D;series本笔记包括了异或运算和位运算的高效技巧与应用，包括了class030 -&gt; class031的内容 030【必备】异或运算的骚操作异或运算的核心性质前置知识异或运算是计算机科学中一种重要的位运算，符号为^。在Python中实现位运算题目时需要特别注">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(10">
-<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(10">
-<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(10">
+<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(10)/class30-%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97/%E5%BC%82%E6%88%96%E9%A2%84%E7%AE%97%E5%8F%96%E4%B8%8B%E6%A0%87.png">
+<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(10)/class30-%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97/n%E6%88%96n.png">
+<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(10)/class30-%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97/%E9%BB%91%E7%99%BD%E7%90%83%E7%BB%93%E6%9E%9C.png">
 <meta property="article:published_time" content="2025-08-14T00:42:46.000Z">
-<meta property="article:modified_time" content="2025-08-15T06:25:47.562Z">
+<meta property="article:modified_time" content="2025-08-16T09:19:15.249Z">
 <meta property="article:author" content="AgioPan">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="Python">
@@ -39,7 +39,7 @@
 <meta property="article:tag" content="Brian Kernighan算法">
 <meta property="article:tag" content="算法技巧">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(10">
+<meta name="twitter:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(10)/class30-%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97/%E5%BC%82%E6%88%96%E9%A2%84%E7%AE%97%E5%8F%96%E4%B8%8B%E6%A0%87.png">
 
 <link rel="canonical" href="http://example.com/2025/08/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8810%EF%BC%89-%20%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C/">
 
@@ -231,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-15 14:25:47" itemprop="dateModified" datetime="2025-08-15T14:25:47+08:00">2025-08-15</time>
+                <time title="Modified: 2025-08-16 17:19:15" itemprop="dateModified" datetime="2025-08-16T17:19:15+08:00">2025-08-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,14 +265,14 @@
 <h3 id="异或运算的四大核心性质"><a href="#异或运算的四大核心性质" class="headerlink" title="异或运算的四大核心性质"></a>异或运算的四大核心性质</h3><h4 id="1-异或运算就是无进位相加"><a href="#1-异或运算就是无进位相加" class="headerlink" title="1. 异或运算就是无进位相加"></a>1. 异或运算就是无进位相加</h4><p>这是理解异或运算最重要的性质，其他所有性质都可以由此推导得出。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">示例：5 ^ 3</span><br><span class="line">5: 101</span><br><span class="line">3: 011</span><br><span class="line">   ---</span><br><span class="line">   110  (结果为6)</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(10" alt="异或预算取下标">&#x2F;class30 - 异或运算&#x2F;异或预算取下标.png)</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(10)/class30-%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97/%E5%BC%82%E6%88%96%E9%A2%84%E7%AE%97%E5%8F%96%E4%B8%8B%E6%A0%87.png" alt="异或预算取下标"></p>
 <h4 id="2-异或运算满足交换律和结合律"><a href="#2-异或运算满足交换律和结合律" class="headerlink" title="2. 异或运算满足交换律和结合律"></a>2. 异或运算满足交换律和结合律</h4><p>同一批数字，不管异或顺序如何，最终结果都相同：</p>
 <ul>
 <li>a ^ b &#x3D; b ^ a（交换律）</li>
 <li>(a ^ b) ^ c &#x3D; a ^ (b ^ c)（结合律）</li>
 </ul>
 <h4 id="3-特殊值性质"><a href="#3-特殊值性质" class="headerlink" title="3. 特殊值性质"></a>3. 特殊值性质</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 任何数与0异或等于自己</span></span><br><span class="line"><span class="number">0</span> ^ n = n</span><br><span class="line"></span><br><span class="line"><span class="comment"># 任何数与自己异或等于0</span></span><br><span class="line">n ^ n = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(10" alt="n或n">&#x2F;class30 - 异或运算&#x2F;n或n.png)</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(10)/class30-%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97/n%E6%88%96n.png" alt="n或n"></p>
 <h4 id="4-整体异或和性质"><a href="#4-整体异或和性质" class="headerlink" title="4. 整体异或和性质"></a>4. 整体异或和性质</h4><p>如果整体异或和为x，其中某部分异或和为y，那么剩余部分的异或和为<code>x ^ y</code>。</p>
 <p>这个性质在很多题目中都有应用，特别是区间异或和相关的问题。</p>
 <h3 id="有趣的数学问题"><a href="#有趣的数学问题" class="headerlink" title="有趣的数学问题"></a>有趣的数学问题</h3><p>让我们从一个有趣的概率问题开始：</p>
@@ -288,7 +288,7 @@
 <li>如果黑球数量为奇数，最终是黑球的概率为100%</li>
 <li>完全与白球数量无关！</li>
 </ul>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(10" alt="黑白球结果">&#x2F;class30 - 异或运算&#x2F;黑白球结果.png)</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(10)/class30-%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97/%E9%BB%91%E7%99%BD%E7%90%83%E7%BB%93%E6%9E%9C.png" alt="黑白球结果"></p>
 <p>这个结果与异或运算的性质有关：黑球数量的奇偶性在整个过程中保持不变。</p>
 <h2 id="经典应用题目"><a href="#经典应用题目" class="headerlink" title="经典应用题目"></a>经典应用题目</h2><h3 id="题目1：用异或运算交换两数的值"><a href="#题目1：用异或运算交换两数的值" class="headerlink" title="题目1：用异或运算交换两数的值"></a>题目1：用异或运算交换两数的值</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">swap</span>(<span class="params">arr, i, j</span>):</span><br><span class="line">    <span class="comment"># 注意：当i==j时会出错，实际开发中不推荐使用</span></span><br><span class="line">    <span class="keyword">if</span> i != j:  <span class="comment"># 添加安全检查</span></span><br><span class="line">        arr[i] = arr[i] ^ arr[j]  <span class="comment"># 第一步</span></span><br><span class="line">        arr[j] = arr[i] ^ arr[j]  <span class="comment"># 第二步：arr[j]变成原arr[i]</span></span><br><span class="line">        arr[i] = arr[i] ^ arr[j]  <span class="comment"># 第三步：arr[i]变成原arr[j]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 更简洁的变量交换</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">swap_variables</span>():</span><br><span class="line">    a, b = -<span class="number">2323</span>, <span class="number">10</span></span><br><span class="line">    a = a ^ b  <span class="comment"># a现在是原a^原b</span></span><br><span class="line">    b = a ^ b  <span class="comment"># b现在是原a^原b^原b = 原a</span></span><br><span class="line">    a = a ^ b  <span class="comment"># a现在是原a^原b^原a = 原b</span></span><br><span class="line">    <span class="keyword">return</span> a, b</span><br><span class="line"><span class="comment"># 示例用法</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    a = -<span class="number">2323</span>  <span class="comment"># 定义a</span></span><br><span class="line">    b = <span class="number">10</span>     <span class="comment"># 定义b  因为a^b=b^a ，这么操作的前提是a和b都有自己的内存空间</span></span><br><span class="line">    a = a ^ b  <span class="comment"># 第一步，a和b异或后的结果给a</span></span><br><span class="line">    b = a ^ b  <span class="comment"># 第二步，a和b再次异或的结果赋给b，b&#x27;=(a^b)^b</span></span><br><span class="line">    a = a ^ b  <span class="comment"># 第三步，a和b再次异或的结果赋给a,a&#x27;&#x27;=a^b^((a^b)^b)=a^b^a^b^b=a^b^a，根据交换律，a^b^a=a^a^b=b</span></span><br><span class="line">    <span class="built_in">print</span>(a)   <span class="comment"># 输出此时的a</span></span><br><span class="line">    <span class="built_in">print</span>(b)   <span class="comment"># 输出此时的b</span></span><br><span class="line"></span><br><span class="line">    arr = [<span class="number">3</span>, <span class="number">5</span>]          <span class="comment"># 定义一个数组</span></span><br><span class="line">    swap(arr, <span class="number">0</span>, <span class="number">1</span>)       <span class="comment"># 交换arr[0]和arr[1]</span></span><br><span class="line">    <span class="built_in">print</span>(arr[<span class="number">0</span>])         <span class="comment"># 输出交换后的arr[0],输出3</span></span><br><span class="line">    <span class="built_in">print</span>(arr[<span class="number">1</span>])         <span class="comment"># 输出交换后的arr[1],输出5</span></span><br><span class="line">    swap(arr, <span class="number">0</span>, <span class="number">0</span>)       <span class="comment"># 交换同一个元素（java会出错，需谨慎，但是python不会） Python的整数对象是不可变的，每次赋值都会创建新的整数对象。更重要的是，Python的异或运算对于相同值的结果是 0，这是数学上正确的，内存模型不同：Java：直接操作内存中的值Python：操作的是对象的引用，整数是不可变对象</span></span><br><span class="line">    <span class="built_in">print</span>(arr[<span class="number">0</span>])         <span class="comment"># 输出arr[0]，输出3</span></span><br><span class="line">    <span class="built_in">print</span>(arr[<span class="number">1</span>])         <span class="comment"># 输出arr[1]，输出5</span></span><br></pre></td></tr></table></figure>
 
@@ -671,7 +671,10 @@
     <a href="/2025/08/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%889%EF%BC%89-%20%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F&%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" rel="prev" title="数据结构与算法自学笔记（9）- 基数排序&排序算法总结">
       <i class="fa fa-chevron-left"></i> 数据结构与算法自学笔记（9）- 基数排序&排序算法总结
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2025/08/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89-%20%E4%BD%8D%E5%9B%BE&%E4%BD%8D%E8%BF%90%E7%AE%97%E5%AE%9E%E7%8E%B0%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" rel="next" title="数据结构与算法自学笔记（11）- 异或运算和位运算的骚操作">
+      数据结构与算法自学笔记（11）- 异或运算和位运算的骚操作 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -746,7 +749,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -759,7 +762,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-count">70</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
