@@ -22,8 +22,8 @@
 
   <meta name="description" content="引言参照的是左程云的课程：https:&#x2F;&#x2F;space.bilibili.com&#x2F;8888480&#x2F;lists&#x2F;3509640?type&#x3D;series 本笔记是class036→037的内容，总结了二叉树相关的9+7&#x3D;16道高频算法题目。class36涵盖了二叉树的遍历、序列化、构造、验证等核心操作，但不包含树型动态规划的内容。class037算是036的补充，讲了二叉树相关的另外7道高频算">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构与算法自学笔记（13）- 数据结构设计高频题">
-<meta property="og:url" content="http://example.com/2025/08/20/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8814%EF%BC%89-%20%E4%BA%8C%E5%8F%89%E6%A0%91%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE/index.html">
+<meta property="og:title" content="数据结构与算法自学笔记（14）- 二叉树高频题目">
+<meta property="og:url" content="http://example.com/2025/08/22/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8814%EF%BC%89-%20%E4%BA%8C%E5%8F%89%E6%A0%91%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE/index.html">
 <meta property="og:site_name" content="Blog of AgioPan">
 <meta property="og:description" content="引言参照的是左程云的课程：https:&#x2F;&#x2F;space.bilibili.com&#x2F;8888480&#x2F;lists&#x2F;3509640?type&#x3D;series 本笔记是class036→037的内容，总结了二叉树相关的9+7&#x3D;16道高频算法题目。class36涵盖了二叉树的遍历、序列化、构造、验证等核心操作，但不包含树型动态规划的内容。class037算是036的补充，讲了二叉树相关的另外7道高频算">
 <meta property="og:locale" content="en_US">
@@ -46,19 +46,21 @@
 <meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(14)/class37-%E4%BA%8C%E5%8F%89%E6%A0%91%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE%E4%B8%8A/%E5%88%A4%E6%96%AD%E6%90%9C%E7%B4%A2%E4%BA%8C%E5%8F%89%E6%A0%91%E6%96%B9%E6%B3%952.png">
 <meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(14)/class37-%E4%BA%8C%E5%8F%89%E6%A0%91%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE%E4%B8%8A/%E4%BF%AE%E5%89%AA%E6%90%9C%E7%B4%A2%E4%BA%8C%E5%8F%89%E6%A0%91.png">
 <meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(14)/class37-%E4%BA%8C%E5%8F%89%E6%A0%91%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE%E4%B8%8A/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E9%97%AE%E9%A2%98.png">
-<meta property="article:published_time" content="2025-08-20T02:30:00.000Z">
-<meta property="article:modified_time" content="2025-08-22T12:31:50.495Z">
+<meta property="article:published_time" content="2025-08-22T02:30:00.000Z">
+<meta property="article:modified_time" content="2025-08-22T12:53:28.419Z">
 <meta property="article:author" content="AgioPan">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="Python">
-<meta property="article:tag" content="哈希表">
-<meta property="article:tag" content="LRU">
-<meta property="article:tag" content="堆">
-<meta property="article:tag" content="双向链表">
+<meta property="article:tag" content="二叉树">
+<meta property="article:tag" content="递归">
+<meta property="article:tag" content="回溯">
+<meta property="article:tag" content="DFS">
+<meta property="article:tag" content="BFS">
+<meta property="article:tag" content="LCA">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(14)/class36-%E4%BA%8C%E5%8F%89%E6%A0%91%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE%E4%B8%8A/%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86%E7%9A%84%E5%AE%9E%E7%8E%B0.png">
 
-<link rel="canonical" href="http://example.com/2025/08/20/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8814%EF%BC%89-%20%E4%BA%8C%E5%8F%89%E6%A0%91%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE/">
+<link rel="canonical" href="http://example.com/2025/08/22/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8814%EF%BC%89-%20%E4%BA%8C%E5%8F%89%E6%A0%91%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE/">
 
 
 <script id="page-configurations">
@@ -71,7 +73,7 @@
   };
 </script>
 
-  <title>数据结构与算法自学笔记（13）- 数据结构设计高频题 | Blog of AgioPan</title>
+  <title>数据结构与算法自学笔记（14）- 二叉树高频题目 | Blog of AgioPan</title>
   
 
 
@@ -218,7 +220,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/20/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8814%EF%BC%89-%20%E4%BA%8C%E5%8F%89%E6%A0%91%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/22/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8814%EF%BC%89-%20%E4%BA%8C%E5%8F%89%E6%A0%91%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -231,7 +233,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          数据结构与算法自学笔记（13）- 数据结构设计高频题
+          数据结构与算法自学笔记（14）- 二叉树高频题目
         </h1>
 
         <div class="post-meta">
@@ -240,16 +242,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2025-08-20 10:30:00" itemprop="dateCreated datePublished" datetime="2025-08-20T10:30:00+08:00">2025-08-20</time>
+              <time title="Created: 2025-08-22 10:30:00 / Modified: 20:53:28" itemprop="dateCreated datePublished" datetime="2025-08-22T10:30:00+08:00">2025-08-22</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-22 20:31:50" itemprop="dateModified" datetime="2025-08-22T20:31:50+08:00">2025-08-22</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -772,10 +768,12 @@
           <div class="post-tags">
               <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
               <a href="/tags/Python/" rel="tag"># Python</a>
-              <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag"># 哈希表</a>
-              <a href="/tags/LRU/" rel="tag"># LRU</a>
-              <a href="/tags/%E5%A0%86/" rel="tag"># 堆</a>
-              <a href="/tags/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" rel="tag"># 双向链表</a>
+              <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag"># 二叉树</a>
+              <a href="/tags/%E9%80%92%E5%BD%92/" rel="tag"># 递归</a>
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/" rel="tag"># 回溯</a>
+              <a href="/tags/DFS/" rel="tag"># DFS</a>
+              <a href="/tags/BFS/" rel="tag"># BFS</a>
+              <a href="/tags/LCA/" rel="tag"># LCA</a>
           </div>
 
         
@@ -784,13 +782,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2025/08/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8812%EF%BC%89-%20%E9%93%BE%E8%A1%A8%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE%E5%92%8C%E5%BF%85%E5%A4%87%E6%8A%80%E5%B7%A7/" rel="prev" title="数据结构与算法自学笔记（12）- 链表高频题目和必备技巧">
-      <i class="fa fa-chevron-left"></i> 数据结构与算法自学笔记（12）- 链表高频题目和必备技巧
+    <a href="/2025/08/20/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8813%EF%BC%89-%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%E9%AB%98%E9%A2%91%E9%A2%98/" rel="prev" title="数据结构与算法自学笔记（13）- 数据结构设计高频题">
+      <i class="fa fa-chevron-left"></i> 数据结构与算法自学笔记（13）- 数据结构设计高频题
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2025/08/20/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8813%EF%BC%89-%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%E9%AB%98%E9%A2%91%E9%A2%98/" rel="next" title="数据结构与算法自学笔记（13）- 数据结构设计高频题">
-      数据结构与算法自学笔记（13）- 数据结构设计高频题 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -878,7 +873,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-count">78</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
