@@ -189,6 +189,230 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/09/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8816%EF%BC%89-%20%E5%B5%8C%E5%A5%97%E7%B1%BB%E9%97%AE%E9%A2%98%E7%9A%84%E9%80%92%E5%BD%92%E8%A7%A3%E9%A2%98%E5%A5%97%E8%B7%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="AgioPan">
+      <meta itemprop="description" content="Solving equations, decoding life, exploring minds.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AgioPan">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/09/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8816%EF%BC%89-%20%E5%B5%8C%E5%A5%97%E7%B1%BB%E9%97%AE%E9%A2%98%E7%9A%84%E9%80%92%E5%BD%92%E8%A7%A3%E9%A2%98%E5%A5%97%E8%B7%AF/" class="post-title-link" itemprop="url">数据结构与算法自学笔记（16）- 嵌套类问题的递归解题套路</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-09-03 10:30:00 / Modified: 13:13:00" itemprop="dateCreated datePublished" datetime="2025-09-03T10:30:00+08:00">2025-09-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>参照的是左程云的课程：<a target="_blank" rel="noopener" href="https://space.bilibili.com/8888480/lists/3509640?type=series">https://space.bilibili.com/8888480/lists/3509640?type=series</a></p>
+<p>本笔记是讲解039的内容，总结了嵌套类问题的递归解题套路。这类问题的共同特点是存在嵌套结构（如括号嵌套），需要用递归来处理。</p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>在学习嵌套类问题之前，需要掌握以下基础知识：</p>
+<ul>
+<li>讲解017、020、021、023、036、037、038</li>
+<li>这些章节都分析过递归，尤其是讲解038，不熟悉的同学可以先熟悉一下</li>
+</ul>
+<hr>
+<h1 id="039【必备】嵌套类问题的递归解题套路"><a href="#039【必备】嵌套类问题的递归解题套路" class="headerlink" title="039【必备】嵌套类问题的递归解题套路"></a>039【必备】嵌套类问题的递归解题套路</h1><h2 id="核心解题思路"><a href="#核心解题思路" class="headerlink" title="核心解题思路"></a>核心解题思路</h2><h3 id="基本套路模板"><a href="#基本套路模板" class="headerlink" title="基本套路模板"></a>基本套路模板</h3><p>嵌套类问题的解题套路可以概括为：</p>
+<ol>
+<li><strong>定义全局变量</strong> <code>where</code>：记录当前解析到的位置</li>
+<li><strong>递归函数</strong> <code>f(i)</code>：从位置i开始解析，遇到字符串终止或嵌套条件终止就返回</li>
+<li><strong>返回值机制</strong>：<code>f(i)</code>负责这一段的结果，返回前更新全局变量<code>where</code></li>
+<li><strong>位置传递</strong>：让上级函数通过<code>where</code>知道解析到了什么位置，进而继续</li>
+</ol>
+<h3 id="执行细节"><a href="#执行细节" class="headerlink" title="执行细节"></a>执行细节</h3><ul>
+<li>如果<code>f(i)</code>遇到<strong>嵌套条件开始</strong>，就调用下级递归去处理嵌套</li>
+<li>下级会负责嵌套部分的计算结果</li>
+<li><code>f(i)</code>下级处理完成后，可以根据下级更新的全局变量<code>where</code>，知道该从什么位置继续解析</li>
+</ul>
+<hr>
+<h2 id="题目一：含有嵌套的表达式求值"><a href="#题目一：含有嵌套的表达式求值" class="headerlink" title="题目一：含有嵌套的表达式求值"></a>题目一：含有嵌套的表达式求值</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>请写一个整数计算器，支持加减乘三种运算和括号。</p>
+<ul>
+<li>数据范围：0 &lt; |s| &lt; 100，保证计算结果始终在整型范围内</li>
+<li>要求：空间复杂度 O(n)，时间复杂度 O(n)</li>
+</ul>
+<p><strong>测试链接</strong>：</p>
+<ul>
+<li>LeetCode：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/basic-calculator-iii/">https://leetcode.cn/problems/basic-calculator-iii/</a></li>
+<li>牛客网：<a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/c215ba61c8b1443b996351df929dc4d4">https://www.nowcoder.com/practice/c215ba61c8b1443b996351df929dc4d4</a></li>
+</ul>
+<h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><p>使用递归处理括号嵌套，同时用两个列表分别存储数字和操作符。通过<code>push</code>辅助函数处理运算优先级：</p>
+<ul>
+<li><strong>乘除法优先级高</strong>：遇到时立即计算，并更新数字列表的最后一个数</li>
+<li><strong>加减法优先级低</strong>：先将数字和操作符存入列表</li>
+<li><strong>遇到左括号<code>(</code></strong>：递归调用自身 <code>_f</code> 来计算括号内的值，把它当作一个整体的数字</li>
+<li><strong>遇到右括号 <code>)</code> 或字符串末尾</strong>：结束当前层级的计算,并对 <code>numbers</code> 和 <code>ops</code> 列表中的加减法进行最终求和</li>
+</ul>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(16)/class39-%E5%B5%8C%E5%A5%97%E7%B1%BB%E9%97%AE%E9%A2%98%E7%9A%84%E9%80%92%E5%BD%92%E8%A7%A3%E9%A2%98%E5%A5%97%E8%B7%AF/%E5%AE%9E%E7%8E%B0%E4%B8%89%E7%A7%8D%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E5%BA%95%E5%B1%82%E9%80%BB%E8%BE%91.png" alt="实现三种运算符的底层逻辑"></p>
+<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">calculate</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        主函数，初始化共享索引并启动递归</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="variable language_">self</span>.where = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>._f(<span class="built_in">list</span>(s), <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># s[i....]开始计算，遇到字符串终止 或者 遇到)停止</span></span><br><span class="line">    <span class="comment"># 返回 : 自己负责的这一段，计算的结果</span></span><br><span class="line">    <span class="comment"># 返回之间，更新全局变量where，为了上游函数知道从哪继续！</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_f</span>(<span class="params">self, s: <span class="type">List</span>[<span class="built_in">str</span>], i: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        递归函数，处理一个括号内的或整个表达式的求值</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        cur = <span class="number">0</span></span><br><span class="line">        numbers = []</span><br><span class="line">        ops = []</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(s) <span class="keyword">and</span> s[i] != <span class="string">&#x27;)&#x27;</span>: <span class="comment"># 未终止且未遇到右括号</span></span><br><span class="line">            <span class="keyword">if</span> s[i].isdigit(): <span class="comment"># 是数字</span></span><br><span class="line">                cur = cur * <span class="number">10</span> + <span class="built_in">int</span>(s[i])</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> s[i] != <span class="string">&#x27;(&#x27;</span>: <span class="comment"># 不是左括号</span></span><br><span class="line">                <span class="comment"># 遇到了运算符 + - * /</span></span><br><span class="line">                <span class="variable language_">self</span>._push(numbers, ops, cur, s[i])</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">                cur = <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>: <span class="comment"># 是左括号</span></span><br><span class="line">                <span class="comment"># i (.....)</span></span><br><span class="line">                <span class="comment"># 遇到了左括号！</span></span><br><span class="line">                <span class="comment"># 递归调用 f，计算括号内的结果</span></span><br><span class="line">                cur = <span class="variable language_">self</span>._f(s, i + <span class="number">1</span>)</span><br><span class="line">                <span class="comment"># 递归返回后，where 指向了 &#x27;)&#x27; 的位置，i 需要跳到 &#x27;)&#x27; 之后</span></span><br><span class="line">                i = <span class="variable language_">self</span>.where + <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 如果碰到了右括号，将最后一个数字（或括号运算结果）加入列表，并更新全局索引</span></span><br><span class="line">        <span class="variable language_">self</span>._push(numbers, ops, cur, <span class="string">&#x27;+&#x27;</span>) <span class="comment"># 末尾添加一个 &#x27;+&#x27; 不影响最终计算</span></span><br><span class="line">        <span class="comment"># 更新全局索引，让上级函数知道从哪继续</span></span><br><span class="line">        <span class="variable language_">self</span>.where = i</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>._compute(numbers, ops)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_push</span>(<span class="params">self, numbers: <span class="type">List</span>[<span class="built_in">int</span>], ops: <span class="type">List</span>[<span class="built_in">str</span>], cur: <span class="built_in">int</span>, op: <span class="built_in">str</span></span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;辅助函数，处理数字和操作符的入栈逻辑，并处理乘除法&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> numbers <span class="keyword">or</span> ops[-<span class="number">1</span>] == <span class="string">&#x27;+&#x27;</span> <span class="keyword">or</span> ops[-<span class="number">1</span>] == <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">            <span class="comment"># 如果是第一个数，或者前一个运算符是+或-，直接入栈</span></span><br><span class="line">            numbers.append(cur)</span><br><span class="line">            ops.append(op)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 如果前一个运算符是*或/，立即计算</span></span><br><span class="line">            top_number = numbers[-<span class="number">1</span>]</span><br><span class="line">            top_op = ops[-<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span> top_op == <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">                numbers[-<span class="number">1</span>] = top_number * cur</span><br><span class="line">            <span class="keyword">else</span>: <span class="comment"># top_op == &#x27;/&#x27;</span></span><br><span class="line">                <span class="comment"># Python 的 // 是向下取整，题目要求向零取整</span></span><br><span class="line">                numbers[-<span class="number">1</span>] = <span class="built_in">int</span>(top_number / cur)</span><br><span class="line">            ops[-<span class="number">1</span>] = op <span class="comment"># 更新操作符</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 具体例子   </span></span><br><span class="line">            <span class="comment"># 原始：3 * 4 + 5</span></span><br><span class="line">            <span class="comment">#     处理到 * 4 时：</span></span><br><span class="line">            <span class="comment">#     - numbers: [3, 4] → [12] (3*4=12)</span></span><br><span class="line">            <span class="comment">#     - ops: [&#x27;*&#x27;] → [&#x27;+&#x27;] (更新操作符)  </span></span><br><span class="line">            <span class="comment"># 这样下一个数字 5 就能正确地与 12 进行加法运算</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_compute</span>(<span class="params">self, numbers: <span class="type">List</span>[<span class="built_in">int</span>], ops: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;辅助函数，计算只有加减法的最终结果&quot;&quot;&quot;</span></span><br><span class="line">        ans = numbers[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(numbers)):</span><br><span class="line">            ans += numbers[i] <span class="keyword">if</span> ops[i - <span class="number">1</span>] == <span class="string">&#x27;+&#x27;</span> <span class="keyword">else</span> -numbers[i]</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(n)</li>
+<li><strong>空间复杂度</strong>：O(n)</li>
+<li><strong>核心技巧</strong>：递归处理嵌套 + 分离处理优先级</li>
+</ul>
+<hr>
+<h2 id="题目二：含有嵌套的字符串解码"><a href="#题目二：含有嵌套的字符串解码" class="headerlink" title="题目二：含有嵌套的字符串解码"></a>题目二：含有嵌套的字符串解码</h2><h3 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定一个经过编码的字符串，返回它解码后的字符串。<br>编码规则为：<code>k[encoded_string]</code>，表示其中方括号内部的 <code>encoded_string</code> 正好重复 k 次。</p>
+<p><strong>示例</strong>：输入：<code>s = &quot;3[a2[c]]&quot;</code>，输出：<code>&quot;accaccacc&quot;</code></p>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/decode-string/">https://leetcode.cn/problems/decode-string/</a></p>
+<h3 id="核心思想-1"><a href="#核心思想-1" class="headerlink" title="核心思想"></a>核心思想</h3><p>递归解码嵌套字符串。有嵌套就一定有数字：</p>
+<ul>
+<li><strong>遇到字母</strong>：直接拼接到当前层级的结果 <code>path</code> 中</li>
+<li><strong>遇到数字</strong>：累加成一个完整的数字 <code>cnt</code>，这代表后续 <code>[]</code> 内字符串的重复次数</li>
+<li><strong>遇到左括号<code>[</code></strong>：说明进入了一个新的嵌套层级。此时，递归调用 <code>_f</code> 来解码 <code>[]</code> 内的子问题。递归返回后，将得到的子字符串重复 <code>cnt</code> 次，拼接到 <code>path</code> 中。</li>
+<li><strong>遇到右括号 <code>]</code> 或字符串末尾</strong>：当前层级解码结束，返回 <code>path</code>。</li>
+</ul>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(16)/class39-%E5%B5%8C%E5%A5%97%E7%B1%BB%E9%97%AE%E9%A2%98%E7%9A%84%E9%80%92%E5%BD%92%E8%A7%A3%E9%A2%98%E5%A5%97%E8%B7%AF/where%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F.png" alt="where全局变量"><br><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(16)/class39-%E5%B5%8C%E5%A5%97%E7%B1%BB%E9%97%AE%E9%A2%98%E7%9A%84%E9%80%92%E5%BD%92%E8%A7%A3%E9%A2%98%E5%A5%97%E8%B7%AF/%E8%A7%A3%E7%A0%81%E5%B5%8C%E5%A5%97%E5%AD%97%E7%AC%A6%E4%B8%B2.png" alt="解码嵌套字符串"></p>
+<h3 id="算法实现-1"><a href="#算法实现-1" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">decodeString</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        主函数，初始化共享索引并启动递归</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="variable language_">self</span>.where = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>._f(<span class="built_in">list</span>(s), <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># s[i....]开始计算，遇到字符串终止 或者 遇到 ] 停止</span></span><br><span class="line">    <span class="comment"># 返回 : 自己负责的这一段字符串的结果</span></span><br><span class="line">    <span class="comment"># 返回之间，更新全局变量where，为了上游函数知道从哪继续！</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_f</span>(<span class="params">self, s: <span class="built_in">list</span>, i: <span class="built_in">int</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        递归函数，解码一个层级的字符串</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        path = []</span><br><span class="line">        cnt = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(s) <span class="keyword">and</span> s[i] != <span class="string">&#x27;]&#x27;</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;a&#x27;</span> &lt;= s[i] &lt;= <span class="string">&#x27;z&#x27;</span> <span class="keyword">or</span> <span class="string">&#x27;A&#x27;</span> &lt;= s[i] &lt;= <span class="string">&#x27;Z&#x27;</span>:  <span class="comment"># 比较范围</span></span><br><span class="line">                path.append(s[i])</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> s[i].isdigit():</span><br><span class="line">                cnt = cnt * <span class="number">10</span> + <span class="built_in">int</span>(s[i])</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># 遇到 [ </span></span><br><span class="line">                <span class="comment"># 递归调用 f 来解码括号内的内容</span></span><br><span class="line">                inner_str = <span class="variable language_">self</span>._f(s, i + <span class="number">1</span>)</span><br><span class="line">                <span class="comment"># 将解码后的子串重复 cnt 次</span></span><br><span class="line">                path.append(cnt * inner_str)</span><br><span class="line">                <span class="comment"># 更新 i 到 &#x27;]&#x27; 之后的位置</span></span><br><span class="line">                i = <span class="variable language_">self</span>.where + <span class="number">1</span></span><br><span class="line">                <span class="comment"># 重置 cnt</span></span><br><span class="line">                cnt = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 更新全局索引，以便上层函数知道从哪里继续</span></span><br><span class="line">        <span class="variable language_">self</span>.where = i</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>.join(path)</span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析-1"><a href="#算法分析-1" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(n)</li>
+<li><strong>空间复杂度</strong>：O(n)</li>
+<li><strong>核心技巧</strong>：递归处理嵌套 + 字符串重复</li>
+</ul>
+<hr>
+<h2 id="题目三：含有嵌套的分子式求原子数量"><a href="#题目三：含有嵌套的分子式求原子数量" class="headerlink" title="题目三：含有嵌套的分子式求原子数量"></a>题目三：含有嵌套的分子式求原子数量</h2><h3 id="问题描述-2"><a href="#问题描述-2" class="headerlink" title="问题描述"></a>问题描述</h3><p>给你一个字符串化学式 <code>formula</code>，返回每种原子的数量。</p>
+<ul>
+<li>原子总是以一个大写字母开始，接着跟随0个或任意个小写字母</li>
+<li>如果数量大于1，原子后会跟着数字表示原子的数量</li>
+<li>如果数量等于1则不会跟数字</li>
+</ul>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-atoms/">https://leetcode.cn/problems/number-of-atoms/</a></p>
+<h3 id="核心思想-2"><a href="#核心思想-2" class="headerlink" title="核心思想"></a>核心思想</h3><p>递归解析嵌套分子式，返回原子计数字典</p>
+<p>具体流程如下：</p>
+<ul>
+<li>循环解析当前层级，直到遇到 ‘)’ 或字符串末尾。</li>
+<li>解析过程中维护三个状态：<code>name</code> (当前原子名), <code>pre</code> (括号内解析结果的字典), <code>cnt</code> (倍数)。</li>
+<li>当遇到下一个大写字母或左括号 <code>(</code> 时，说明前一个“单元”（原子或括号）已经解析完毕，<br>  调用 <code>_fill</code> 函数将其信息合并到当前层级的总结果 <code>ans</code> 字典中。</li>
+<li>遇到 <code>(</code>，递归调用 <code>_f</code> 获取括号内的原子构成，存入 <code>pre</code> 字典。</li>
+<li>遇到大写字母，开始一个新的原子名 <code>name</code>。</li>
+<li>遇到小写字母，追加到 <code>name</code>。</li>
+<li>遇到数字，累加成倍数 <code>cnt</code>。</li>
+</ul>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(16)/class39-%E5%B5%8C%E5%A5%97%E7%B1%BB%E9%97%AE%E9%A2%98%E7%9A%84%E9%80%92%E5%BD%92%E8%A7%A3%E9%A2%98%E5%A5%97%E8%B7%AF/%E8%A7%A3%E8%AF%BB%E5%8E%9F%E5%AD%90%E4%B8%AA%E6%95%B0.png" alt="解读原子个数"></p>
+<h3 id="算法实现-2"><a href="#算法实现-2" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">countOfAtoms</span>(<span class="params">self, formula: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        主函数，初始化共享索引并启动递归，最后格式化输出</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="variable language_">self</span>.where = <span class="number">0</span></span><br><span class="line">        <span class="comment"># 调用递归函数获取原子计数的字典</span></span><br><span class="line">        atom_map = <span class="variable language_">self</span>._f(<span class="built_in">list</span>(formula), <span class="number">0</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 构建最终的输出字符串</span></span><br><span class="line">        ans = []</span><br><span class="line">        <span class="comment"># 按原子名称的字母顺序排序，返回有序表</span></span><br><span class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> <span class="built_in">sorted</span>(atom_map.keys()):</span><br><span class="line">            ans.append(key) <span class="comment"># 先添加原子名称再添加数量</span></span><br><span class="line">            cnt = atom_map[key]</span><br><span class="line">            <span class="keyword">if</span> cnt &gt; <span class="number">1</span>:</span><br><span class="line">                ans.append(<span class="built_in">str</span>(cnt))</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>.join(ans)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_f</span>(<span class="params">self, s: <span class="built_in">list</span>, i: <span class="built_in">int</span></span>) -&gt; <span class="built_in">dict</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        递归函数，解析一个层级的分子式，返回一个字典</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        ans = defaultdict(<span class="built_in">int</span>)  <span class="comment"># 创建默认字典</span></span><br><span class="line">        name = []  <span class="comment"># 存储当前原子名称</span></span><br><span class="line">        pre = <span class="literal">None</span>  <span class="comment"># 历史记录</span></span><br><span class="line">        cnt = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(s) <span class="keyword">and</span> s[i] != <span class="string">&#x27;)&#x27;</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;A&#x27;</span> &lt;= s[i] &lt;= <span class="string">&#x27;Z&#x27;</span> <span class="keyword">or</span> s[i] == <span class="string">&#x27;(&#x27;</span>:</span><br><span class="line">                <span class="comment"># 遇到新单元，先把之前收集的信息处理掉</span></span><br><span class="line">                <span class="variable language_">self</span>._fill(ans, name, pre, cnt)</span><br><span class="line">                <span class="comment"># 重置状态</span></span><br><span class="line">                name.clear()  <span class="comment"># 清空列表中的所有元素</span></span><br><span class="line">                pre = <span class="literal">None</span></span><br><span class="line">                cnt = <span class="number">0</span>  <span class="comment"># 重置倍数</span></span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> <span class="string">&#x27;A&#x27;</span> &lt;= s[i] &lt;= <span class="string">&#x27;Z&#x27;</span>:</span><br><span class="line">                    name.append(s[i])</span><br><span class="line">                    i += <span class="number">1</span>  <span class="comment"># 移动到下一个字符</span></span><br><span class="line">                <span class="keyword">else</span>:  <span class="comment"># 遇到 (</span></span><br><span class="line">                    <span class="comment"># 递归处理括号内的表达式</span></span><br><span class="line">                    pre = <span class="variable language_">self</span>._f(s, i + <span class="number">1</span>)</span><br><span class="line">                    i = <span class="variable language_">self</span>.where + <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;a&#x27;</span> &lt;= s[i] &lt;= <span class="string">&#x27;z&#x27;</span>:</span><br><span class="line">                name.append(s[i])</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:  <span class="comment"># 遇到数字</span></span><br><span class="line">                cnt = cnt * <span class="number">10</span> + <span class="built_in">int</span>(s[i])</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 循环结束，处理最后一个单元</span></span><br><span class="line">        <span class="variable language_">self</span>._fill(ans, name, pre, cnt)</span><br><span class="line">        <span class="comment"># 更新全局索引</span></span><br><span class="line">        <span class="variable language_">self</span>.where = i</span><br><span class="line">        <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_fill</span>(<span class="params">self, ans: <span class="built_in">dict</span>, name: <span class="built_in">list</span>, pre: <span class="built_in">dict</span>, cnt: <span class="built_in">int</span></span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;辅助函数，将一个解析完的单元（原子或括号）合并到总结果中&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> name <span class="keyword">or</span> pre:</span><br><span class="line">            <span class="comment"># 如果没有数字，倍数默认为1</span></span><br><span class="line">            cnt = <span class="number">1</span> <span class="keyword">if</span> cnt == <span class="number">0</span> <span class="keyword">else</span> cnt</span><br><span class="line">            <span class="keyword">if</span> name:</span><br><span class="line">                <span class="comment"># 如果是原子，直接累加数量</span></span><br><span class="line">                key = <span class="string">&quot;&quot;</span>.join(name)</span><br><span class="line">                ans[key] += cnt</span><br><span class="line">            <span class="keyword">else</span>:  <span class="comment"># 如果是括号内的字典 pre</span></span><br><span class="line">                <span class="comment"># 遍历字典，将其中每个原子的数量乘以倍数 cnt，再累加</span></span><br><span class="line">                <span class="keyword">for</span> key, val <span class="keyword">in</span> pre.items():</span><br><span class="line">                    ans[key] += val * cnt</span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析-2"><a href="#算法分析-2" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(n)</li>
+<li><strong>空间复杂度</strong>：O(n)</li>
+<li><strong>核心技巧</strong>：递归处理嵌套 + 字典合并</li>
+</ul>
+<hr>
+<h2 id="核心套路总结"><a href="#核心套路总结" class="headerlink" title="核心套路总结"></a>核心套路总结</h2><h3 id="1-递归函数设计模板"><a href="#1-递归函数设计模板" class="headerlink" title="1. 递归函数设计模板"></a>1. 递归函数设计模板</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">solve</span>(<span class="params">self, s: <span class="built_in">str</span></span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;主函数，初始化全局变量&quot;&quot;&quot;</span></span><br><span class="line">        <span class="variable language_">self</span>.where = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>._f(<span class="built_in">list</span>(s), <span class="number">0</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_f</span>(<span class="params">self, s: <span class="built_in">list</span>, i: <span class="built_in">int</span></span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;递归函数核心模板&quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 初始化当前层级的状态变量</span></span><br><span class="line">        result = []  <span class="comment"># 或其他适当的数据结构</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(s) <span class="keyword">and</span> s[i] != 终止条件:</span><br><span class="line">            <span class="keyword">if</span> 普通字符处理:</span><br><span class="line">                <span class="comment"># 直接处理</span></span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> 嵌套开始标志:</span><br><span class="line">                <span class="comment"># 递归调用处理嵌套</span></span><br><span class="line">                nested_result = <span class="variable language_">self</span>._f(s, i + <span class="number">1</span>)</span><br><span class="line">                <span class="comment"># 处理递归结果</span></span><br><span class="line">                result.append(nested_result)</span><br><span class="line">                <span class="comment"># 更新位置</span></span><br><span class="line">                i = <span class="variable language_">self</span>.where + <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># 其他情况处理</span></span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 更新全局位置</span></span><br><span class="line">        <span class="variable language_">self</span>.where = i</span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-全局变量where的作用"><a href="#2-全局变量where的作用" class="headerlink" title="2. 全局变量where的作用"></a>2. 全局变量where的作用</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># where的三个关键作用：</span></span><br><span class="line"><span class="comment"># 1. 记录当前递归函数解析到的位置</span></span><br><span class="line"><span class="comment"># 2. 让上级函数知道下级函数处理到哪里了</span></span><br><span class="line"><span class="comment"># 3. 实现递归层级之间的位置传递</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-嵌套处理的通用策略"><a href="#3-嵌套处理的通用策略" class="headerlink" title="3. 嵌套处理的通用策略"></a>3. 嵌套处理的通用策略</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 遇到嵌套开始标志时：</span></span><br><span class="line"><span class="keyword">if</span> s[i] == <span class="string">&#x27;(&#x27;</span> <span class="keyword">or</span> s[i] == <span class="string">&#x27;[&#x27;</span>:  <span class="comment"># 根据具体问题调整</span></span><br><span class="line">    <span class="comment"># 1. 递归调用处理嵌套内容</span></span><br><span class="line">    nested_result = <span class="variable language_">self</span>._f(s, i + <span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 2. 处理递归返回的结果</span></span><br><span class="line">    process_nested_result(nested_result)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 3. 更新当前位置到嵌套结束后</span></span><br><span class="line">    i = <span class="variable language_">self</span>.where + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="复杂度分析总结"><a href="#复杂度分析总结" class="headerlink" title="复杂度分析总结"></a>复杂度分析总结</h2><table>
+<thead>
+<tr>
+<th>题目</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>核心数据结构</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>表达式求值</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>列表 + 递归栈</td>
+</tr>
+<tr>
+<td>字符串解码</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>字符串 + 递归栈</td>
+</tr>
+<tr>
+<td>分子式解析</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>字典 + 递归栈</td>
+</tr>
+</tbody></table>
+<h2 id="学习建议"><a href="#学习建议" class="headerlink" title="学习建议"></a>学习建议</h2><h3 id="1-理解递归本质"><a href="#1-理解递归本质" class="headerlink" title="1. 理解递归本质"></a>1. 理解递归本质</h3><ul>
+<li>递归是处理嵌套结构的自然选择</li>
+<li>每一层递归负责处理一个层级的内容</li>
+<li>通过全局变量实现层级间的信息传递</li>
+</ul>
+<h3 id="2-掌握状态管理"><a href="#2-掌握状态管理" class="headerlink" title="2. 掌握状态管理"></a>2. 掌握状态管理</h3><ul>
+<li>明确每层递归需要维护哪些状态</li>
+<li>合理设计辅助函数处理复杂逻辑</li>
+<li>注意状态的重置和更新时机</li>
+</ul>
+<h3 id="3-练习边界处理"><a href="#3-练习边界处理" class="headerlink" title="3. 练习边界处理"></a>3. 练习边界处理</h3><ul>
+<li>递归终止条件的设计</li>
+<li>嵌套边界的正确处理</li>
+<li>特殊情况的考虑（空字符串、单字符等）</li>
+</ul>
+<h3 id="4-优化技巧"><a href="#4-优化技巧" class="headerlink" title="4. 优化技巧"></a>4. 优化技巧</h3><ul>
+<li>使用合适的数据结构（列表、字典、栈等）</li>
+<li>避免重复计算和冗余操作</li>
+<li>考虑空间复杂度的优化</li>
+</ul>
+<h3 id="5-调试方法"><a href="#5-调试方法" class="headerlink" title="5. 调试方法"></a>5. 调试方法</h3><ul>
+<li>画出递归调用的层级关系图</li>
+<li>追踪全局变量where的变化</li>
+<li>验证每层递归的输入输出</li>
+</ul>
+<p>通过掌握这个通用的嵌套类问题解题套路，可以有效解决包含括号、方括号等嵌套结构的各类算法问题。关键在于理解递归的层级关系和全局变量的作用机制。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/09/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8815%EF%BC%89-%20%E5%B8%B8%E8%A7%81%E7%BB%8F%E5%85%B8%E9%80%92%E5%BD%92%E8%BF%87%E7%A8%8B%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3601,257 +3825,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%886%EF%BC%89-%20%E9%80%92%E5%BD%92%E4%B8%8Emaster%E5%85%AC%E5%BC%8F%E7%9B%B8%E5%85%B3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="AgioPan">
-      <meta itemprop="description" content="Solving equations, decoding life, exploring minds.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of AgioPan">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/08/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%886%EF%BC%89-%20%E9%80%92%E5%BD%92%E4%B8%8Emaster%E5%85%AC%E5%BC%8F%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">数据结构与算法自学笔记（6）- 递归、归并排序与归并分治</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-08-06 08:42:46" itemprop="dateCreated datePublished" datetime="2025-08-06T08:42:46+08:00">2025-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-07 14:18:07" itemprop="dateModified" datetime="2025-08-07T14:18:07+08:00">2025-08-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Notes/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>参照的是左程云的课程：<a target="_blank" rel="noopener" href="https://space.bilibili.com/8888480/lists/3509640?type=series">https://space.bilibili.com/8888480/lists/3509640?type=series</a>  </p>
-<p>记录的是class020→class022，包括了递归的本质理解、Master公式的应用、归并排序的递归与非递归实现，以及归并分治思想在解决小和问题和翻转对问题中的应用。</p>
-<h1 id="020【必备】递归和Master公式"><a href="#020【必备】递归和Master公式" class="headerlink" title="020【必备】递归和Master公式"></a>020【必备】递归和Master公式</h1><h2 id="递归的本质理解"><a href="#递归的本质理解" class="headerlink" title="递归的本质理解"></a>递归的本质理解</h2><h3 id="思想层面的递归"><a href="#思想层面的递归" class="headerlink" title="思想层面的递归"></a>思想层面的递归</h3><p>递归不是玄学，它是一种**”大事化小”**的思维方式。对于新手来说，<strong>画调用图</strong>是理解递归的关键。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">max_value</span>(<span class="params">arr</span>):</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;给定一个数组，在arr[l...r]范围上，返回最大值&#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> f(arr, <span class="number">0</span>, <span class="built_in">len</span>(arr) - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">arr, l, r</span>):</span><br><span class="line">    <span class="comment"># arr[l...r] 范围上的最大值</span></span><br><span class="line">    <span class="keyword">if</span> l == r:</span><br><span class="line">        <span class="comment"># 递归基：当左右下标相等时，区间只有一个数，直接返回</span></span><br><span class="line">        <span class="keyword">return</span> arr[l]</span><br><span class="line">    m = (l + r) // <span class="number">2</span>  <span class="comment"># 找到中点</span></span><br><span class="line">    lmax = f(arr, l, m)        <span class="comment"># 递归求左半部分最大值</span></span><br><span class="line">    rmax = f(arr, m + <span class="number">1</span>, r)    <span class="comment"># 递归求右半部分最大值</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>(lmax, rmax)     <span class="comment"># 返回左右部分的最大值</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>递归的三个关键点</strong>：</p>
-<ol>
-<li><strong>明确递归要干什么</strong>：这里是”返回 arr[l…r] 的最大值”</li>
-<li><strong>找递归的终止条件</strong>：这里是”l &#x3D;&#x3D; r”，即区间只有一个数  </li>
-<li><strong>思考如何缩小规模</strong>：这里是分别递归处理左区间和右区间</li>
-</ol>
-<h3 id="实际层面的递归"><a href="#实际层面的递归" class="headerlink" title="实际层面的递归"></a>实际层面的递归</h3><p>递归底层利用<strong>系统栈</strong>来实现：</p>
-<ul>
-<li>当函数调用发生时，系统会将函数的状态（参数、局部变量、返回地址）压入栈中</li>
-<li>当函数返回时，系统从栈中弹出状态，恢复到调用点继续执行</li>
-<li>这个过程是<strong>可视化的</strong>，所以所有递归函数都可以改成非递归</li>
-</ul>
-<p><strong>递归改非递归的必要性</strong>：</p>
-<ul>
-<li><strong>工程实践</strong>：几乎一定要改，除非确定递归深度不会太大</li>
-<li><strong>算法竞赛</strong>：能通过就不改，时间紧迫时优先保证正确性</li>
-</ul>
-<p><strong>形象比喻</strong>：</p>
-<ul>
-<li><strong>迭代</strong>像是擂台赛：一个个来，逐步解决</li>
-<li><strong>递归</strong>像是季后赛：分组对战，逐层淘汰<br><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(6)/class20-%E9%80%92%E5%BD%92%E5%92%8Cmaster%E5%85%AC%E5%BC%8F/%E9%80%92%E5%BD%92%E8%BF%87%E7%A8%8B%E5%88%86%E6%AD%A5.png" alt="递归过程分步"><br><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(6)/class20-%E9%80%92%E5%BD%92%E5%92%8Cmaster%E5%85%AC%E5%BC%8F/%E9%80%92%E5%BD%92%E6%97%B6%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png" alt="递归时的数据结构"></li>
-</ul>
-<h2 id="Master公式详解"><a href="#Master公式详解" class="headerlink" title="Master公式详解"></a>Master公式详解</h2><p>Master公式用于分析<strong>分治算法</strong>的时间复杂度，适用于所有子问题规模相同的递归。</p>
-<h3 id="公式形式"><a href="#公式形式" class="headerlink" title="公式形式"></a>公式形式</h3><p>$$T(n) &#x3D; a \times T(\frac{n}{b}) + O(n^c)$$</p>
-<p>其中：</p>
-<ul>
-<li><strong>a</strong>：子问题被调用的次数</li>
-<li><strong>b</strong>：子问题规模（数据量变为原来的1&#x2F;b）  </li>
-<li><strong>c</strong>：除去子问题之外的时间复杂度指数</li>
-</ul>
-<h3 id="判断标准"><a href="#判断标准" class="headerlink" title="判断标准"></a>判断标准</h3><p>设 $\log_b(a) &#x3D; d$，则：</p>
-<table>
-<thead>
-<tr>
-<th>条件</th>
-<th>时间复杂度</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>$d &lt; c$</td>
-<td>$O(n^c)$</td>
-<td>合并工作量占主导</td>
-</tr>
-<tr>
-<td>$d &gt; c$</td>
-<td>$O(n^d)$</td>
-<td>递归调用占主导</td>
-</tr>
-<tr>
-<td>$d &#x3D; c$</td>
-<td>$O(n^c \log n)$</td>
-<td>两者平衡</td>
-</tr>
-</tbody></table>
-<h3 id="经典例子分析"><a href="#经典例子分析" class="headerlink" title="经典例子分析"></a>经典例子分析</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 归并排序：T(n) = 2*T(n/2) + O(n)</span></span><br><span class="line"><span class="comment"># a=2, b=2, c=1</span></span><br><span class="line"><span class="comment"># log₂(2) = 1 = c，所以复杂度为 O(n*logn)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 二分查找：T(n) = 1*T(n/2) + O(1)  </span></span><br><span class="line"><span class="comment"># a=1, b=2, c=0</span></span><br><span class="line"><span class="comment"># log₂(1) = 0 = c，所以复杂度为 O(logn)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 快速排序最好情况：T(n) = 2*T(n/2) + O(n)</span></span><br><span class="line"><span class="comment"># 结果同归并排序：O(n*logn)</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h3><p>对于 $T(n) &#x3D; 2 \times T(\frac{n}{2}) + O(n \log n)$：</p>
-<ul>
-<li>这不符合标准Master公式形式，结果是 $O(n \times (\log n)^2)$，需要特殊记忆，证明过程较复杂，这种递归式常见于“分治 + 合并时需要二分&#x2F;复杂统计”的问题，比如“翻转对”、“区间对统计”，主定理告知其复杂度为 $O(n \log^2 n)$</li>
-</ul>
-<h1 id="021【必备】归并排序"><a href="#021【必备】归并排序" class="headerlink" title="021【必备】归并排序"></a>021【必备】归并排序</h1><h2 id="归并排序原理"><a href="#归并排序原理" class="headerlink" title="归并排序原理"></a>归并排序原理</h2><h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><ol>
-<li><strong>左部分排好序、右部分排好序</strong></li>
-<li><strong>利用merge过程让左右整体有序</strong></li>
-<li><strong>merge过程</strong>：谁小拷贝谁，直到左右两部分数字耗尽，拷贝回原数组</li>
-</ol>
-<h3 id="为什么归并排序比O-n²-排序快？"><a href="#为什么归并排序比O-n²-排序快？" class="headerlink" title="为什么归并排序比O(n²)排序快？"></a>为什么归并排序比O(n²)排序快？</h3><p><strong>比较行为没有浪费！</strong></p>
-<p>对比三种原始排序（选择、冒泡、插入）：</p>
-<ul>
-<li>每次1到N-1次比较只能确定一个位置</li>
-<li>大量比较工作被浪费，效率低下</li>
-</ul>
-<p>归并排序中：</p>
-<ul>
-<li>每次比较都有意义，用于合并两个有序序列</li>
-<li>比较结果被充分利用，没有浪费</li>
-<li>系统栈不会太深</li>
-</ul>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(6)/class20-%E9%80%92%E5%BD%92%E5%92%8Cmaster%E5%85%AC%E5%BC%8F/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E7%9A%84%E6%A0%88%E4%B8%8D%E4%BC%9A%E6%B7%B1.png" alt="归并排序的栈不会深"><br><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(6)/class20-%E9%80%92%E5%BD%92%E5%92%8Cmaster%E5%85%AC%E5%BC%8F/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E7%9A%84%E6%A0%88%E4%B8%8D%E4%BC%9A%E6%B7%B12.png" alt="归并排序的栈不会深2"></p>
-<p> <strong>测试链接</strong> ：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1177">https://www.luogu.com.cn/problem/P1177</a></p>
-<h2 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">MAXN = <span class="number">100001</span></span><br><span class="line">arr = [<span class="number">0</span>] * MAXN      <span class="comment"># 原数组</span></span><br><span class="line">help_arr = [<span class="number">0</span>] * MAXN <span class="comment"># 辅助数组</span></span><br><span class="line">n = <span class="number">0</span>                 <span class="comment"># 数组长度</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mergeSort1</span>(<span class="params">l, r</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    归并排序递归版</span></span><br><span class="line"><span class="string">    T(n) = 2 * T(n/2) + O(n)</span></span><br><span class="line"><span class="string">    根据master公式，时间复杂度O(n * logn)</span></span><br><span class="line"><span class="string">    空间复杂度O(n)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> l == r:  <span class="comment"># 递归终止条件：只剩一个元素</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    m = (l + r) // <span class="number">2</span>  <span class="comment"># 计算中点</span></span><br><span class="line">    mergeSort1(l, m)      <span class="comment"># 递归排序左半部分</span></span><br><span class="line">    mergeSort1(m + <span class="number">1</span>, r)  <span class="comment"># 递归排序右半部分</span></span><br><span class="line">    merge(l, m, r)        <span class="comment"># 合并</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params">l, m, r</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    合并两个有序区间 arr[l...m] 和 arr[m+1...r]</span></span><br><span class="line"><span class="string">    时间复杂度O(n)，其中n = r - l + 1</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    i = l      <span class="comment"># help数组写指针</span></span><br><span class="line">    a = l      <span class="comment"># 左侧起始指针</span></span><br><span class="line">    b = m + <span class="number">1</span>  <span class="comment"># 右侧起始指针</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 双指针合并过程</span></span><br><span class="line">    <span class="keyword">while</span> a &lt;= m <span class="keyword">and</span> b &lt;= r:</span><br><span class="line">        <span class="keyword">if</span> arr[a] &lt;= arr[b]:</span><br><span class="line">            help_arr[i] = arr[a]</span><br><span class="line">            a += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            help_arr[i] = arr[b] </span><br><span class="line">            b += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 处理剩余元素</span></span><br><span class="line">    <span class="keyword">while</span> a &lt;= m:</span><br><span class="line">        help_arr[i] = arr[a]</span><br><span class="line">        a += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> b &lt;= r:</span><br><span class="line">        help_arr[i] = arr[b]</span><br><span class="line">        b += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 写回原数组</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(l, r + <span class="number">1</span>):</span><br><span class="line">        arr[i] = help_arr[i]</span><br></pre></td></tr></table></figure>
-
-<h2 id="非递归实现"><a href="#非递归实现" class="headerlink" title="非递归实现"></a>非递归实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">mergeSort2</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    归并排序非递归版</span></span><br><span class="line"><span class="string">    时间复杂度O(n * logn)：外层循环O(logn)，内层归并O(n)</span></span><br><span class="line"><span class="string">    空间复杂度O(n)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">global</span> n</span><br><span class="line">    step = <span class="number">1</span>  <span class="comment"># 步长初始化为1</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> step &lt; n:  <span class="comment"># 外层控制步长，共O(logn)次</span></span><br><span class="line">        l = <span class="number">0</span>  <span class="comment"># 每轮从左端开始</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> l &lt; n:  <span class="comment"># 内层处理每一组</span></span><br><span class="line">            m = l + step - <span class="number">1</span>      <span class="comment"># 计算中点</span></span><br><span class="line">            <span class="keyword">if</span> m + <span class="number">1</span> &gt;= n:        <span class="comment"># 右半部分越界，跳出</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            r = <span class="built_in">min</span>(l + (step &lt;&lt; <span class="number">1</span>) - <span class="number">1</span>, n - <span class="number">1</span>)  <span class="comment"># 计算右边界</span></span><br><span class="line">            merge(l, m, r)        <span class="comment"># 合并</span></span><br><span class="line">            l = r + <span class="number">1</span>             <span class="comment"># 移动到下一组</span></span><br><span class="line">            </span><br><span class="line">        step &lt;&lt;= <span class="number">1</span>  <span class="comment"># 步长翻倍</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="非递归实现的核心思路"><a href="#非递归实现的核心思路" class="headerlink" title="非递归实现的核心思路"></a>非递归实现的核心思路</h3><ol>
-<li><strong>step表示每次要合并的有序段长度</strong>，初始为1（每个元素自己是有序段）</li>
-<li><strong>每一轮成对合并</strong>长度为step的有序段，合并成长度为2*step的有序段</li>
-<li><strong>下一轮step翻倍</strong>，继续两两合并</li>
-<li><strong>重复直到step &gt;&#x3D; n</strong>，整个数组有序</li>
-</ol>
-<p><strong>过程示例</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">原数组: [3, 8, 7, 6, 4, 5, 1, 2]</span><br><span class="line"></span><br><span class="line">step=1: [3,8] [6,7] [4,5] [1,2] → [3,8,6,7,4,5,1,2]</span><br><span class="line">step=2: [3,6,7,8] [1,2,4,5] → [3,6,7,8,1,2,4,5] </span><br><span class="line">step=4: [1,2,3,4,5,6,7,8] → [1,2,3,4,5,6,7,8]</span><br></pre></td></tr></table></figure>
-
-<h2 id="merge过程详解"><a href="#merge过程详解" class="headerlink" title="merge过程详解"></a>merge过程详解</h2><h3 id="双指针合并策略"><a href="#双指针合并策略" class="headerlink" title="双指针合并策略"></a>双指针合并策略</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params">l, m, r</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    合并过程详解：</span></span><br><span class="line"><span class="string">    1. 双指针扫描：a指向左部分，b指向右部分</span></span><br><span class="line"><span class="string">    2. 比较合并：较小值写入help_arr，对应指针右移</span></span><br><span class="line"><span class="string">    3. 剩余处理：一边扫完后，另一边直接复制</span></span><br><span class="line"><span class="string">    4. 写回原数组：完成排序合并</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    i = l      <span class="comment"># help_arr写入位置</span></span><br><span class="line">    a = l      <span class="comment"># 左部分起点</span></span><br><span class="line">    b = m + <span class="number">1</span>  <span class="comment"># 右部分起点</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 两两比较，选择较小值</span></span><br><span class="line">    <span class="keyword">while</span> a &lt;= m <span class="keyword">and</span> b &lt;= r:</span><br><span class="line">        <span class="keyword">if</span> arr[a] &lt;= arr[b]:</span><br><span class="line">            help_arr[i] = arr[a]</span><br><span class="line">            a += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            help_arr[i] = arr[b]</span><br><span class="line">            b += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 处理剩余元素（必有一边先结束）</span></span><br><span class="line">    <span class="keyword">while</span> a &lt;= m:</span><br><span class="line">        help_arr[i] = arr[a]</span><br><span class="line">        a += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> b &lt;= r:</span><br><span class="line">        help_arr[i] = arr[b]</span><br><span class="line">        b += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 拷贝回原数组</span></span><br><span class="line">    <span class="keyword">for</span> idx <span class="keyword">in</span> <span class="built_in">range</span>(l, r + <span class="number">1</span>):</span><br><span class="line">        arr[idx] = help_arr[idx]</span><br></pre></td></tr></table></figure>
-
-<h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><h3 id="时间复杂度：O-n-log-n"><a href="#时间复杂度：O-n-log-n" class="headerlink" title="时间复杂度：O(n log n)"></a>时间复杂度：O(n log n)</h3><ul>
-<li><strong>递归层数</strong>：log₂(n)层，每次将问题规模减半</li>
-<li><strong>每层工作量</strong>：O(n)，所有元素都要参与一次合并</li>
-<li><strong>总复杂度</strong>：O(n) × O(log n) &#x3D; O(n log n)</li>
-</ul>
-<h3 id="空间复杂度：O-n"><a href="#空间复杂度：O-n" class="headerlink" title="空间复杂度：O(n)"></a>空间复杂度：O(n)</h3><ul>
-<li><strong>辅助数组</strong>：需要与原数组等长的help_arr</li>
-<li><strong>递归栈</strong>：最大深度O(log n)，但主要空间开销是辅助数组</li>
-<li><strong>原地归并</strong>：理论上可以做到O(1)空间，但时间复杂度会退化到O(n²)</li>
-</ul>
-<h1 id="022【必备】归并分治"><a href="#022【必备】归并分治" class="headerlink" title="022【必备】归并分治"></a>022【必备】归并分治</h1><h2 id="归并分治的核心思想"><a href="#归并分治的核心思想" class="headerlink" title="归并分治的核心思想"></a>归并分治的核心思想</h2><p>归并分治是在归并排序基础上的拓展，用来解决更复杂的问题。</p>
-<h3 id="应用条件判断"><a href="#应用条件判断" class="headerlink" title="应用条件判断"></a>应用条件判断</h3><p>一个问题能用归并分治解决，需要满足：</p>
-<ol>
-<li><strong>大范围答案 &#x3D; 左部分答案 + 右部分答案 + 跨越左右产生的答案</strong></li>
-<li><strong>计算”跨越左右产生的答案”时，左右各自有序能带来计算便利性</strong></li>
-<li><strong>如果以上两点成立，该问题很可能被归并分治解决</strong></li>
-</ol>
-<p><strong>求解过程</strong>：在归并排序过程中加入统计逻辑，利用左右有序的特性获得计算便利性。</p>
-<h2 id="小和问题"><a href="#小和问题" class="headerlink" title="小和问题"></a>小和问题</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定数组arr，对于每个位置i，求出其左边所有小于等于arr[i]的数的累加和，所有位置的累加和即为数组的”小和”。</p>
-<p><strong>例子</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">数组: [1, 3, 5, 2, 4, 6]</span><br><span class="line"></span><br><span class="line">位置0(1): 左边小于等于1的数 → 0</span><br><span class="line">位置1(3): 左边小于等于3的数 → 1  </span><br><span class="line">位置2(5): 左边小于等于5的数 → 1+3 = 4</span><br><span class="line">位置3(2): 左边小于等于2的数 → 1</span><br><span class="line">位置4(4): 左边小于等于4的数 → 1+3+2 = 6</span><br><span class="line">位置5(6): 左边小于等于6的数 → 1+3+5+2+4 = 15</span><br><span class="line"></span><br><span class="line">小和 = 0+1+4+1+6+15 = 27</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(6)/class22-%E5%BD%92%E5%B9%B6%E5%88%86%E6%B2%BB/%E5%88%86%E6%B2%BB%E6%8C%87%E9%92%88%E6%BB%91%E5%8A%A8.png" alt="分治指针滑动"><br><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(6)/class22-%E5%BD%92%E5%B9%B6%E5%88%86%E6%B2%BB/%E5%B0%8F%E5%92%8C%E9%97%AE%E9%A2%98%E6%8B%86%E5%88%86%E6%88%90%E5%AD%90%E9%97%AE%E9%A2%98.png" alt="小和问题拆分成子问题"></p>
-<p> <strong>测试链接</strong> ：<a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/edfe05a1d45c4ea89101d936cac32469">https://www.nowcoder.com/practice/edfe05a1d45c4ea89101d936cac32469</a></p>
-<h3 id="归并分治解法"><a href="#归并分治解法" class="headerlink" title="归并分治解法"></a>归并分治解法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">smallSum</span>(<span class="params">l, r</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    返回arr[l...r]范围上小和的累加和，同时让arr[l..r]变有序</span></span><br><span class="line"><span class="string">    时间复杂度O(n * logn)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> l == r:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    m = (l + r) // <span class="number">2</span></span><br><span class="line">    <span class="comment"># 递归统计左右部分和跨区部分的小和</span></span><br><span class="line">    <span class="keyword">return</span> smallSum(l, m) + smallSum(m + <span class="number">1</span>, r) + merge(l, m, r)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params">l, m, r</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    统计跨左右产生的小和，同时完成合并</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    ans = <span class="number">0</span>        <span class="comment"># 累计小和</span></span><br><span class="line">    i = l          <span class="comment"># 左侧指针</span></span><br><span class="line">    sum_left = <span class="number">0</span>   <span class="comment"># 累计左侧小于等于当前右侧元素的和</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 统计跨区贡献：对每个右侧元素，统计左侧贡献</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(m + <span class="number">1</span>, r + <span class="number">1</span>):</span><br><span class="line">        <span class="comment"># 左侧所有 &lt;= arr[j] 的元素都对arr[j]有贡献</span></span><br><span class="line">        <span class="keyword">while</span> i &lt;= m <span class="keyword">and</span> arr[i] &lt;= arr[j]:</span><br><span class="line">            sum_left += arr[i]  <span class="comment"># 累加左侧贡献</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        ans += sum_left  <span class="comment"># arr[j]的左侧贡献总和</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 正常归并过程</span></span><br><span class="line">    i = l</span><br><span class="line">    a = l</span><br><span class="line">    b = m + <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> a &lt;= m <span class="keyword">and</span> b &lt;= r:</span><br><span class="line">        <span class="keyword">if</span> arr[a] &lt;= arr[b]:</span><br><span class="line">            help_arr[i] = arr[a]</span><br><span class="line">            a += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            help_arr[i] = arr[b]</span><br><span class="line">            b += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> a &lt;= m:</span><br><span class="line">        help_arr[i] = arr[a]</span><br><span class="line">        a += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> b &lt;= r:</span><br><span class="line">        help_arr[i] = arr[b]</span><br><span class="line">        b += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> idx <span class="keyword">in</span> <span class="built_in">range</span>(l, r + <span class="number">1</span>):</span><br><span class="line">        arr[idx] = help_arr[idx]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
-
-<h3 id="算法关键思路"><a href="#算法关键思路" class="headerlink" title="算法关键思路"></a>算法关键思路</h3><p><strong>为什么要在merge过程中统计？</strong></p>
-<ol>
-<li><strong>左右有序的便利性</strong>：因为左右都有序，可以用双指针线性扫描</li>
-<li><strong>避免重复计算</strong>：每个跨区的小和贡献只需要计算一次</li>
-<li><strong>时间复杂度优势</strong>：总体保持O(n log n)，而暴力解法是O(n²)</li>
-</ol>
-<p><strong>核心技巧</strong>：</p>
-<ul>
-<li>对于右半部分的每个元素arr[j]，左半部分所有 ≤ arr[j] 的元素都会对小和产生贡献</li>
-<li>由于左半部分有序，可以用指针i从左向右扫描，累加贡献值</li>
-<li>指针i只会前进不会后退，总的扫描时间为O(n)</li>
-</ul>
-<h2 id="翻转对问题"><a href="#翻转对问题" class="headerlink" title="翻转对问题"></a>翻转对问题</h2><h3 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定数组nums，如果i&lt;j且nums[i]&gt;2*nums[j]，我们就将(i,j)称作一个重要翻转对。求数组中翻转对的总数量。</p>
-<p><strong>例子</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数组: [1,3,2,3,1]</span><br><span class="line">翻转对: (1,4)→3&gt;2*1, (3,4)→3&gt;2*1</span><br><span class="line">答案: 2</span><br></pre></td></tr></table></figure>
-<p> <strong>测试链接</strong> ：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reverse-pairs/">https://leetcode.cn/problems/reverse-pairs/</a></p>
-<h3 id="归并分治解法-1"><a href="#归并分治解法-1" class="headerlink" title="归并分治解法"></a>归并分治解法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">reversePairs</span>(<span class="params">arr</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;统计翻转对的主函数&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> counts(arr, <span class="number">0</span>, <span class="built_in">len</span>(arr) - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">counts</span>(<span class="params">arr, l, r</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    统计l...r范围上翻转对的数量，同时让l...r范围变有序</span></span><br><span class="line"><span class="string">    时间复杂度O(n * logn)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> l == r:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    m = (l + r) // <span class="number">2</span></span><br><span class="line">    <span class="comment"># 递归统计左右两边和跨区部分的翻转对数量</span></span><br><span class="line">    <span class="keyword">return</span> counts(arr, l, m) + counts(arr, m + <span class="number">1</span>, r) + merge(arr, l, m, r)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params">arr, l, m, r</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;统计跨区翻转对并完成合并&quot;&quot;&quot;</span></span><br><span class="line">    ans = <span class="number">0</span>  <span class="comment"># 翻转对计数</span></span><br><span class="line">    j = m + <span class="number">1</span>  <span class="comment"># 右边数组起点</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 统计跨区翻转对</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(l, m + <span class="number">1</span>):</span><br><span class="line">        <span class="comment"># 找到右侧第一个不满足 arr[i] &gt; 2*arr[j] 的位置</span></span><br><span class="line">        <span class="keyword">while</span> j &lt;= r <span class="keyword">and</span> arr[i] &gt; <span class="number">2</span> * arr[j]:</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="comment"># 当前i能形成的翻转对数量 = j - (m+1)</span></span><br><span class="line">        ans += j - m - <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 正常merge过程（与归并排序相同）</span></span><br><span class="line">    i = l</span><br><span class="line">    a = l</span><br><span class="line">    b = m + <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> a &lt;= m <span class="keyword">and</span> b &lt;= r:</span><br><span class="line">        <span class="keyword">if</span> arr[a] &lt;= arr[b]:</span><br><span class="line">            help_arr[i] = arr[a]</span><br><span class="line">            a += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            help_arr[i] = arr[b]</span><br><span class="line">            b += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> a &lt;= m:</span><br><span class="line">        help_arr[i] = arr[a]</span><br><span class="line">        a += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> b &lt;= r:</span><br><span class="line">        help_arr[i] = arr[b]</span><br><span class="line">        b += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> idx <span class="keyword">in</span> <span class="built_in">range</span>(l, r + <span class="number">1</span>):</span><br><span class="line">        arr[idx] = help_arr[idx]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
-
-<h3 id="算法关键思路-1"><a href="#算法关键思路-1" class="headerlink" title="算法关键思路"></a>算法关键思路</h3><p><strong>统计策略</strong>：</p>
-<ol>
-<li><strong>利用左右部分独立有序</strong>：对于左半部分的每个元素arr[i]，在右半部分找到满足arr[i] &gt; 2*arr[j]的所有j</li>
-<li><strong>指针单向移动</strong>：左右部分都是有序的，指针j只需要前进，不需要回退  </li>
-<li><strong>计数技巧</strong>：当找到第一个不满足条件的j时，说明j前面的所有元素都满足条件</li>
-</ol>
-<p><strong>时间复杂度分析</strong>：</p>
-<ul>
-<li>每个元素只会被访问一次，总的统计时间：O(n)，符合归并分治的要求</li>
-</ul>
-<h2 id="归并分治总结"><a href="#归并分治总结" class="headerlink" title="归并分治总结"></a>归并分治总结</h2><h3 id="适用问题特征"><a href="#适用问题特征" class="headerlink" title="适用问题特征"></a>适用问题特征</h3><ol>
-<li><strong>可分解性</strong>：问题可以分解为左部分 + 右部分 + 跨区部分</li>
-<li><strong>有序性便利</strong>：跨区部分的计算在左右有序时能够优化</li>
-<li><strong>线性合并</strong>：跨区计算的时间复杂度为O(n)</li>
-</ol>
-<h3 id="解题模板"><a href="#解题模板" class="headerlink" title="解题模板"></a>解题模板</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">divide_conquer</span>(<span class="params">l, r</span>):</span><br><span class="line">    <span class="keyword">if</span> l == r:</span><br><span class="line">        <span class="keyword">return</span> base_case</span><br><span class="line">    </span><br><span class="line">    m = (l + r) // <span class="number">2</span></span><br><span class="line">    left_ans = divide_conquer(l, m)</span><br><span class="line">    right_ans = divide_conquer(m + <span class="number">1</span>, r)</span><br><span class="line">    cross_ans = merge_and_count(l, m, r)  <span class="comment"># 关键：统计跨区答案</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> left_ans + right_ans + cross_ans</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">merge_and_count</span>(<span class="params">l, m, r</span>):</span><br><span class="line">    <span class="comment"># 1. 利用左右有序性，统计跨区答案</span></span><br><span class="line">    cross_count = <span class="number">0</span></span><br><span class="line">    <span class="comment"># ... 统计逻辑</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 2. 正常的归并排序merge过程</span></span><br><span class="line">    <span class="comment"># ... 合并逻辑</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> cross_count</span><br></pre></td></tr></table></figure>
-
-<h3 id="常见应用"><a href="#常见应用" class="headerlink" title="常见应用"></a>常见应用</h3><ol>
-<li><strong>小和问题</strong>：统计左侧小于等于当前元素的累加和</li>
-<li><strong>翻转对问题</strong>：统计满足特定大小关系的数对</li>
-<li><strong>最近点对问题</strong>：二维空间中最近两点距离（高难度）</li>
-<li><strong>逆序对问题</strong>：统计数组中的逆序对数量</li>
-</ol>
-<h3 id="与其他算法的关系"><a href="#与其他算法的关系" class="headerlink" title="与其他算法的关系"></a>与其他算法的关系</h3><ul>
-<li><strong>线段树</strong>：也可以解决类似问题，但常数因子可能更大</li>
-<li><strong>树状数组</strong>：适合在线查询修改，离线场景下归并分治更简洁</li>
-<li><strong>分块算法</strong>：另一种分治思想，将在后续课程中介绍</li>
-</ul>
-<p>归并分治是一种优雅而强大的算法思想，它将复杂问题通过分治和有序性的结合，优雅地降低了时间复杂度。掌握这种思想对于解决许多看似困难的问题都有很大帮助。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3923,7 +3896,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -3936,7 +3909,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">78</span>
+        <span class="site-state-item-count">79</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
