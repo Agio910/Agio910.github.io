@@ -189,6 +189,292 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/09/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8821%EF%BC%89-%20%E6%9E%84%E5%BB%BA%E5%89%8D%E7%BC%80%E4%BF%A1%E6%81%AF%E7%9A%84%E6%8A%80%E5%B7%A7-%E8%A7%A3%E5%86%B3%E5%AD%90%E6%95%B0%E7%BB%84%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="AgioPan">
+      <meta itemprop="description" content="Solving equations, decoding life, exploring minds.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AgioPan">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/09/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8821%EF%BC%89-%20%E6%9E%84%E5%BB%BA%E5%89%8D%E7%BC%80%E4%BF%A1%E6%81%AF%E7%9A%84%E6%8A%80%E5%B7%A7-%E8%A7%A3%E5%86%B3%E5%AD%90%E6%95%B0%E7%BB%84%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">数据结构与算法自学笔记（21）- 构建前缀信息的技巧-解决子数组相关问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-09-09 10:30:00 / Modified: 14:37:59" itemprop="dateCreated datePublished" datetime="2025-09-09T10:30:00+08:00">2025-09-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>参照的是左程云的课程：<a target="_blank" rel="noopener" href="https://space.bilibili.com/8888480/lists/3509640?type=series">https://space.bilibili.com/8888480/lists/3509640?type=series</a></p>
+<p>本笔记是class046的内容，总结了构建前缀信息的技巧来解决子数组相关问题。这类问题通过预处理前缀信息，结合哈希表等数据结构，可以将原本O(n²)或更高时间复杂度的问题优化到O(n)。</p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>在学习前缀信息技巧之前，需要掌握以下基础知识：</p>
+<ul>
+<li>讲解026 - 哈希表的用法</li>
+<li>数组基础操作和累加和概念</li>
+<li>基本的数学推导能力</li>
+</ul>
+<hr>
+<h1 id="046【必备】构建前缀信息的技巧-解决子数组相关问题"><a href="#046【必备】构建前缀信息的技巧-解决子数组相关问题" class="headerlink" title="046【必备】构建前缀信息的技巧-解决子数组相关问题"></a>046【必备】构建前缀信息的技巧-解决子数组相关问题</h1><h2 id="核心解题思路"><a href="#核心解题思路" class="headerlink" title="核心解题思路"></a>核心解题思路</h2><h3 id="前缀和的基本概念"><a href="#前缀和的基本概念" class="headerlink" title="前缀和的基本概念"></a>前缀和的基本概念</h3><p>前缀和是一种预处理技巧，通过构建辅助数组来快速计算任意区间的累加和：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 前缀和数组构建</span></span><br><span class="line">s = [<span class="number">0</span>] * (<span class="built_in">len</span>(nums) + <span class="number">1</span>)  <span class="comment"># 比原数组长1</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">    s[i + <span class="number">1</span>] = s[i] + nums[i]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 区间[left, right]的和 = s[right+1] - s[left]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="前缀信息-哈希表的套路"><a href="#前缀信息-哈希表的套路" class="headerlink" title="前缀信息 + 哈希表的套路"></a>前缀信息 + 哈希表的套路</h3><p>解决子数组问题的通用套路：</p>
+<ol>
+<li><strong>构建前缀信息</strong>：根据问题需求构建前缀和、前缀状态等</li>
+<li><strong>设计哈希表</strong>：存储前缀信息的位置或次数</li>
+<li><strong>遍历求解</strong>：边计算前缀信息，边查询哈希表更新答案</li>
+</ol>
+<hr>
+<h2 id="题目一：前缀和数组-快速区间求和"><a href="#题目一：前缀和数组-快速区间求和" class="headerlink" title="题目一：前缀和数组 - 快速区间求和"></a>题目一：前缀和数组 - 快速区间求和</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>设计一个支持快速查询数组区间和的数据结构。</p>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/range-sum-query-immutable/">https://leetcode.cn/problems/range-sum-query-immutable/</a></p>
+<h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><p>通过预计算前缀和，实现O(1)时间复杂度的范围和查询：<br>通过预计算前缀和，实现O(1)时间复杂度的范围和查询。</p>
+<ol>
+<li>创建一个比原数组长1的前缀和数组 <code>s</code>。</li>
+<li><code>s[i]</code> 存储原数组 <code>nums</code> 从 <code>0</code> 到 <code>i-1</code> 位置的累加和。</li>
+<li><code>nums</code> 数组从 <code>left</code> 到 <code>right</code> 的范围和，<br> 就可以通过 <code>s[right+1] - s[left]</code> 快速得到。<br> s[right+1] 是 0…right 的和<br> s[left] 是 0…left-1 的和<br> 两者相减即为 left…right 的和。</li>
+</ol>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(21)/class46-%E6%9E%84%E5%BB%BA%E5%89%8D%E7%BC%80%E4%BF%A1%E6%81%AF%E7%9A%84%E6%8A%80%E5%B7%A7/%E9%A2%98%E7%9B%AE%E4%B8%80%E6%9A%B4%E5%8A%9B%E8%A7%A3%E6%B3%95.png" alt="题目一暴力解法"></p>
+<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">arr = []</span><br><span class="line">n, aim = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line"><span class="comment"># key : 某个前缀和</span></span><br><span class="line"><span class="comment"># value : 这个前缀和最早出现的位置</span></span><br><span class="line">prefix_sum_map = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    通过预计算前缀和，实现O(1)时间复杂度的范围和查询。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    prefix_sum_map.clear()</span><br><span class="line">    <span class="comment"># 重要 : 0这个前缀和，在-1位置（一个数字也没有的时候），就存在了</span></span><br><span class="line">    <span class="comment"># 这可以正确处理从0开始的子数组</span></span><br><span class="line">    prefix_sum_map[<span class="number">0</span>] = -<span class="number">1</span></span><br><span class="line">    ans = <span class="number">0</span></span><br><span class="line">    current_sum = <span class="number">0</span> </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        current_sum += arr[i]</span><br><span class="line">        <span class="comment"># 查找是否存在一个 j，使得 0..j 的前缀和为 current_sum - aim</span></span><br><span class="line">        <span class="keyword">if</span> (current_sum - aim) <span class="keyword">in</span> prefix_sum_map:</span><br><span class="line">            j = prefix_sum_map[current_sum - aim]</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, i - j)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 只记录每个前缀和第一次出现的位置</span></span><br><span class="line">        <span class="keyword">if</span> current_sum <span class="keyword">not</span> <span class="keyword">in</span> prefix_sum_map:</span><br><span class="line">            prefix_sum_map[current_sum] = i</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    处理输入和输出的主函数</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">global</span> n, aim, arr</span><br><span class="line">    <span class="comment"># 高效读取所有输入行</span></span><br><span class="line">    lines = sys.stdin.readlines()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lines:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">    line_iter = <span class="built_in">iter</span>(lines)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            line = <span class="built_in">next</span>(line_iter)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> line: <span class="keyword">break</span></span><br><span class="line">            </span><br><span class="line">            n, aim = <span class="built_in">map</span>(<span class="built_in">int</span>, line.strip().split())</span><br><span class="line">            arr_line = <span class="built_in">next</span>(line_iter)</span><br><span class="line">            arr = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, arr_line.strip().split()))</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">print</span>(compute())</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">except</span> StopIteration:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>预处理时间复杂度</strong>：O(n)</li>
+<li><strong>查询时间复杂度</strong>：O(1)</li>
+<li><strong>空间复杂度</strong>：O(n)</li>
+</ul>
+<hr>
+<h2 id="题目二：累加和为给定值的最长子数组"><a href="#题目二：累加和为给定值的最长子数组" class="headerlink" title="题目二：累加和为给定值的最长子数组"></a>题目二：累加和为给定值的最长子数组</h2><h3 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定一个无序数组arr，其中元素可正、可负、可0。给定一个整数aim，求arr所有子数组中累加和为aim的最长子数组长度。</p>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/36fb0fd3c656480c92b569258a1223d5">https://www.nowcoder.com/practice/36fb0fd3c656480c92b569258a1223d5</a></p>
+<h3 id="核心思想-1"><a href="#核心思想-1" class="headerlink" title="核心思想"></a>核心思想</h3><p>使用前缀和 + 哈希表记录每个前缀和<strong>最早出现的位置</strong>：</p>
+<ol>
+<li>遍历数组，计算到当前位置 <code>i</code> 的前缀和 <code>s</code></li>
+<li>如果存在位置 <code>j</code>，使得 <code>(0...i的前缀和) - (0...j的前缀和) = aim</code></li>
+<li>即 <code>s - (0...j的前缀和) = aim</code>，所以需要查找前缀和为 <code>s - aim</code> 的位置</li>
+<li>为了让子数组最长，<code>j</code> 应该尽可能小，所以只记录每个前缀和<strong>首次出现</strong>的位置</li>
+</ol>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(21)/class46-%E6%9E%84%E5%BB%BA%E5%89%8D%E7%BC%80%E4%BF%A1%E6%81%AF%E7%9A%84%E6%8A%80%E5%B7%A7/%E9%A2%98%E7%9B%AE%E4%BA%8C.png" alt="题目二"></p>
+<h3 id="算法实现-1"><a href="#算法实现-1" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    计算累加和为aim的最长子数组长度</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    prefix_sum_map = &#123;&#125;</span><br><span class="line">    <span class="comment"># 重要：0这个前缀和，在-1位置（一个数字也没有的时候）就存在了</span></span><br><span class="line">    <span class="comment"># 这可以正确处理从0开始的子数组</span></span><br><span class="line">    prefix_sum_map[<span class="number">0</span>] = -<span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    ans = <span class="number">0</span></span><br><span class="line">    current_sum = <span class="number">0</span> </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        current_sum += arr[i]</span><br><span class="line">        <span class="comment"># 查找是否存在一个 j，使得 0..j 的前缀和为 current_sum - aim</span></span><br><span class="line">        <span class="keyword">if</span> (current_sum - aim) <span class="keyword">in</span> prefix_sum_map:</span><br><span class="line">            j = prefix_sum_map[current_sum - aim]</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, i - j)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 只记录每个前缀和第一次出现的位置</span></span><br><span class="line">        <span class="keyword">if</span> current_sum <span class="keyword">not</span> <span class="keyword">in</span> prefix_sum_map:</span><br><span class="line">            prefix_sum_map[current_sum] = i</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line"><span class="comment">### 类似上一题那样定义main和继续处理</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析-1"><a href="#算法分析-1" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(n)</li>
+<li><strong>空间复杂度</strong>：O(n)</li>
+<li><strong>核心技巧</strong>：记录最早位置 + 前缀和差值</li>
+</ul>
+<hr>
+<h2 id="题目三：累加和为给定值的子数组个数"><a href="#题目三：累加和为给定值的子数组个数" class="headerlink" title="题目三：累加和为给定值的子数组个数"></a>题目三：累加和为给定值的子数组个数</h2><h3 id="问题描述-2"><a href="#问题描述-2" class="headerlink" title="问题描述"></a>问题描述</h3><p>返回无序数组中累加和为给定值的子数组个数。</p>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subarray-sum-equals-k/">https://leetcode.cn/problems/subarray-sum-equals-k/</a></p>
+<h3 id="核心思想-2"><a href="#核心思想-2" class="headerlink" title="核心思想"></a>核心思想</h3><p>与寻找最长子数组类似，但哈希表存储的是<strong>前缀和出现的次数</strong>：</p>
+<ul>
+<li><code>prefix_sum_map[s - aim]</code> 的值代表有多少个合法的子数组可以在 <code>i</code> 位置结尾</li>
+<li>累加这些次数得到总的子数组个数</li>
+</ul>
+<h3 id="算法实现-2"><a href="#算法实现-2" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">subarraySum</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], aim: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        计算累加和为aim的子数组个数。</span></span><br><span class="line"><span class="string">        核心思想：</span></span><br><span class="line"><span class="string">        与寻找最长子数组类似，但哈希表的用途不同。</span></span><br><span class="line"><span class="string">        1. 这里的哈希表 `prefix_sum_map` 存储的是 &#123;前缀和 -&gt; 该前缀和出现的次数&#125;。</span></span><br><span class="line"><span class="string">        2. 遍历数组，计算到位置 `i` 的前缀和 `s`。</span></span><br><span class="line"><span class="string">        3. 同样，我们寻找 `s - aim` 这个目标前缀和。</span></span><br><span class="line"><span class="string">        4. 哈希表中 `prefix_sum_map[s - aim]` 的值，就代表了有多少个合法的子数组</span></span><br><span class="line"><span class="string">           可以在 `i` 位置结尾。我们将这个次数累加到 `ans` 中。</span></span><br><span class="line"><span class="string">        5. 遍历完 `i` 后，更新 `s` 在哈希表中的出现次数。</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># key: 前缀和, value: 该前缀和出现的次数</span></span><br><span class="line">        <span class="comment"># 使用 defaultdict 可以简化代码</span></span><br><span class="line">        prefix_sum_map = defaultdict(<span class="built_in">int</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 0这个前缀和，在没有任何数字的时候，已经有1次了</span></span><br><span class="line">        <span class="comment"># 空集也算一个子集</span></span><br><span class="line">        prefix_sum_map[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        current_sum = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="comment"># current_sum : 0...i前缀和</span></span><br><span class="line">            current_sum += num</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 查找有多少个 j 满足 0..j 的前缀和为 current_sum - aim</span></span><br><span class="line">            count = prefix_sum_map[current_sum - aim]</span><br><span class="line">            ans += count</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 更新当前前缀和的出现次数</span></span><br><span class="line">            prefix_sum_map[current_sum] += <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析-2"><a href="#算法分析-2" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(n)</li>
+<li><strong>空间复杂度</strong>：O(n)</li>
+<li><strong>核心技巧</strong>：记录出现次数 + 累加计数</li>
+</ul>
+<hr>
+<h2 id="题目四：正数和负数个数相等的最长子数组"><a href="#题目四：正数和负数个数相等的最长子数组" class="headerlink" title="题目四：正数和负数个数相等的最长子数组"></a>题目四：正数和负数个数相等的最长子数组</h2><h3 id="问题描述-3"><a href="#问题描述-3" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定一个无序数组arr，其中元素可正、可负、可0。求arr所有子数组中正数与负数个数相等的最长子数组的长度。</p>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/545544c060804eceaed0bb84fcd992fb">https://www.nowcoder.com/practice/545544c060804eceaed0bb84fcd992fb</a></p>
+<h3 id="核心思想-3"><a href="#核心思想-3" class="headerlink" title="核心思想"></a>核心思想</h3><p><strong>问题转化</strong>：将原数组进行转换，正数变为1，负数变为-1，0保持为0。在新数组中，如果一个子数组的累加和为0，就意味着其中1和-1的数量相等，对应原数组中正数和负数数量相等。</p>
+<p>之后算法就和”累加和为0的最长子数组”完全一样。</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(21)/class46-%E6%9E%84%E5%BB%BA%E5%89%8D%E7%BC%80%E4%BF%A1%E6%81%AF%E7%9A%84%E6%8A%80%E5%B7%A7/%E9%A2%98%E7%9B%AE%E5%9B%9B.png" alt="题目四"></p>
+<h3 id="算法实现-3"><a href="#算法实现-3" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">compute</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    核心思想：</span></span><br><span class="line"><span class="string">    1. 这个问题可以转化为“累加和为0的最长子数组长度”问题。</span></span><br><span class="line"><span class="string">    2. 将原数组进行转换：正数变为1，负数变为-1，0保持为0。</span></span><br><span class="line"><span class="string">    3. 在新数组中，如果一个子数组的累加和为0，</span></span><br><span class="line"><span class="string">       就意味着其中的1和-1的数量相等，这正好对应原数组中正数和负数数量相等。</span></span><br><span class="line"><span class="string">    4. 之后，算法就和“累加和为aim的最长子数组”完全一样，只是这里的aim固定为0。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    prefix_sum_map.clear()</span><br><span class="line">    prefix_sum_map[<span class="number">0</span>] = -<span class="number">1</span></span><br><span class="line">    ans = <span class="number">0</span></span><br><span class="line">    current_sum = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        current_sum += transformed_arr[i]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 寻找目标前缀和 (current_sum - 0)</span></span><br><span class="line">        <span class="keyword">if</span> current_sum <span class="keyword">in</span> prefix_sum_map:</span><br><span class="line">            j = prefix_sum_map[current_sum]</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, i - j)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">if</span> current_sum <span class="keyword">not</span> <span class="keyword">in</span> prefix_sum_map:</span><br><span class="line">            prefix_sum_map[current_sum] = i</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="keyword">global</span> n, transformed_arr</span><br><span class="line">    lines = sys.stdin.readlines()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lines:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">    line_iter = <span class="built_in">iter</span>(lines)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            line = <span class="built_in">next</span>(line_iter)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> line: <span class="keyword">break</span></span><br><span class="line">            </span><br><span class="line">            n = <span class="built_in">int</span>(line.strip())</span><br><span class="line">            arr_line = <span class="built_in">next</span>(line_iter)</span><br><span class="line">            original_arr = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, arr_line.strip().split()))</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 转换数组</span></span><br><span class="line">            transformed_arr = [<span class="number">0</span>] * n</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                num = original_arr[i]</span><br><span class="line">                <span class="keyword">if</span> num &gt; <span class="number">0</span>:</span><br><span class="line">                    transformed_arr[i] = <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> num &lt; <span class="number">0</span>:</span><br><span class="line">                    transformed_arr[i] = -<span class="number">1</span></span><br><span class="line">                <span class="comment"># 0 保持为 0</span></span><br><span class="line">            </span><br><span class="line">            <span class="built_in">print</span>(compute())</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">except</span> StopIteration:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析-3"><a href="#算法分析-3" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(n)</li>
+<li><strong>空间复杂度</strong>：O(n)</li>
+<li><strong>核心技巧</strong>：问题转化 + 前缀和</li>
+</ul>
+<hr>
+<h2 id="题目五：表现良好的最长时间段"><a href="#题目五：表现良好的最长时间段" class="headerlink" title="题目五：表现良好的最长时间段"></a>题目五：表现良好的最长时间段</h2><h3 id="问题描述-4"><a href="#问题描述-4" class="headerlink" title="问题描述"></a>问题描述</h3><p>给你一份工作时间表 hours，上面记录着某一位员工每天的工作小时数。当员工一天中的工作小时数大于8小时的时候，那么这一天就是劳累的一天。表现良好的时间段，意味在这段时间内，「劳累的天数」是严格大于不劳累的天数。请你返回表现良好时间段的最大长度。</p>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-well-performing-interval/">https://leetcode.cn/problems/longest-well-performing-interval/</a></p>
+<h3 id="核心思想-4"><a href="#核心思想-4" class="headerlink" title="核心思想"></a>核心思想</h3><p><strong>问题转化</strong>：将 &gt;8 小时的天记为 +1，&lt;&#x3D;8 小时的天记为 -1。问题变成了”求和为正数的最长子数组长度”。</p>
+<p>关键处理：</p>
+<ol>
+<li>如果当前前缀和 &gt; 0，说明从开头到当前位置整个时间段都表现良好</li>
+<li>如果前缀和 &lt;&#x3D; 0，需要找到最早的位置 j，使得 j+1 到 i 的子数组和 &gt; 0</li>
+<li>这等价于寻找前缀和为 <code>current_sum - 1</code> 的最早位置</li>
+</ol>
+<h3 id="算法实现-4"><a href="#算法实现-4" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">longestWPI</span>(<span class="params">self, hours: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        核心思想：</span></span><br><span class="line"><span class="string">        1. 将问题进行转换：将 &gt;8 小时的天记为 +1，&lt;=8 小时的天记为 -1。</span></span><br><span class="line"><span class="string">           问题就变成了“求和为正数的最长子数组长度”。</span></span><br><span class="line"><span class="string">        2. 使用前缀和与哈希表。我们遍历数组，计算当前的前缀和 `current_sum`。</span></span><br><span class="line"><span class="string">        3. 哈希表 `prefix_sum_map` 存储 &#123;前缀和 -&gt; 该和首次出现的位置&#125;。</span></span><br><span class="line"><span class="string">        4. 如果当前前缀和 `current_sum` &gt; 0，说明从开头到当前位置的整个时间段都是</span></span><br><span class="line"><span class="string">           表现良好的，长度为 `i + 1`，这是一个候选答案。</span></span><br><span class="line"><span class="string">        5. 如果 `current_sum` &lt;= 0，我们需要找到一个最早的位置 `j`，使得 `j+1` 到 `i` 的</span></span><br><span class="line"><span class="string">           子数组和 &gt; 0。这等价于 `current_sum - prefix_sum[j] &gt; 0`，</span></span><br><span class="line"><span class="string">           即 `current_sum &gt; prefix_sum[j]`。</span></span><br><span class="line"><span class="string">           为了使 `i - j` 最长，我们需要 `j` 最早，并且 `prefix_sum[j]` 尽可能小。</span></span><br><span class="line"><span class="string">           我们寻找 `current_sum - 1` 这个前缀和最早出现的位置，因为它能保证</span></span><br><span class="line"><span class="string">           `prefix_sum[j]` 严格小于 `current_sum`，从而找到一个候选的更长子数组。</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 某个前缀和，最早出现的位置</span></span><br><span class="line">        prefix_sum_map = &#123;&#125;</span><br><span class="line">        <span class="comment"># 0这个前缀和，最早出现在-1，一个数也没有的时候</span></span><br><span class="line">        prefix_sum_map[<span class="number">0</span>] = -<span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        current_sum = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i, h <span class="keyword">in</span> <span class="built_in">enumerate</span>(hours):</span><br><span class="line">            current_sum += <span class="number">1</span> <span class="keyword">if</span> h &gt; <span class="number">8</span> <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 如果当前前缀和 &gt; 0，说明从0到i的整个子数组都是一个解</span></span><br><span class="line">            <span class="keyword">if</span> current_sum &gt; <span class="number">0</span>:</span><br><span class="line">                ans = i + <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># current_sum &lt;= 0</span></span><br><span class="line">                <span class="comment"># 我们寻找是否存在一个更早的前缀和，值为 current_sum - 1</span></span><br><span class="line">                <span class="comment"># 如果存在，就能构成一个和为1的子数组，这也是一个解</span></span><br><span class="line">                <span class="keyword">if</span> (current_sum - <span class="number">1</span>) <span class="keyword">in</span> prefix_sum_map:</span><br><span class="line">                    ans = <span class="built_in">max</span>(ans, i - prefix_sum_map[current_sum - <span class="number">1</span>])</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 只记录每个前缀和第一次出现的位置，因为我们要找的是最早的位置</span></span><br><span class="line">            <span class="keyword">if</span> current_sum <span class="keyword">not</span> <span class="keyword">in</span> prefix_sum_map:</span><br><span class="line">                prefix_sum_map[current_sum] = i</span><br><span class="line">                </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析-4"><a href="#算法分析-4" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(n)</li>
+<li><strong>空间复杂度</strong>：O(n)</li>
+<li><strong>核心技巧</strong>：转化为正数和问题 + 特殊查找逻辑</li>
+</ul>
+<hr>
+<h2 id="题目六：使数组和能被P整除"><a href="#题目六：使数组和能被P整除" class="headerlink" title="题目六：使数组和能被P整除"></a>题目六：使数组和能被P整除</h2><h3 id="问题描述-5"><a href="#问题描述-5" class="headerlink" title="问题描述"></a>问题描述</h3><p>给你一个正整数数组 nums，请你移除最短子数组（可以为空），使得剩余元素的和能被 p 整除。不允许将整个数组都移除。请你返回你需要移除的最短子数组的长度，如果无法满足题目要求，返回 -1。</p>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/make-sum-divisible-by-p/">https://leetcode.cn/problems/make-sum-divisible-by-p/</a></p>
+<h3 id="核心思想-5"><a href="#核心思想-5" class="headerlink" title="核心思想"></a>核心思想</h3><p><strong>关键观察</strong>：设总和为 <code>total</code>，我们需要移除一个子数组使得 <code>(total - 子数组和) % p = 0</code>。</p>
+<p>设 <code>mod = total % p</code>，则需要移除的子数组和满足 <code>子数组和 % p = mod</code>。</p>
+<p>使用前缀和余数 + 哈希表记录<strong>最晚出现的位置</strong>（为了让子数组最短）</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(21)/class46-%E6%9E%84%E5%BB%BA%E5%89%8D%E7%BC%80%E4%BF%A1%E6%81%AF%E7%9A%84%E6%8A%80%E5%B7%A7/%E9%A2%98%E7%9B%AE%E5%85%AD%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5.png" alt="题目六核心概念"><br><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(21)/class46-%E6%9E%84%E5%BB%BA%E5%89%8D%E7%BC%80%E4%BF%A1%E6%81%AF%E7%9A%84%E6%8A%80%E5%B7%A7/%E9%A2%98%E7%9B%AE%E5%85%AD-%E9%97%AE%E9%A2%98%E8%BD%AC%E5%8C%96.png" alt="题目六-问题转化"></p>
+<h3 id="算法实现-5"><a href="#算法实现-5" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minSubarray</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], p: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        核心思想：</span></span><br><span class="line"><span class="string">        1. 首先计算整个数组的和对 p 取模，得到 `mod`。</span></span><br><span class="line"><span class="string">           如果 `mod == 0`，则无需移除任何元素，返回 0。</span></span><br><span class="line"><span class="string">        2. 我们的目标是移除一个子数组，其和对 p 取模的结果也等于 `mod`。</span></span><br><span class="line"><span class="string">           这样 `(总和 - 子数组和) % p` 就会等于 `(mod - mod) % p = 0`。</span></span><br><span class="line"><span class="string">        3. 问题转化为：寻找和对 p 取模为 `mod` 的最短子数组。</span></span><br><span class="line"><span class="string">        4. 使用前缀和与哈希表。哈希表 `prefix_mod_map` 存储 &#123;前缀和模p -&gt; 该模值最晚出现的位置&#125;。</span></span><br><span class="line"><span class="string">           我们需要最晚的位置，是为了让 `i - j` 这个子数组长度最短。</span></span><br><span class="line"><span class="string">        5. 遍历数组，计算到 `i` 的前缀和模 `p` 的值 `current_mod`。</span></span><br><span class="line"><span class="string">        6. 我们需要寻找一个 `j`，使得 `(i...j)` 子数组的和模 `p` 为 `mod`。</span></span><br><span class="line"><span class="string">           这等价于 `(prefix_mod[i] - prefix_mod[j-1]) % p == mod`。</span></span><br><span class="line"><span class="string">           变形得 `prefix_mod[j-1] == (current_mod - mod + p) % p`。</span></span><br><span class="line"><span class="string">        7. 我们在哈希表中查找这个目标 `find` 值，如果找到，就更新最短子数组长度。</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 整体余数</span></span><br><span class="line">        mod = <span class="built_in">sum</span>(nums) % p</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 如果总和本身就能被p整除，无需移除</span></span><br><span class="line">        <span class="keyword">if</span> mod == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># key : 前缀和%p的余数</span></span><br><span class="line">        <span class="comment"># value : 最晚出现的位置</span></span><br><span class="line">        prefix_mod_map = &#123;<span class="number">0</span>: -<span class="number">1</span>&#125;</span><br><span class="line">        ans = <span class="built_in">len</span>(nums)</span><br><span class="line">        </span><br><span class="line">        current_mod = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i, num <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">            <span class="comment"># 0...i这部分的余数</span></span><br><span class="line">            current_mod = (current_mod + num) % p</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 我们要找的目标前缀和余数 find</span></span><br><span class="line">            <span class="comment"># find = (current_mod - mod) % p</span></span><br><span class="line">            <span class="comment"># +p 是为了处理负数情况</span></span><br><span class="line">            find = (current_mod - mod + p) % p</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> find <span class="keyword">in</span> prefix_mod_map:</span><br><span class="line">                ans = <span class="built_in">min</span>(ans, i - prefix_mod_map[find])</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 存入当前前缀和余数出现的位置</span></span><br><span class="line">            prefix_mod_map[current_mod] = i</span><br><span class="line">            </span><br><span class="line">        <span class="comment"># 如果ans等于原数组长度，说明我们必须移除整个数组，按题意返回-1</span></span><br><span class="line">        <span class="keyword">return</span> ans <span class="keyword">if</span> ans &lt; <span class="built_in">len</span>(nums) <span class="keyword">else</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析-5"><a href="#算法分析-5" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(n)</li>
+<li><strong>空间复杂度</strong>：O(p)，最多存储p个不同的余数</li>
+<li><strong>核心技巧</strong>：取模运算 + 最晚位置</li>
+</ul>
+<hr>
+<h2 id="题目七：每个元音包含偶数次的最长子串"><a href="#题目七：每个元音包含偶数次的最长子串" class="headerlink" title="题目七：每个元音包含偶数次的最长子串"></a>题目七：每个元音包含偶数次的最长子串</h2><h3 id="问题描述-6"><a href="#问题描述-6" class="headerlink" title="问题描述"></a>问题描述</h3><p>给你一个字符串 s，请你返回满足以下条件的最长子字符串的长度：每个元音字母，即 ‘a’，’e’，’i’，’o’，’u’ 在子字符串中都恰好出现了偶数次。</p>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-longest-substring-containing-vowels-in-even-counts/">https://leetcode.cn/problems/find-the-longest-substring-containing-vowels-in-even-counts/</a></p>
+<h3 id="核心思想-6"><a href="#核心思想-6" class="headerlink" title="核心思想"></a>核心思想</h3><p><strong>状态压缩</strong>：用5位二进制数表示五个元音字母出现次数的奇偶性。</p>
+<ul>
+<li>例如：<code>01100</code> 表示 ‘e’ 和 ‘i’ 出现了奇数次，’a’,’o’,’u’出现了偶数次</li>
+<li>如果两个位置的状态码相同，说明中间子串中每个元音都出现了偶数次</li>
+</ul>
+<p>关键是找到相同状态码的最远距离。</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(21)/class46-%E6%9E%84%E5%BB%BA%E5%89%8D%E7%BC%80%E4%BF%A1%E6%81%AF%E7%9A%84%E6%8A%80%E5%B7%A7/%E9%A2%98%E7%9B%AE%E4%B8%83.png" alt="题目七"></p>
+<h3 id="算法实现-6"><a href="#算法实现-6" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">findTheLongestSubstring</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        核心思想：</span></span><br><span class="line"><span class="string">        1. 我们只关心五个元音字母&#x27;a,e,i,o,u&#x27;出现次数的奇偶性。</span></span><br><span class="line"><span class="string">           这可以用一个5位的二进制数（状态码/bitmask）来表示。</span></span><br><span class="line"><span class="string">           例如，二进制 `01100` 表示 &#x27;e&#x27; 和 &#x27;i&#x27; 出现了奇数次，&#x27;a&#x27;,&#x27;o&#x27;,&#x27;u&#x27;出现了偶数次。</span></span><br><span class="line"><span class="string">        2. 遍历字符串，维护一个从开头到当前位置的`status`状态码。</span></span><br><span class="line"><span class="string">           遇到一个元音，就用异或(XOR)操作翻转其对应的位。</span></span><br><span class="line"><span class="string">        3. 问题转化为：找到两个位置 `i` 和 `j`，使得它们的前缀状态码相同。</span></span><br><span class="line"><span class="string">           如果 `prefix_status[i] == prefix_status[j]`，那么 `j+1` 到 `i` 的子串中，</span></span><br><span class="line"><span class="string">           所有元音的奇偶性变化都抵消了，即每个元音都出现了偶数次。</span></span><br><span class="line"><span class="string">        4. 我们需要找到最长的这样的子串，即最大化 `i - j`。</span></span><br><span class="line"><span class="string">        5. 使用一个数组 `status_map` 记录每个状态码第一次出现的位置。</span></span><br><span class="line"><span class="string">           `status_map[status] = earliest_index`。</span></span><br><span class="line"><span class="string">        6. 初始化 `status_map[0] = -1`，表示初始状态（0次，偶数）出现在-1位置。</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        n = <span class="built_in">len</span>(s)</span><br><span class="line">        <span class="comment"># 用一个数组来存储每种状态第一次出现的位置</span></span><br><span class="line">        <span class="comment"># 状态码范围是 0 (00000) 到 31 (11111)</span></span><br><span class="line">        status_map = [-<span class="number">2</span>] * <span class="number">32</span> <span class="comment">#-2是初始值，表示这个状态码没有出现过</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 初始状态0 (所有元音都是偶数次0) 出现在-1位置</span></span><br><span class="line">        status_map[<span class="number">0</span>] = -<span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        status = <span class="number">0</span></span><br><span class="line">        vowel_map = &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;e&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;i&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;o&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;u&#x27;</span>: <span class="number">4</span>&#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i, char <span class="keyword">in</span> <span class="built_in">enumerate</span>(s):</span><br><span class="line">            <span class="comment"># status : 0....i-1字符串上，aeiou的奇偶性</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 检查当前字符是否为元音，并更新状态</span></span><br><span class="line">            <span class="keyword">if</span> char <span class="keyword">in</span> vowel_map:</span><br><span class="line">                move = vowel_map[char] <span class="comment"># 在vowel_map里看，a是0，e是1，i是2，o是3，u是4</span></span><br><span class="line">                status ^= (<span class="number">1</span> &lt;&lt; move) <span class="comment"># status是0...i-1字符串上，aeiou的奇偶性，用异或操作翻转其对应的位</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># status: 0....i字符串上，aeiou的奇偶性，是个五位的二进制数</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 检查当前状态是否之前出现过</span></span><br><span class="line">            <span class="keyword">if</span> status_map[status] != -<span class="number">2</span>:</span><br><span class="line">                <span class="comment"># 如果出现过，计算长度并更新最大值</span></span><br><span class="line">                ans = <span class="built_in">max</span>(ans, i - status_map[status])</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># 如果是第一次出现，记录当前位置</span></span><br><span class="line">                status_map[status] = i</span><br><span class="line">                </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析-6"><a href="#算法分析-6" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(n)</li>
+<li><strong>空间复杂度</strong>：O(1)，状态数组固定大小32</li>
+<li><strong>核心技巧</strong>：状态压缩 + 位运算</li>
+</ul>
+<hr>
+<h2 id="核心套路总结"><a href="#核心套路总结" class="headerlink" title="核心套路总结"></a>核心套路总结</h2><h3 id="1-前缀信息构建模板"><a href="#1-前缀信息构建模板" class="headerlink" title="1. 前缀信息构建模板"></a>1. 前缀信息构建模板</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基础前缀和</span></span><br><span class="line">prefix_sum = [<span class="number">0</span>] * (n + <span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    prefix_sum[i + <span class="number">1</span>] = prefix_sum[i] + nums[i]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 前缀状态（如奇偶性、余数等）</span></span><br><span class="line">prefix_state = initial_state</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    prefix_state = update_state(prefix_state, nums[i])</span><br><span class="line">    <span class="comment"># 处理当前状态</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-哈希表设计策略"><a href="#2-哈希表设计策略" class="headerlink" title="2. 哈希表设计策略"></a>2. 哈希表设计策略</h3><table>
+<thead>
+<tr>
+<th>问题类型</th>
+<th>哈希表存储内容</th>
+<th>选择策略</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>最长子数组</td>
+<td>{前缀信息 → 最早位置}</td>
+<td>只存首次出现</td>
+</tr>
+<tr>
+<td>最短子数组</td>
+<td>{前缀信息 → 最晚位置}</td>
+<td>覆盖存储</td>
+</tr>
+<tr>
+<td>子数组计数</td>
+<td>{前缀信息 → 出现次数}</td>
+<td>累加计数</td>
+</tr>
+</tbody></table>
+<h3 id="3-边界条件处理"><a href="#3-边界条件处理" class="headerlink" title="3. 边界条件处理"></a>3. 边界条件处理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重要：处理从0开始的子数组</span></span><br><span class="line">hash_map[initial_value] = -<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 避免重复计算</span></span><br><span class="line"><span class="keyword">if</span> condition_to_update:</span><br><span class="line">    hash_map[key] = value</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-问题转化技巧"><a href="#4-问题转化技巧" class="headerlink" title="4. 问题转化技巧"></a>4. 问题转化技巧</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 正负数相等 → 转化为累加和为0</span></span><br><span class="line">transform = <span class="keyword">lambda</span> x: <span class="number">1</span> <span class="keyword">if</span> x &gt; <span class="number">0</span> <span class="keyword">else</span> (-<span class="number">1</span> <span class="keyword">if</span> x &lt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 工作时间 → 转化为劳累天数大于非劳累天数</span></span><br><span class="line">transform = <span class="keyword">lambda</span> x: <span class="number">1</span> <span class="keyword">if</span> x &gt; <span class="number">8</span> <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 元音奇偶性 → 状态压缩</span></span><br><span class="line">state ^= (<span class="number">1</span> &lt;&lt; vowel_index)  <span class="comment"># 异或翻转对应位</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="复杂度分析总结"><a href="#复杂度分析总结" class="headerlink" title="复杂度分析总结"></a>复杂度分析总结</h2><table>
+<thead>
+<tr>
+<th>题目类型</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>核心数据结构</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>前缀和查询</td>
+<td>O(1) 查询</td>
+<td>O(n)</td>
+<td>前缀和数组</td>
+</tr>
+<tr>
+<td>最长子数组</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>哈希表</td>
+</tr>
+<tr>
+<td>子数组计数</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>哈希表</td>
+</tr>
+<tr>
+<td>状态压缩</td>
+<td>O(n)</td>
+<td>O(1)</td>
+<td>固定数组</td>
+</tr>
+</tbody></table>
+<h2 id="学习建议"><a href="#学习建议" class="headerlink" title="学习建议"></a>学习建议</h2><h3 id="1-掌握核心思想"><a href="#1-掌握核心思想" class="headerlink" title="1. 掌握核心思想"></a>1. 掌握核心思想</h3><ul>
+<li>理解前缀信息的作用：将子数组问题转化为两个前缀的差值问题</li>
+<li>掌握哈希表的不同用法：位置记录 vs 次数统计</li>
+<li>熟练运用问题转化技巧</li>
+</ul>
+<h3 id="2-注意实现细节"><a href="#2-注意实现细节" class="headerlink" title="2. 注意实现细节"></a>2. 注意实现细节</h3><ul>
+<li>初始状态的正确设置（如 <code>map[0] = -1</code>）</li>
+<li>哈希表更新时机的选择</li>
+<li>边界条件的处理</li>
+</ul>
+<h3 id="3-练习变形题目"><a href="#3-练习变形题目" class="headerlink" title="3. 练习变形题目"></a>3. 练习变形题目</h3><ul>
+<li>不同的累加和目标值</li>
+<li>不同的转化规则</li>
+<li>多种约束条件的组合</li>
+</ul>
+<h3 id="4-优化技巧"><a href="#4-优化技巧" class="headerlink" title="4. 优化技巧"></a>4. 优化技巧</h3><ul>
+<li>状态压缩减少空间占用</li>
+<li>合理选择数据结构</li>
+<li>避免不必要的重复计算</li>
+</ul>
+<p>通过掌握前缀信息 + 哈希表的解题套路，可以高效解决各种子数组相关问题。关键在于正确构建前缀信息，合理设计哈希表存储策略，以及灵活运用问题转化技巧。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/09/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8820%EF%BC%89-%20%E5%89%8D%E7%BC%80%E6%A0%91%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3214,363 +3500,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89-%20%E4%BD%8D%E5%9B%BE&%E4%BD%8D%E8%BF%90%E7%AE%97%E5%AE%9E%E7%8E%B0%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="AgioPan">
-      <meta itemprop="description" content="Solving equations, decoding life, exploring minds.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of AgioPan">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/08/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89-%20%E4%BD%8D%E5%9B%BE&%E4%BD%8D%E8%BF%90%E7%AE%97%E5%AE%9E%E7%8E%B0%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" class="post-title-link" itemprop="url">数据结构与算法自学笔记（11）- 位图&位运算实现加减乘除</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2025-08-16 08:42:46 / Modified: 17:27:38" itemprop="dateCreated datePublished" datetime="2025-08-16T08:42:46+08:00">2025-08-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Notes/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>参照的是左程云的课程：<a target="_blank" rel="noopener" href="https://space.bilibili.com/8888480/lists/3509640?type=series">https://space.bilibili.com/8888480/lists/3509640?type=series</a></p>
-<p>本笔记包括了位图数据结构的原理、实现和应用，以及如何用位运算实现加减乘除（完全不依赖任何算术运算符）。涵盖了class032 and class033的内容</p>
-<h1 id="032【必备】位图"><a href="#032【必备】位图" class="headerlink" title="032【必备】位图"></a>032【必备】位图</h1><h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>在学习位图之前，需要掌握以下基础知识：</p>
-<ul>
-<li>二进制和位运算操作</li>
-<li>对数器的使用方法</li>
-</ul>
-<p><strong>Python特别提醒</strong>：在实现位运算题目时需要特别注意溢出和符号扩展问题，通常需要手动处理：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Python中处理溢出的常见方法</span></span><br><span class="line">result = (n &lt;&lt; shift_amount) &amp; <span class="number">0xFFFFFFFF</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="位图的核心概念"><a href="#位图的核心概念" class="headerlink" title="位图的核心概念"></a>位图的核心概念</h2><h3 id="什么是位图"><a href="#什么是位图" class="headerlink" title="什么是位图"></a>什么是位图</h3><p>位图（Bitset）是一种极其节省空间的数据结构，用于存储大量布尔值。相比传统哈希表，位图具有显著的空间优势：</p>
-<ul>
-<li><strong>哈希表</strong>：每存储一个数字需要32个bit的空间</li>
-<li><strong>位图</strong>：每存储一个数字只需要1个bit的空间</li>
-</ul>
-<h3 id="位图的基本原理"><a href="#位图的基本原理" class="headerlink" title="位图的基本原理"></a>位图的基本原理</h3><p>位图本质上是用bit组成的数组来存放值，使用bit的状态（1和0）来表示元素的存在性：</p>
-<ul>
-<li><strong>bit位为1</strong>：表示该数字存在于集合中</li>
-<li><strong>bit位为0</strong>：表示该数字不存在于集合中</li>
-</ul>
-<p><strong>基本思想</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用一个很长的二进制位数组，每一位（bit）对应一个整数的&quot;有无&quot;状态</span><br><span class="line">第0位代表数字0，第1位代表数字1，第2位代表数字2，依此类推</span><br></pre></td></tr></table></figure>
-
-<h3 id="位图的适用场景"><a href="#位图的适用场景" class="headerlink" title="位图的适用场景"></a>位图的适用场景</h3><p><strong>优势</strong>：</p>
-<ul>
-<li>极大节省空间（1个数字仅占1个bit）</li>
-<li>查询和修改操作都是O(1)时间复杂度</li>
-<li>支持高效的批量操作</li>
-</ul>
-<p><strong>限制</strong>：</p>
-<ul>
-<li>必须是连续范围的整数</li>
-<li>范围不能过大（适合0到几百万，不适合到几十亿）</li>
-<li>只能表示元素的存在性，不能存储额外信息</li>
-</ul>
-<p><strong>适用场景</strong>：</p>
-<ul>
-<li>判断大量整数是否存在</li>
-<li>统计范围内数字的出现情况</li>
-<li>实现简单的集合操作</li>
-</ul>
-<h2 id="位图的实现"><a href="#位图的实现" class="headerlink" title="位图的实现"></a>位图的实现</h2><p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(11)/class32-%E4%BD%8D%E5%9B%BE/%E4%BD%8D%E5%9B%BE%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.png" alt="位图实现原理"></p>
-<h3 id="类设计接口"><a href="#类设计接口" class="headerlink" title="类设计接口"></a>类设计接口</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Bitset</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, n</span>):          <span class="comment"># 初始化位图，支持0~n-1所有数字</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, num</span>):             <span class="comment"># 把num加入到位图</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">remove</span>(<span class="params">self, num</span>):          <span class="comment"># 把num从位图中删除</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reverse</span>(<span class="params">self, num</span>):         <span class="comment"># 翻转num的状态（存在则删除，不存在则添加）</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">contains</span>(<span class="params">self, num</span>):        <span class="comment"># 查询num是否在位图中</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="完整实现代码"><a href="#完整实现代码" class="headerlink" title="完整实现代码"></a>完整实现代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Bitset</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, n</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        初始化位图，支持0~n-1范围内的数字</span></span><br><span class="line"><span class="string">        n个数字需要 (n + 31) // 32 个32位整数来存储</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 计算需要多少个32位整数</span></span><br><span class="line">        <span class="comment"># 使用 (n + 31) // 32 实现向上取整</span></span><br><span class="line">        <span class="comment"># 例如：32个数字需要1个整数，33个数字需要2个整数</span></span><br><span class="line">        <span class="variable language_">self</span>.<span class="built_in">set</span> = [<span class="number">0</span>] * ((n + <span class="number">31</span>) // <span class="number">32</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, num</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        将num添加到位图中（将对应位设置为1）</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># num // 32：确定数字在第几个32位整数中</span></span><br><span class="line">        <span class="comment"># num % 32：确定在该32位整数中的第几位</span></span><br><span class="line">        <span class="comment"># 1 &lt;&lt; (num % 32)：创建掩码，将1左移到对应位置</span></span><br><span class="line">        <span class="comment"># |=：按位或赋值，将对应位设置为1</span></span><br><span class="line">        <span class="variable language_">self</span>.<span class="built_in">set</span>[num // <span class="number">32</span>] |= <span class="number">1</span> &lt;&lt; (num % <span class="number">32</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">remove</span>(<span class="params">self, num</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        将num从位图中删除（将对应位设置为0）</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># ~(1 &lt;&lt; (num % 32))：创建掩码并取反，除了目标位其他位都是1</span></span><br><span class="line">        <span class="comment"># &amp;=：按位与赋值，将对应位清除为0</span></span><br><span class="line">        <span class="variable language_">self</span>.<span class="built_in">set</span>[num // <span class="number">32</span>] &amp;= ~(<span class="number">1</span> &lt;&lt; (num % <span class="number">32</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reverse</span>(<span class="params">self, num</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        翻转num在位图中的状态</span></span><br><span class="line"><span class="string">        如果存在则删除，如果不存在则添加</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># ^=：按位异或赋值</span></span><br><span class="line">        <span class="comment"># 如果位是0，异或1后变成1</span></span><br><span class="line">        <span class="comment"># 如果位是1，异或1后变成0</span></span><br><span class="line">        <span class="variable language_">self</span>.<span class="built_in">set</span>[num // <span class="number">32</span>] ^= <span class="number">1</span> &lt;&lt; (num % <span class="number">32</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">contains</span>(<span class="params">self, num</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        判断num是否存在于位图中</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># &gt;&gt; (num % 32)：将目标位移动到最低位</span></span><br><span class="line">        <span class="comment"># &amp; 1：提取最低位的值</span></span><br><span class="line">        <span class="comment"># == 1：判断是否为1</span></span><br><span class="line">        <span class="keyword">return</span> ((<span class="variable language_">self</span>.<span class="built_in">set</span>[num // <span class="number">32</span>] &gt;&gt; (num % <span class="number">32</span>)) &amp; <span class="number">1</span>) == <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="关键实现细节"><a href="#关键实现细节" class="headerlink" title="关键实现细节"></a>关键实现细节</h3><h4 id="1-空间分配策略"><a href="#1-空间分配策略" class="headerlink" title="1. 空间分配策略"></a>1. 空间分配策略</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 向上取整的巧妙实现</span></span><br><span class="line"><span class="comment"># 对于n个数字，需要的32位整数个数</span></span><br><span class="line">array_size = (n + <span class="number">31</span>) // <span class="number">32</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 原理：</span></span><br><span class="line"><span class="comment"># - 如果n=32，则(32+31)//32 = 63//32 = 1（正好1个整数）</span></span><br><span class="line"><span class="comment"># - 如果n=33，则(33+31)//32 = 64//32 = 2（需要2个整数）</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="2-位置计算"><a href="#2-位置计算" class="headerlink" title="2. 位置计算"></a>2. 位置计算</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_position</span>(<span class="params">num</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算数字num在位图中的位置&quot;&quot;&quot;</span></span><br><span class="line">    array_index = num // <span class="number">32</span>    <span class="comment"># 在第几个32位整数中</span></span><br><span class="line">    bit_index = num % <span class="number">32</span>       <span class="comment"># 在该整数的第几位</span></span><br><span class="line">    <span class="keyword">return</span> array_index, bit_index</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-位运算技巧总结"><a href="#3-位运算技巧总结" class="headerlink" title="3. 位运算技巧总结"></a>3. 位运算技巧总结</h4><table>
-<thead>
-<tr>
-<th>操作</th>
-<th>位运算实现</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>设置位为1</td>
-<td><code>x |= (1 &lt;&lt; i)</code></td>
-<td>按位或运算</td>
-</tr>
-<tr>
-<td>清除位为0</td>
-<td><code>x &amp;= ~(1 &lt;&lt; i)</code></td>
-<td>按位与运算（掩码取反）</td>
-</tr>
-<tr>
-<td>翻转位</td>
-<td><code>x ^= (1 &lt;&lt; i)</code></td>
-<td>按位异或运算</td>
-</tr>
-<tr>
-<td>检查位</td>
-<td><code>(x &gt;&gt; i) &amp; 1</code></td>
-<td>右移后提取最低位</td>
-</tr>
-</tbody></table>
-<h2 id="对数器测试"><a href="#对数器测试" class="headerlink" title="对数器测试"></a>对数器测试</h2><h3 id="测试设计思路"><a href="#测试设计思路" class="headerlink" title="测试设计思路"></a>测试设计思路</h3><p>使用Python内置的<code>set</code>作为参照标准，对位图的所有操作进行验证：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test_bitset</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;使用对数器验证位图实现的正确性&quot;&quot;&quot;</span></span><br><span class="line">    n = <span class="number">1000</span>          <span class="comment"># 位图大小</span></span><br><span class="line">    testTimes = <span class="number">10000</span> <span class="comment"># 测试次数</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;测试开始&quot;</span>)</span><br><span class="line">    bitSet = Bitset(n)      <span class="comment"># 被测试的位图结构</span></span><br><span class="line">    hashSet = <span class="built_in">set</span>()         <span class="comment"># 参照标准（Python内置set）</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;调用阶段开始&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(testTimes):</span><br><span class="line">        decide = random.random()                    <span class="comment"># 随机决定操作类型</span></span><br><span class="line">        number = <span class="built_in">int</span>(random.random() * n)          <span class="comment"># 随机生成0~n-1的数字</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> decide &lt; <span class="number">0.333</span>:                         <span class="comment"># 33%概率执行add操作</span></span><br><span class="line">            bitSet.add(number)</span><br><span class="line">            hashSet.add(number)</span><br><span class="line">        <span class="keyword">elif</span> decide &lt; <span class="number">0.666</span>:                       <span class="comment"># 33%概率执行remove操作</span></span><br><span class="line">            bitSet.remove(number)</span><br><span class="line">            hashSet.discard(number)                <span class="comment"># 使用discard避免KeyError</span></span><br><span class="line">        <span class="keyword">else</span>:                                      <span class="comment"># 34%概率执行reverse操作</span></span><br><span class="line">            bitSet.reverse(number)</span><br><span class="line">            <span class="keyword">if</span> number <span class="keyword">in</span> hashSet:</span><br><span class="line">                hashSet.remove(number)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                hashSet.add(number)</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;调用阶段结束&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;验证阶段开始&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 验证所有数字的存在性是否一致</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        <span class="keyword">if</span> bitSet.contains(i) != (i <span class="keyword">in</span> hashSet):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;出错了!&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;验证阶段结束&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;测试结束&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="测试覆盖的场景"><a href="#测试覆盖的场景" class="headerlink" title="测试覆盖的场景"></a>测试覆盖的场景</h3><ol>
-<li><strong>随机操作序列</strong>：大量随机的增删改查操作</li>
-<li><strong>边界条件</strong>：0和n-1等边界值</li>
-<li><strong>重复操作</strong>：对同一个数字的重复操作</li>
-<li><strong>状态一致性</strong>：每次操作后验证状态的一致性</li>
-</ol>
-<h2 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h2><h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><table>
-<thead>
-<tr>
-<th>操作</th>
-<th>时间复杂度</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>初始化</td>
-<td>O(n&#x2F;32)</td>
-<td>需要初始化数组</td>
-</tr>
-<tr>
-<td>add</td>
-<td>O(1)</td>
-<td>常数时间位运算</td>
-</tr>
-<tr>
-<td>remove</td>
-<td>O(1)</td>
-<td>常数时间位运算</td>
-</tr>
-<tr>
-<td>reverse</td>
-<td>O(1)</td>
-<td>常数时间位运算</td>
-</tr>
-<tr>
-<td>contains</td>
-<td>O(1)</td>
-<td>常数时间位运算</td>
-</tr>
-</tbody></table>
-<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><ul>
-<li><strong>位图空间</strong>：O(n&#x2F;32) &#x3D; O(n)</li>
-<li><strong>相比哈希表</strong>：空间节省约32倍</li>
-</ul>
-<h3 id="实际空间对比"><a href="#实际空间对比" class="headerlink" title="实际空间对比"></a>实际空间对比</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存储1000万个数字的空间对比</span></span><br><span class="line">numbers = <span class="number">10_000_000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 哈希表（假设每个数字32位）</span></span><br><span class="line">hash_space = numbers * <span class="number">32</span>  <span class="comment"># 320,000,000 bits</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 位图</span></span><br><span class="line">bitset_space = numbers * <span class="number">1</span>  <span class="comment"># 10,000,000 bits</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 空间节省比例</span></span><br><span class="line">space_saving = hash_space / bitset_space  <span class="comment"># 32倍</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="应用场景与扩展"><a href="#应用场景与扩展" class="headerlink" title="应用场景与扩展"></a>应用场景与扩展</h2><h3 id="典型应用场景"><a href="#典型应用场景" class="headerlink" title="典型应用场景"></a>典型应用场景</h3><ol>
-<li><strong>大数据去重</strong>：判断海量数据中的重复元素</li>
-<li><strong>布隆过滤器基础</strong>：位图是布隆过滤器的核心组件</li>
-<li><strong>状态压缩</strong>：在动态规划中压缩状态空间</li>
-<li><strong>集合运算</strong>：高效实现并集、交集、差集运算</li>
-</ol>
-<h3 id="位图的集合运算"><a href="#位图的集合运算" class="headerlink" title="位图的集合运算"></a>位图的集合运算</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">bitset_union</span>(<span class="params">bitset1, bitset2</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;位图并集运算&quot;&quot;&quot;</span></span><br><span class="line">    result = Bitset(<span class="built_in">max</span>(<span class="built_in">len</span>(bitset1.<span class="built_in">set</span>), <span class="built_in">len</span>(bitset2.<span class="built_in">set</span>)) * <span class="number">32</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">min</span>(<span class="built_in">len</span>(bitset1.<span class="built_in">set</span>), <span class="built_in">len</span>(bitset2.<span class="built_in">set</span>))):</span><br><span class="line">        result.<span class="built_in">set</span>[i] = bitset1.<span class="built_in">set</span>[i] | bitset2.<span class="built_in">set</span>[i]</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bitset_intersection</span>(<span class="params">bitset1, bitset2</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;位图交集运算&quot;&quot;&quot;</span></span><br><span class="line">    result = Bitset(<span class="built_in">max</span>(<span class="built_in">len</span>(bitset1.<span class="built_in">set</span>), <span class="built_in">len</span>(bitset2.<span class="built_in">set</span>)) * <span class="number">32</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">min</span>(<span class="built_in">len</span>(bitset1.<span class="built_in">set</span>), <span class="built_in">len</span>(bitset2.<span class="built_in">set</span>))):</span><br><span class="line">        result.<span class="built_in">set</span>[i] = bitset1.<span class="built_in">set</span>[i] &amp; bitset2.<span class="built_in">set</span>[i]</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
-
-<h3 id="实际应用示例"><a href="#实际应用示例" class="headerlink" title="实际应用示例"></a>实际应用示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">find_missing_numbers</span>(<span class="params">arr, n</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;找出0到n-1范围内缺失的所有数字&quot;&quot;&quot;</span></span><br><span class="line">    bitset = Bitset(n)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 标记存在的数字</span></span><br><span class="line">    <span class="keyword">for</span> num <span class="keyword">in</span> arr:</span><br><span class="line">        <span class="keyword">if</span> <span class="number">0</span> &lt;= num &lt; n:</span><br><span class="line">            bitset.add(num)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 找出缺失的数字</span></span><br><span class="line">    missing = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> bitset.contains(i):</span><br><span class="line">            missing.append(i)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> missing</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例使用</span></span><br><span class="line">arr = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">9</span>]</span><br><span class="line">n = <span class="number">10</span></span><br><span class="line">missing = find_missing_numbers(arr, n)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;缺失的数字: <span class="subst">&#123;missing&#125;</span>&quot;</span>)  <span class="comment"># 输出: [2, 4, 5, 8]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>位图是一种非常实用的数据结构，特别适合处理大量整数的存在性判断问题。它的核心优势在于：</p>
-<ol>
-<li><strong>极致的空间效率</strong>：相比传统数据结构节省32倍空间</li>
-<li><strong>优秀的时间性能</strong>：所有基本操作都是O(1)时间复杂度</li>
-<li><strong>简单的实现逻辑</strong>：基于基础位运算，易于理解和实现</li>
-</ol>
-<p>在大数据处理、系统设计等场景中，位图都是一个非常有价值的工具。</p>
-<h1 id="033【必备】位运算实现加减乘除"><a href="#033【必备】位运算实现加减乘除" class="headerlink" title="033【必备】位运算实现加减乘除"></a>033【必备】位运算实现加减乘除</h1><h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h2><p>位运算实现四则运算的核心在于模拟计算机底层的运算逻辑：</p>
-<ul>
-<li><strong>加法</strong>：基于异或（无进位相加）和与运算（进位处理）</li>
-<li><strong>减法</strong>：通过加法和取反实现</li>
-<li><strong>乘法</strong>：基于移位和加法的重复运算</li>
-<li><strong>除法</strong>：基于减法和移位的优化算法</li>
-</ul>
-<h2 id="Python中的特殊处理"><a href="#Python中的特殊处理" class="headerlink" title="Python中的特殊处理"></a>Python中的特殊处理</h2><p>在实现过程中，需要特别注意Python与Java的差异：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Java中的整数范围限制</span></span><br><span class="line">MIN = -<span class="number">2</span>**<span class="number">31</span>      <span class="comment"># -2147483648</span></span><br><span class="line">MAX = <span class="number">2</span>**<span class="number">31</span> - <span class="number">1</span>   <span class="comment"># 2147483647</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python中需要手动处理32位整数溢出</span></span><br><span class="line">result &amp;= <span class="number">0xFFFFFFFF</span>  <span class="comment"># 保持32位</span></span><br><span class="line"><span class="keyword">if</span> result &gt; <span class="number">0x7FFFFFFF</span>:</span><br><span class="line">    result = ~(result ^ <span class="number">0xFFFFFFFF</span>)  <span class="comment"># 转换为有符号整数</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="1-加法实现（核心基础）"><a href="#1-加法实现（核心基础）" class="headerlink" title="1. 加法实现（核心基础）"></a>1. 加法实现（核心基础）</h2><h3 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h3><p>加法的位运算实现基于两个关键概念：</p>
-<ol>
-<li><strong>无进位相加</strong>：使用异或运算（XOR）</li>
-<li><strong>进位信息</strong>：使用与运算（AND）后左移</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;位运算实现加法&quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment">#单次相加的结果为：无进位相加的结果+进位信息</span></span><br><span class="line">    ans = a</span><br><span class="line">    <span class="keyword">while</span> b != <span class="number">0</span>: <span class="comment"># 当b为0时，说明没有进位了，加法结束</span></span><br><span class="line">        <span class="comment"># 单次进位只能把当前位的进位信息加到下一高位，但新一位的进位可能和更高位产生新的进位冲突，需要继续处理。</span></span><br><span class="line">        <span class="comment"># 只有所有进位都为0，结果才是完整无误的。</span></span><br><span class="line">        <span class="comment"># ans : a和b无进位相加的结果</span></span><br><span class="line">        ans = a ^ b</span><br><span class="line">        <span class="comment"># b : a和b相加时的进位信息</span></span><br><span class="line">        b = (a &amp; b) &lt;&lt; <span class="number">1</span></span><br><span class="line">        <span class="comment"># Python中int无限大，为了模拟int32，需要对超出部分进行处理</span></span><br><span class="line">        <span class="comment"># 下面两行确保ans和b都保持32位</span></span><br><span class="line">        ans &amp;= <span class="number">0xFFFFFFFF</span></span><br><span class="line">        b &amp;= <span class="number">0xFFFFFFFF</span></span><br><span class="line">        a = ans</span><br><span class="line">    <span class="comment"># 处理负数转为补码</span></span><br><span class="line">    <span class="keyword">return</span> ans <span class="keyword">if</span> ans &lt;= <span class="number">0x7FFFFFFF</span> <span class="keyword">else</span> ~(ans ^ <span class="number">0xFFFFFFFF</span>)  <span class="comment">#结果超过最大值时，需要将无符号32位结果转换为有符号，当加法结果超过0x7FFFFFFF时，实际上表示的是负数，需要转换为对应的有符号表示</span></span><br><span class="line">    <span class="comment">#将ans与全1进行异或，相当于按位取反，~(...)：再次取反，相当于恢复原值</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="执行过程示例"><a href="#执行过程示例" class="headerlink" title="执行过程示例"></a>执行过程示例</h3><p>以 <code>5 + 3</code> 为例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">第1轮：a=5(101), b=3(011)</span><br><span class="line">  无进位：5^3 = 101^011 = 110 = 6</span><br><span class="line">  进位：(5&amp;3)&lt;&lt;1 = (001)&lt;&lt;1 = 010 = 2</span><br><span class="line">  </span><br><span class="line">第2轮：a=6(110), b=2(010)  </span><br><span class="line">  无进位：6^2 = 110^010 = 100 = 4</span><br><span class="line">  进位：(6&amp;2)&lt;&lt;1 = (010)&lt;&lt;1 = 100 = 4</span><br><span class="line">  </span><br><span class="line">第3轮：a=4(100), b=4(100)</span><br><span class="line">  无进位：4^4 = 100^100 = 000 = 0</span><br><span class="line">  进位：(4&amp;4)&lt;&lt;1 = (100)&lt;&lt;1 = 1000 = 8</span><br><span class="line">  </span><br><span class="line">第4轮：a=0(000), b=8(1000)</span><br><span class="line">  无进位：0^8 = 1000 = 8</span><br><span class="line">  进位：(0&amp;8)&lt;&lt;1 = 0</span><br><span class="line">  </span><br><span class="line">结果：8</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-取反运算"><a href="#2-取反运算" class="headerlink" title="2. 取反运算"></a>2. 取反运算</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">neg</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;取相反数：~n + 1&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> BitOperationAddMinusMultiplyDivide.add(~n, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="原理解释"><a href="#原理解释" class="headerlink" title="原理解释"></a>原理解释</h3><p>基于补码的性质：一个数的相反数等于该数按位取反后加1。</p>
-<ul>
-<li>正数：直接按位取反加1</li>
-<li>负数：同样规则，利用补码特性</li>
-</ul>
-<h2 id="3-减法实现"><a href="#3-减法实现" class="headerlink" title="3. 减法实现"></a>3. 减法实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">minus</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;减法就是加上-b&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> BitOperationAddMinusMultiplyDivide.add(a, BitOperationAddMinusMultiplyDivide.neg(b))</span><br></pre></td></tr></table></figure>
-
-<p>减法的实现非常简洁：<code>a - b = a + (-b)</code></p>
-<h2 id="4-乘法实现（龟速乘）"><a href="#4-乘法实现（龟速乘）" class="headerlink" title="4. 乘法实现（龟速乘）"></a>4. 乘法实现（龟速乘）</h2><h3 id="算法原理-1"><a href="#算法原理-1" class="headerlink" title="算法原理"></a>算法原理</h3><p>基于二进制乘法的原理，将乘法转换为多次加法和移位运算：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">multiply</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;位运算实现乘法&quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 把乘法拆成若干次加法，用位运算（移位）和加法实现，不直接用乘号，适合大数和防溢出场合。</span></span><br><span class="line">    <span class="comment"># 二进制的乘法也是像十进制一样，从右到左，一位一位的乘，然后错位相加</span></span><br><span class="line">    ans = <span class="number">0</span></span><br><span class="line">    <span class="comment"># 为了模拟int32，确保a, b, ans都在32位内</span></span><br><span class="line">    a &amp;= <span class="number">0xFFFFFFFF</span></span><br><span class="line">    b &amp;= <span class="number">0xFFFFFFFF</span></span><br><span class="line">    <span class="keyword">while</span> b != <span class="number">0</span>: <span class="comment">#说明乘数没有耗尽，继续乘</span></span><br><span class="line">        <span class="keyword">if</span> (b &amp; <span class="number">1</span>) != <span class="number">0</span>: <span class="comment">#说明当前位是1，需要加到结果上</span></span><br><span class="line">            <span class="comment"># 考察b当前最右的状态！</span></span><br><span class="line">            ans = BitOperationAddMinusMultiplyDivide.add(ans, a)</span><br><span class="line">            ans &amp;= <span class="number">0xFFFFFFFF</span>  <span class="comment"># 保持32位</span></span><br><span class="line">        a = (a &lt;&lt; <span class="number">1</span>) &amp; <span class="number">0xFFFFFFFF</span>  <span class="comment"># 左移并保持32位</span></span><br><span class="line">        <span class="comment"># Java中的 &gt;&gt;&gt; 表示无符号右移，Python没有，需特殊处理</span></span><br><span class="line">        <span class="keyword">if</span> b &gt;= <span class="number">0</span>:</span><br><span class="line">            b &gt;&gt;= <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment">#在Java中，&gt;&gt;&gt; 是无符号右移操作，无论原数是正数还是负数，右移时都在高位补0。但在Python中，&gt;&gt; 是有符号右移，对于负数会补1</span></span><br><span class="line">            <span class="comment">#内存中：b + 0x100000000和b的位模式完全相同，这时候又该告诉python该改变语义理解了</span></span><br><span class="line">            b = (b + <span class="number">0x100000000</span>) &gt;&gt; <span class="number">1</span> <span class="comment">#0x100000000等于2^32</span></span><br><span class="line">        b &amp;= <span class="number">0xFFFFFFFF</span>  <span class="comment"># 保持32位</span></span><br><span class="line">    <span class="comment"># 处理负数转为补码</span></span><br><span class="line">    <span class="keyword">return</span> ans <span class="keyword">if</span> ans &lt;= <span class="number">0x7FFFFFFF</span> <span class="keyword">else</span> ~(ans ^ <span class="number">0xFFFFFFFF</span>) <span class="comment"># 0xFFFFFFFF是全1，保证结果是32位，</span></span><br><span class="line">    <span class="comment"># 如果结果超过0x7FFFFFFF，说明发生了溢出</span></span><br><span class="line">    <span class="comment"># 使用~(ans ^ 0xFFFFFFFF)将结果&quot;包装&quot;到32位范围内</span></span><br><span class="line">    <span class="comment"># 这样就能得到正确的有符号32位整数结果</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="执行过程示例-1"><a href="#执行过程示例-1" class="headerlink" title="执行过程示例"></a>执行过程示例</h3><p>以 <code>5 × 3</code> 为例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">3的二进制：011</span><br><span class="line">第1轮：b=011, b&amp;1=1, ans += 5×2^0 = 5</span><br><span class="line">第2轮：b=001, b&amp;1=1, ans += 5×2^1 = 5+10 = 15</span><br><span class="line">第3轮：b=000, 结束</span><br><span class="line">结果：15</span><br></pre></td></tr></table></figure>
-
-<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>这种”龟速乘”在以下场景特别有用：</p>
-<ul>
-<li>大数乘法防溢出</li>
-<li>模运算：<code>(a × b) % m</code></li>
-<li>快速幂运算的基础</li>
-</ul>
-<h2 id="5-除法实现（最复杂）"><a href="#5-除法实现（最复杂）" class="headerlink" title="5. 除法实现（最复杂）"></a>5. 除法实现（最复杂）</h2><h3 id="核心挑战"><a href="#核心挑战" class="headerlink" title="核心挑战"></a>核心挑战</h3><p>除法是四则运算中最复杂的，需要处理多种边界情况：</p>
-<ol>
-<li>除数为0的情况</li>
-<li>整数最小值的特殊处理</li>
-<li>溢出预防</li>
-<li>符号处理</li>
-</ol>
-<h3 id="主要函数结构"><a href="#主要函数结构" class="headerlink" title="主要函数结构"></a>主要函数结构</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">divide</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;主除法函数，处理各种边界情况&quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 处理 a 和 b 都为最小值的情况</span></span><br><span class="line">    <span class="keyword">if</span> a == BitOperationAddMinusMultiplyDivide.MIN <span class="keyword">and</span> b == BitOperationAddMinusMultiplyDivide.MIN:</span><br><span class="line">        <span class="comment"># a和b都是整数最小</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="comment"># 处理 a 和 b 都不是最小值的情况</span></span><br><span class="line">    <span class="keyword">if</span> a != BitOperationAddMinusMultiplyDivide.MIN <span class="keyword">and</span> b != BitOperationAddMinusMultiplyDivide.MIN:</span><br><span class="line">        <span class="comment"># a和b都不是整数最小，那么正常去除</span></span><br><span class="line">        <span class="keyword">return</span> BitOperationAddMinusMultiplyDivide.div(a, b)</span><br><span class="line">    <span class="comment"># 处理 b 为最小值的情况</span></span><br><span class="line">    <span class="keyword">if</span> b == BitOperationAddMinusMultiplyDivide.MIN: </span><br><span class="line">        <span class="comment"># a不是整数最小，b是整数最小，整数最小值是负数，而且整数最小值无法转成相反数</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="comment"># 处理 a 为最小值，b 为 -1 的情况（防止溢出）</span></span><br><span class="line">    <span class="comment"># 第1个if不成立：a 和 b 不都是最小值；第2个if不成立：a 和 b 不都不是最小值；第3个if不成立：b 不是最小值，则排除完b，a就是最小值</span></span><br><span class="line">    <span class="keyword">if</span> b == BitOperationAddMinusMultiplyDivide.neg(<span class="number">1</span>):</span><br><span class="line">        <span class="comment"># a是整数最小，b是-1，返回整数最大，因为题目里明确这么说了</span></span><br><span class="line">        <span class="keyword">return</span> BitOperationAddMinusMultiplyDivide.MAX</span><br><span class="line">    <span class="comment"># a是整数最小，b不是整数最小，b也不是-1</span></span><br><span class="line">    a = BitOperationAddMinusMultiplyDivide.add(a, b <span class="keyword">if</span> b &gt; <span class="number">0</span> <span class="keyword">else</span> BitOperationAddMinusMultiplyDivide.neg(b)) <span class="comment">#让 a 不再是最小值，这样就可以安全地调用 div 函数了，如果 b &gt; 0：a = a + b；如果 b &lt; 0：a = a + (-b)</span></span><br><span class="line">    ans = BitOperationAddMinusMultiplyDivide.div(a, b) <span class="comment"># 现在 a 不再是最小值，可以安全地调用 div 函数</span></span><br><span class="line">    offset = BitOperationAddMinusMultiplyDivide.neg(<span class="number">1</span>) <span class="keyword">if</span> b &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">1</span> <span class="comment"># 如果 b &gt; 0，则 offset = -1；如果 b &lt; 0，则 offset = 1</span></span><br><span class="line">    <span class="keyword">return</span> BitOperationAddMinusMultiplyDivide.add(ans, offset) <span class="comment"># 最后把 offset 加回去</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="核心除法算法"><a href="#核心除法算法" class="headerlink" title="核心除法算法"></a>核心除法算法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">div</span>(<span class="params">a, b</span>): <span class="comment">#向下取整，但是不返回余数</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;核心除法实现，要求a和b都不是整数最小值&quot;&quot;&quot;</span></span><br><span class="line">    x = BitOperationAddMinusMultiplyDivide.neg(a) <span class="keyword">if</span> a &lt; <span class="number">0</span> <span class="keyword">else</span> a  <span class="comment"># 取绝对值</span></span><br><span class="line">    y = BitOperationAddMinusMultiplyDivide.neg(b) <span class="keyword">if</span> b &lt; <span class="number">0</span> <span class="keyword">else</span> b  <span class="comment"># 取绝对值</span></span><br><span class="line">    ans = <span class="number">0</span></span><br><span class="line">    i = <span class="number">30</span></span><br><span class="line">    <span class="keyword">while</span> i &gt;= <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># (x &gt;&gt; i) &gt;= y 时，说明y &lt;&lt; i 还能减掉</span></span><br><span class="line">        <span class="keyword">if</span> (x &gt;&gt; i) &gt;= y: <span class="comment">#判断x右移i位后是否大于等于y，若大于则记录1</span></span><br><span class="line">            ans |= (<span class="number">1</span> &lt;&lt; i)  <span class="comment"># 记录这个位</span></span><br><span class="line">            x = BitOperationAddMinusMultiplyDivide.minus(x, y &lt;&lt; i)  <span class="comment"># x 减去 y &lt;&lt; i，即y*2^i</span></span><br><span class="line">        i = BitOperationAddMinusMultiplyDivide.minus(i, <span class="number">1</span>)  <span class="comment"># 相当于 i--</span></span><br><span class="line">    <span class="comment"># 最后根据正负判断符号</span></span><br><span class="line">    <span class="keyword">return</span> BitOperationAddMinusMultiplyDivide.neg(ans) <span class="keyword">if</span> (a &lt; <span class="number">0</span>) ^ (b &lt; <span class="number">0</span>) <span class="keyword">else</span> ans <span class="comment">#当两个数的符号不同时，结果取负；当符号相同时，结果保持正。</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="算法原理解析"><a href="#算法原理解析" class="headerlink" title="算法原理解析"></a>算法原理解析</h3><p>除法算法本质上是<strong>二分查找的变种</strong>：</p>
-<ol>
-<li><strong>从高位到低位</strong>：尝试每一位是否能为1</li>
-<li><strong>位移优化</strong>：<code>y &lt;&lt; i</code> 相当于 <code>y × 2^i</code></li>
-<li><strong>贪心策略</strong>：能减就减，记录对应的位</li>
-</ol>
-<h3 id="执行过程示例-2"><a href="#执行过程示例-2" class="headerlink" title="执行过程示例"></a>执行过程示例</h3><p>以 <code>10 ÷ 3</code> 为例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x=10, y=3</span><br><span class="line">i=30: (10&gt;&gt;30)=0 &lt; 3, 跳过</span><br><span class="line">...</span><br><span class="line">i=2: (10&gt;&gt;2)=2 &lt; 3, 跳过  </span><br><span class="line">i=1: (10&gt;&gt;1)=5 &gt;= 3, ans|=(1&lt;&lt;1), x=10-6=4</span><br><span class="line">i=0: (4&gt;&gt;0)=4 &gt;= 3, ans|=(1&lt;&lt;0), x=4-3=1</span><br><span class="line">结果：ans = 11(二进制) = 3(十进制)</span><br></pre></td></tr></table></figure>
-
-<h2 id="边界情况处理"><a href="#边界情况处理" class="headerlink" title="边界情况处理"></a>边界情况处理</h2><h3 id="整数最小值的特殊性"><a href="#整数最小值的特殊性" class="headerlink" title="整数最小值的特殊性"></a>整数最小值的特殊性</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MIN = -<span class="number">2</span>**<span class="number">31</span>  <span class="comment"># -2147483648</span></span><br><span class="line">MAX = <span class="number">2</span>**<span class="number">31</span> - <span class="number">1</span>  <span class="comment"># 2147483647</span></span><br></pre></td></tr></table></figure>
-
-<p>整数最小值的特殊性在于它<strong>没有对应的正数</strong>，因为：</p>
-<ul>
-<li>最小值的绝对值是 <code>2^31</code></li>
-<li>最大正整数只有 <code>2^31 - 1</code></li>
-</ul>
-<h3 id="处理策略"><a href="#处理策略" class="headerlink" title="处理策略"></a>处理策略</h3><ol>
-<li><strong>预处理</strong>：将最小值调整为非最小值</li>
-<li><strong>后处理</strong>：补偿调整造成的误差</li>
-<li><strong>特殊返回</strong>：<code>MIN ÷ (-1)</code> 返回 <code>MAX</code></li>
-</ol>
-<h2 id="完整实现的使用示例"><a href="#完整实现的使用示例" class="headerlink" title="完整实现的使用示例"></a>完整实现的使用示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建类实例</span></span><br><span class="line">calc = BitOperationAddMinusMultiplyDivide()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试各种运算</span></span><br><span class="line"><span class="built_in">print</span>(calc.add(<span class="number">15</span>, <span class="number">27</span>))        <span class="comment"># 42</span></span><br><span class="line"><span class="built_in">print</span>(calc.minus(<span class="number">50</span>, <span class="number">18</span>))      <span class="comment"># 32  </span></span><br><span class="line"><span class="built_in">print</span>(calc.multiply(<span class="number">6</span>, <span class="number">7</span>))     <span class="comment"># 42</span></span><br><span class="line"><span class="built_in">print</span>(calc.divide(<span class="number">84</span>, <span class="number">2</span>))      <span class="comment"># 42</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试边界情况</span></span><br><span class="line"><span class="built_in">print</span>(calc.divide(-<span class="number">2</span>**<span class="number">31</span>, -<span class="number">1</span>)) <span class="comment"># 2**31-1 (MAX)</span></span><br><span class="line"><span class="built_in">print</span>(calc.divide(<span class="number">10</span>, <span class="number">3</span>))      <span class="comment"># 3</span></span><br><span class="line"><span class="built_in">print</span>(calc.divide(-<span class="number">10</span>, <span class="number">3</span>))     <span class="comment"># -3</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><table>
-<thead>
-<tr>
-<th>运算</th>
-<th>时间复杂度</th>
-<th>空间复杂度</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>加法</td>
-<td>O(1)</td>
-<td>O(1)</td>
-<td>最多32次循环</td>
-</tr>
-<tr>
-<td>减法</td>
-<td>O(1)</td>
-<td>O(1)</td>
-<td>调用加法和取反</td>
-</tr>
-<tr>
-<td>乘法</td>
-<td>O(1)</td>
-<td>O(1)</td>
-<td>最多32次循环</td>
-</tr>
-<tr>
-<td>除法</td>
-<td>O(1)</td>
-<td>O(1)</td>
-<td>固定31次循环</td>
-</tr>
-</tbody></table>
-<p>虽然有循环，但循环次数是固定的（最多32次），所以时间复杂度为常数。</p>
-<h2 id="实际应用场景"><a href="#实际应用场景" class="headerlink" title="实际应用场景"></a>实际应用场景</h2><ul>
-<li><ol>
-<li>底层系统编程<br>在某些嵌入式系统或底层驱动中，可能需要在没有算术运算单元的情况下实现运算。</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>大数运算<br>在实现大整数库时，这些技巧是基础构建块。</li>
-</ol>
-</li>
-<li><ol start="3">
-<li>密码学应用<br>在某些密码学算法中，需要避免使用标准库的运算函数。</li>
-</ol>
-</li>
-<li><ol start="4">
-<li>算法竞赛<br>某些特殊题目可能限制算术运算的使用。</li>
-</ol>
-</li>
-<li><ol start="5">
-<li>教学演示<br>帮助理解计算机底层运算原理。</li>
-</ol>
-</li>
-</ul>
-<h2 id="总结与思考"><a href="#总结与思考" class="headerlink" title="总结与思考"></a>总结与思考</h2><p>位运算实现四则运算展示了计算机底层运算的本质。虽然在实际开发中很少直接使用，但理解这些原理对于：</p>
-<ol>
-<li><strong>加深对计算机原理的理解</strong></li>
-<li><strong>提升位运算技巧</strong>  </li>
-<li><strong>应对特殊场景需求</strong></li>
-<li><strong>算法思维的训练</strong></li>
-</ol>
-<p>都具有重要意义。特别是除法的实现，体现了二分思想和贪心策略的完美结合，是位运算技巧的集大成者。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3642,7 +3571,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -3655,7 +3584,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">86</span>
+        <span class="site-state-item-count">88</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
