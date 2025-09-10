@@ -189,6 +189,270 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8812%EF%BC%89-%20%E9%93%BE%E8%A1%A8%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE%E5%92%8C%E5%BF%85%E5%A4%87%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="AgioPan">
+      <meta itemprop="description" content="Solving equations, decoding life, exploring minds.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AgioPan">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/08/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8812%EF%BC%89-%20%E9%93%BE%E8%A1%A8%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE%E5%92%8C%E5%BF%85%E5%A4%87%E6%8A%80%E5%B7%A7/" class="post-title-link" itemprop="url">数据结构与算法自学笔记（12）- 链表高频题目和必备技巧</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-08-17 08:42:46 / Modified: 17:06:58" itemprop="dateCreated datePublished" datetime="2025-08-17T08:42:46+08:00">2025-08-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>参照的是左程云的课程：<a target="_blank" rel="noopener" href="https://space.bilibili.com/8888480/lists/3509640?type=series">https://space.bilibili.com/8888480/lists/3509640?type=series</a></p>
+<p>本笔记总结了链表类题目的高频考点和必备技巧，包含6道经典链表题目的详细解析。链表题目主要考察的是编程能力而非算法设计，是class034的内容。</p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>在学习链表高频题目之前，需要掌握以下基础知识：</p>
+<ul>
+<li>链表入门内容（009~012讲）</li>
+<li>归并排序（021讲）</li>
+<li>哈希表的使用（026讲）</li>
+<li>排序算法的稳定性（029讲）</li>
+</ul>
+<h2 id="链表定义"><a href="#链表定义" class="headerlink" title="链表定义"></a>链表定义</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义链表节点类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ListNode</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, val=<span class="number">0</span>, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span><br><span class="line">        <span class="variable language_">self</span>.val = val  <span class="comment"># 节点存储的值</span></span><br><span class="line">        <span class="variable language_">self</span>.<span class="built_in">next</span> = <span class="built_in">next</span>  <span class="comment"># 指向下一个节点的指针</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="034【必备】链表高频题目和必备技巧"><a href="#034【必备】链表高频题目和必备技巧" class="headerlink" title="034【必备】链表高频题目和必备技巧"></a>034【必备】链表高频题目和必备技巧</h1><h2 id="链表题目解题要点"><a href="#链表题目解题要点" class="headerlink" title="链表题目解题要点"></a>链表题目解题要点</h2><h3 id="核心注意事项"><a href="#核心注意事项" class="headerlink" title="核心注意事项"></a>核心注意事项</h3><ol>
+<li><p><strong>空间复杂度的选择</strong>：</p>
+<ul>
+<li>如果笔试中空间要求不严格，直接使用容器来解决链表问题</li>
+<li>如果笔试中空间要求严格、或者在面试中面试官强调空间的优化，需要使用额外空间复杂度O(1)的方法</li>
+</ul>
+</li>
+<li><p><strong>最常用的技巧</strong>：快慢指针</p>
+</li>
+<li><p><strong>考察重点</strong>：链表类题目往往都是很简单的算法问题，核心考察点并不是算法设计，而是coding能力</p>
+</li>
+<li><p><strong>练习建议</strong>：既然练的就是coding，那么不要采取空间上讨巧的方式来练习（容器方法），这些题难就难在要用有限几个变量来解决</p>
+</li>
+</ol>
+<h2 id="题目一：返回两个无环链表相交的第一个节点"><a href="#题目一：返回两个无环链表相交的第一个节点" class="headerlink" title="题目一：返回两个无环链表相交的第一个节点"></a>题目一：返回两个无环链表相交的第一个节点</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定两个单链表的头节点，判断两个链表是否相交，如果相交返回第一个交点，否则返回None。</p>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/intersection-of-two-linked-lists/">https://leetcode.cn/problems/intersection-of-two-linked-lists/</a></p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(12)/class34-%E9%93%BE%E8%A1%A8%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE%E5%92%8C%E5%BF%85%E5%A4%87%E6%8A%80%E5%B7%A7/%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E7%9A%84%E6%A6%82%E5%BF%B5.png" alt="链表相交的概念"></p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>容器解法（空间复杂度O(N)）</strong>：</p>
+<ol>
+<li>遍历链表1，将每个节点加入哈希表</li>
+<li>遍历链表2，检查每个节点是否在哈希表中</li>
+<li>如果找到第一个在哈希表中的节点，即为第一个交点</li>
+</ol>
+<p><strong>最优解法（空间复杂度O(1)）</strong>：<br>核心思想是先判断两条链表是否相交，再找交点。</p>
+<p>判断相交的关键：两条链表如果相交，最后一个节点一定是同一个节点（因为链表每个节点只有一个next指针）。</p>
+<h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 返回两个无环链表相交的第一个节点</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getIntersectionNode</span>(<span class="params">self, h1: ListNode, h2: ListNode</span>) -&gt; ListNode:</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> h1 <span class="keyword">or</span> <span class="keyword">not</span> h2:  <span class="comment"># 任一链表为空，不可能相交</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    a = h1  <span class="comment"># a指针遍历链表1</span></span><br><span class="line">    b = h2  <span class="comment"># b指针遍历链表2</span></span><br><span class="line">    diff = <span class="number">0</span>  <span class="comment"># 记录两个链表的长度差</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 遍历链表1，计算其长度</span></span><br><span class="line">    <span class="keyword">while</span> a.<span class="built_in">next</span>:</span><br><span class="line">        a = a.<span class="built_in">next</span>  <span class="comment"># a指针后移</span></span><br><span class="line">        diff += <span class="number">1</span>  <span class="comment"># 长度差加1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 遍历链表2，计算其长度</span></span><br><span class="line">    <span class="keyword">while</span> b.<span class="built_in">next</span>:</span><br><span class="line">        b = b.<span class="built_in">next</span>  <span class="comment"># b指针后移</span></span><br><span class="line">        diff -= <span class="number">1</span>  <span class="comment"># 长度差减1</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> a != b:  <span class="comment"># 最后一个节点不同，说明不相交</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 根据长度差的正负，确定哪个是长链表，哪个是短链表</span></span><br><span class="line">    <span class="comment"># a指向长链表的头，b指向短链表的头</span></span><br><span class="line">    <span class="keyword">if</span> diff &gt;= <span class="number">0</span>:</span><br><span class="line">        a = h1  <span class="comment"># a指向长链表</span></span><br><span class="line">        b = h2  <span class="comment"># b指向短链表</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        a = h2</span><br><span class="line">        b = h1</span><br><span class="line">        </span><br><span class="line">    diff = <span class="built_in">abs</span>(diff)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> diff != <span class="number">0</span>:</span><br><span class="line">        a = a.<span class="built_in">next</span></span><br><span class="line">        diff -= <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 同时移动直到相遇</span></span><br><span class="line">    <span class="keyword">while</span> a != b:</span><br><span class="line">        a = a.<span class="built_in">next</span></span><br><span class="line">        b = b.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> a  <span class="comment"># 返回交点</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(M + N)，M和N分别是两个链表的长度</li>
+<li><strong>空间复杂度</strong>：O(1)</li>
+<li><strong>核心技巧</strong>：长度差计算 + 双指针</li>
+</ul>
+<h2 id="题目二：每k个节点一组翻转链表"><a href="#题目二：每k个节点一组翻转链表" class="headerlink" title="题目二：每k个节点一组翻转链表"></a>题目二：每k个节点一组翻转链表</h2><h3 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定一个链表，每k个节点一组进行翻转，如果最后剩余节点不够k个，则保持原样。</p>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reverse-nodes-in-k-group/">https://leetcode.cn/problems/reverse-nodes-in-k-group/</a></p>
+<h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>容器解法</strong>：把所有节点都放到数组里，然后每k个节点一组进行翻转，但空间复杂度为O(N)。</p>
+<p><strong>最优解法</strong>：使用有限变量完成分组翻转。</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(12)/class34-%E9%93%BE%E8%A1%A8%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE%E5%92%8C%E5%BF%85%E5%A4%87%E6%8A%80%E5%B7%A7/%E6%AF%8Fk%E4%B8%AA%E8%8A%82%E7%82%B9%E4%B8%80%E7%BB%84%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8.png" alt="每k个节点一组反转链表"></p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(12)/class34-%E9%93%BE%E8%A1%A8%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE%E5%92%8C%E5%BF%85%E5%A4%87%E6%8A%80%E5%B7%A7/%E6%AF%8Fk%E4%B8%AA%E8%8A%82%E7%82%B9%E4%B8%80%E7%BB%84%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8-reverse%E8%BF%87%E7%A8%8B.png" alt="每k个节点一组反转链表-reverse过程"></p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(12)/class34-%E9%93%BE%E8%A1%A8%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE%E5%92%8C%E5%BF%85%E5%A4%87%E6%8A%80%E5%B7%A7/%E6%AF%8Fk%E4%B8%AA%E8%8A%82%E7%82%B9%E4%B8%80%E7%BB%84%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8-%E6%89%BElastteamend.png" alt="每k个节点一组反转链表-找lastteamend"></p>
+<h3 id="算法步骤-1"><a href="#算法步骤-1" class="headerlink" title="算法步骤"></a>算法步骤</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 按k个一组翻转链表</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">reverseKGroup</span>(<span class="params">self, head: ListNode, k: <span class="built_in">int</span></span>) -&gt; ListNode:</span><br><span class="line">    start = head  <span class="comment"># start指向当前组的开始节点</span></span><br><span class="line">    end = <span class="variable language_">self</span>.teamEnd(start, k)  <span class="comment"># 找到第一组的结束节点</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> end <span class="keyword">is</span> <span class="literal">None</span>:  <span class="comment"># 如果第一组的长度不足k，直接返回原链表头节点</span></span><br><span class="line">        <span class="keyword">return</span> head</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 第一组很特殊因为牵扯到换头的问题</span></span><br><span class="line">    <span class="comment"># 翻转后，第一组的末尾节点end会成为整个链表的新头节点</span></span><br><span class="line">    head = end</span><br><span class="line">    <span class="variable language_">self</span>.reverse(start, end)  <span class="comment"># 翻转第一组节点</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 翻转之后start变成了上一组的结尾节点</span></span><br><span class="line">    lastTeamEnd = start  <span class="comment"># lastTeamEnd记录上一组翻转后的尾节点</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 循环处理剩余的链表</span></span><br><span class="line">    <span class="keyword">while</span> lastTeamEnd.<span class="built_in">next</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        start = lastTeamEnd.<span class="built_in">next</span>  <span class="comment"># 下一组的开始节点</span></span><br><span class="line">        end = <span class="variable language_">self</span>.teamEnd(start, k)  <span class="comment"># 找到下一组的结束节点</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> end <span class="keyword">is</span> <span class="literal">None</span>:  <span class="comment"># 如果剩余部分的长度不足k，直接返回头节点，不进行翻转</span></span><br><span class="line">            <span class="keyword">return</span> head</span><br><span class="line">        </span><br><span class="line">        <span class="variable language_">self</span>.reverse(start, end)  <span class="comment"># 翻转当前组</span></span><br><span class="line">        lastTeamEnd.<span class="built_in">next</span> = end  <span class="comment"># 将上一组的尾节点与当前组翻转后的头节点(即原来的end)连接起来</span></span><br><span class="line">        lastTeamEnd = start  <span class="comment"># 更新lastTeamEnd为当前组翻转后的尾节点(即原来的start)</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> head  <span class="comment"># 返回新的头节点</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 当前组的开始节点是s，往下数k个找到当前组的结束节点返回</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">teamEnd</span>(<span class="params">self, s: ListNode, k: <span class="built_in">int</span></span>) -&gt; ListNode:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;找到从s开始第k个节点&quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 从s开始，向后移动k-1次</span></span><br><span class="line">    <span class="keyword">while</span> k - <span class="number">1</span> != <span class="number">0</span> <span class="keyword">and</span> s <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        s = s.<span class="built_in">next</span>  <span class="comment"># s指针后移</span></span><br><span class="line">        k -= <span class="number">1</span>  <span class="comment"># 计数器减1</span></span><br><span class="line">    <span class="keyword">return</span> s  <span class="comment"># 返回第k个节点，如果不足k个则返回None</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># s -&gt; a -&gt; b -&gt; c -&gt; e -&gt; 下一组的开始节点</span></span><br><span class="line"><span class="comment"># 上面的链表通过如下的reverse方法调整成 : e -&gt; c -&gt; b -&gt; a -&gt; s -&gt; 下一组的开始节点</span></span><br><span class="line"><span class="comment"># 翻转从s到e的这一段链表</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">reverse</span>(<span class="params">self, s: ListNode, e: ListNode</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;翻转从s到e的链表段&quot;&quot;&quot;</span></span><br><span class="line">    e = e.<span class="built_in">next</span>  <span class="comment"># e是当前组的结尾，e.next指向下一组的开头</span></span><br><span class="line">    pre = <span class="literal">None</span>  <span class="comment"># pre是前一个节点，初值为None</span></span><br><span class="line">    cur = s  <span class="comment"># cur是当前节点，初值为s</span></span><br><span class="line">    next_node = <span class="literal">None</span>  <span class="comment"># next是下一个节点</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 遍历当前组，直到cur到达下一组的开头</span></span><br><span class="line">    <span class="keyword">while</span> cur != e:</span><br><span class="line">        next_node = cur.<span class="built_in">next</span>  <span class="comment"># 保存当前节点的下一个节点</span></span><br><span class="line">        cur.<span class="built_in">next</span> = pre  <span class="comment"># 将当前节点的next指针指向前一个节点</span></span><br><span class="line">        pre = cur  <span class="comment"># pre, cur向后移动</span></span><br><span class="line">        cur = next_node</span><br><span class="line">    </span><br><span class="line">    s.<span class="built_in">next</span> = e  <span class="comment"># 翻转后，原来的头节点s变成了尾节点，它的next应该指向下一组的开头</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析-1"><a href="#算法分析-1" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(N)</li>
+<li><strong>空间复杂度</strong>：O(1)</li>
+<li><strong>核心技巧</strong>：分组处理 + 局部翻转</li>
+</ul>
+<h2 id="题目三：复制带随机指针的链表"><a href="#题目三：复制带随机指针的链表" class="headerlink" title="题目三：复制带随机指针的链表"></a>题目三：复制带随机指针的链表</h2><h3 id="问题描述-2"><a href="#问题描述-2" class="headerlink" title="问题描述"></a>问题描述</h3><p>复制一个带random指针的链表，random可以指向链表中的任意节点或者null。</p>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/copy-list-with-random-pointer/">https://leetcode.cn/problems/copy-list-with-random-pointer/</a></p>
+<h3 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>容器解法</strong>：使用哈希表记录原节点和新节点的对应关系，空间复杂度O(N)。</p>
+<p><strong>最优解法</strong>：在原链表上直接操作，分三步完成复制。</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(12)/class34-%E9%93%BE%E8%A1%A8%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE%E5%92%8C%E5%BF%85%E5%A4%87%E6%8A%80%E5%B7%A7/%E6%8B%B7%E8%B4%9D%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88.png" alt="拷贝随机指针"></p>
+<h3 id="算法步骤-2"><a href="#算法步骤-2" class="headerlink" title="算法步骤"></a>算法步骤</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">copyRandomList</span>(<span class="params">self, head: <span class="string">&#x27;Node&#x27;</span></span>) -&gt; <span class="string">&#x27;Node&#x27;</span>:</span><br><span class="line">    <span class="keyword">if</span> head <span class="keyword">is</span> <span class="literal">None</span>:  <span class="comment"># 如果头节点为空，直接返回None</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line">    cur = head  <span class="comment"># cur指针用于遍历原链表</span></span><br><span class="line">    next_node = <span class="literal">None</span>  <span class="comment"># next指针用于暂存下一个节点</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 1 -&gt; 2 -&gt; 3 -&gt; ...变成 : 1 -&gt; 1&#x27; -&gt; 2 -&gt; 2&#x27; -&gt; 3 -&gt; 3&#x27; -&gt; ...</span></span><br><span class="line">    <span class="comment"># 第一步：复制每个节点并将其插入到原节点之后</span></span><br><span class="line">    <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        next_node = cur.<span class="built_in">next</span>  <span class="comment"># 保存原节点的下一个节点</span></span><br><span class="line">        cur.<span class="built_in">next</span> = <span class="variable language_">self</span>.Node(cur.val)  <span class="comment"># 创建新节点，值为原节点的值</span></span><br><span class="line">        cur.<span class="built_in">next</span>.<span class="built_in">next</span> = next_node  <span class="comment"># 将新节点的next指向原节点的下一个节点</span></span><br><span class="line">        cur = next_node  <span class="comment"># 移动cur到下一个原节点</span></span><br><span class="line">    </span><br><span class="line">    cur = head  <span class="comment"># cur指针重置回头节点，准备设置新节点的random指针</span></span><br><span class="line">    copy = <span class="literal">None</span>  <span class="comment"># copy指针用于指向复制的节点</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 第二步：为新节点设置random指针</span></span><br><span class="line">    <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        next_node = cur.<span class="built_in">next</span>.<span class="built_in">next</span>  <span class="comment"># 保存下一个原节点的位置</span></span><br><span class="line">        copy = cur.<span class="built_in">next</span>  <span class="comment"># 获取当前节点的复制节点</span></span><br><span class="line">        <span class="comment"># 设置复制节点的random指针</span></span><br><span class="line">        <span class="comment"># 如果原节点的random不为空，则其复制节点的random指向原节点random的下一个节点(即random指向节点的复制品)</span></span><br><span class="line">        copy.random = cur.random.<span class="built_in">next</span> <span class="keyword">if</span> cur.random <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line">        cur = next_node  <span class="comment"># 移动cur到下一个原节点</span></span><br><span class="line">        </span><br><span class="line">    ans = head.<span class="built_in">next</span>  <span class="comment"># ans是新链表的头节点，即原头节点的下一个节点</span></span><br><span class="line">    cur = head  <span class="comment"># cur指针重置回头节点，准备分离新旧链表</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 第三步：分离原链表和新链表</span></span><br><span class="line">    <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        next_node = cur.<span class="built_in">next</span>.<span class="built_in">next</span>  <span class="comment"># 保存下一个原节点的位置</span></span><br><span class="line">        copy = cur.<span class="built_in">next</span>  <span class="comment"># 获取当前节点的复制节点</span></span><br><span class="line">        cur.<span class="built_in">next</span> = next_node  <span class="comment"># 恢复原链表的next指针</span></span><br><span class="line">        <span class="comment"># 设置复制节点的next指针</span></span><br><span class="line">        <span class="comment"># 如果下一个原节点不为空，则复制节点的next指向下一个原节点的复制节点</span></span><br><span class="line">        copy.<span class="built_in">next</span> = next_node.<span class="built_in">next</span> <span class="keyword">if</span> next_node <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line">        cur = next_node  <span class="comment"># 移动cur到下一个原节点</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> ans  <span class="comment"># 返回新链表的头节点</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析-2"><a href="#算法分析-2" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(N)</li>
+<li><strong>空间复杂度</strong>：O(1)</li>
+<li><strong>核心技巧</strong>：节点插入 + 关系复制 + 链表分离</li>
+</ul>
+<h2 id="题目四：判断链表是否是回文结构"><a href="#题目四：判断链表是否是回文结构" class="headerlink" title="题目四：判断链表是否是回文结构"></a>题目四：判断链表是否是回文结构</h2><h3 id="问题描述-3"><a href="#问题描述-3" class="headerlink" title="问题描述"></a>问题描述</h3><p>判断链表是否是回文结构，一个链表节点视为一个字符。</p>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/palindrome-linked-list/">https://leetcode.cn/problems/palindrome-linked-list/</a></p>
+<h3 id="解题思路-3"><a href="#解题思路-3" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>容器解法</strong>：使用栈存储所有节点，然后比较压栈过程和弹栈过程的数字是不是一致的，空间复杂度O(N)。</p>
+<p><strong>最优解法</strong>：使用快慢指针找中点，翻转后半部分，然后比较。</p>
+<h3 id="算法步骤-3"><a href="#算法步骤-3" class="headerlink" title="算法步骤"></a>算法步骤</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提交如下的方法</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">isPalindrome</span>(<span class="params">self, head: ListNode</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">    <span class="keyword">if</span> head <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> head.<span class="built_in">next</span> <span class="keyword">is</span> <span class="literal">None</span>:  <span class="comment"># 空链表或只有一个节点的链表是回文结构</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    </span><br><span class="line">    slow = head  <span class="comment"># slow指针每次走一步，fast指针每次走两步</span></span><br><span class="line">    fast = head</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 找中点，当fast到达链表末尾时，slow正好在中间位置</span></span><br><span class="line">    <span class="keyword">while</span> fast.<span class="built_in">next</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> fast.<span class="built_in">next</span>.<span class="built_in">next</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        slow = slow.<span class="built_in">next</span>  <span class="comment"># slow指针后移一步</span></span><br><span class="line">        fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span>  <span class="comment"># fast指针后移两步</span></span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 现在中点就是slow，从中点开始往后的节点逆序</span></span><br><span class="line">    pre = slow  <span class="comment"># pre是反转后的链表的头节点，初始是slow</span></span><br><span class="line">    cur = pre.<span class="built_in">next</span>  <span class="comment"># cur是当前要处理的节点，初始是slow的下一个</span></span><br><span class="line">    next_node = <span class="literal">None</span>  <span class="comment"># next_node用于保存cur的下一个节点</span></span><br><span class="line">    pre.<span class="built_in">next</span> = <span class="literal">None</span>  <span class="comment"># 断开前半部分和后半部分的连接</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 循环反转后半部分链表</span></span><br><span class="line">    <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        next_node = cur.<span class="built_in">next</span>  <span class="comment"># 保存下一个节点</span></span><br><span class="line">        cur.<span class="built_in">next</span> = pre  <span class="comment"># 当前节点的next指向前一个节点(pre)</span></span><br><span class="line">        pre = cur  <span class="comment"># pre和cur指针后移</span></span><br><span class="line">        cur = next_node</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 上面的过程已经把链表调整成从左右两侧往中间指</span></span><br><span class="line">    <span class="comment"># head -&gt; ... -&gt; slow &lt;- ... &lt;- pre</span></span><br><span class="line">    ans = <span class="literal">True</span>  <span class="comment"># ans默认为True，即假设是回文</span></span><br><span class="line">    left = head  <span class="comment"># left指针从头开始</span></span><br><span class="line">    right = pre  <span class="comment"># right指针从后半部分的头（即反转前的尾）开始</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># left往右、right往左，每一步比对值是否一样，如果某一步不一样答案就是false</span></span><br><span class="line">    <span class="keyword">while</span> left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> right <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">if</span> left.val != right.val:  <span class="comment"># 如果左右两边的值不相等</span></span><br><span class="line">            ans = <span class="literal">False</span>  <span class="comment"># 那么不是回文</span></span><br><span class="line">            <span class="keyword">break</span>  <span class="comment"># 退出循环</span></span><br><span class="line">        left = left.<span class="built_in">next</span>  <span class="comment"># 移动指针</span></span><br><span class="line">        right = right.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 本着不坑的原则，把链表调整回原来的样子再返回判断结果</span></span><br><span class="line">    <span class="comment"># 再次反转后半部分，恢复原链表结构</span></span><br><span class="line">    cur = pre.<span class="built_in">next</span>  <span class="comment"># cur是当前要处理的节点，初始是pre的下一个</span></span><br><span class="line">    pre.<span class="built_in">next</span> = <span class="literal">None</span>  <span class="comment"># 断开连接</span></span><br><span class="line">    next_node = <span class="literal">None</span>  <span class="comment"># next_node用于保存cur的下一个节点</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 循环将后半部分链表反转回来</span></span><br><span class="line">    <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        next_node = cur.<span class="built_in">next</span>  <span class="comment"># 保存下一个节点</span></span><br><span class="line">        cur.<span class="built_in">next</span> = pre  <span class="comment"># 当前节点的next指向前一个节点(pre)</span></span><br><span class="line">        pre = cur  <span class="comment"># pre和cur指针后移</span></span><br><span class="line">        cur = next_node</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> ans  <span class="comment"># 返回最终的判断结果</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析-3"><a href="#算法分析-3" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(N)</li>
+<li><strong>空间复杂度</strong>：O(1)</li>
+<li><strong>核心技巧</strong>：快慢指针找中点 + 链表翻转</li>
+</ul>
+<h2 id="题目五：返回链表的第一个入环节点"><a href="#题目五：返回链表的第一个入环节点" class="headerlink" title="题目五：返回链表的第一个入环节点"></a>题目五：返回链表的第一个入环节点</h2><h3 id="问题描述-4"><a href="#问题描述-4" class="headerlink" title="问题描述"></a>问题描述</h3><p>判断链表是否有环，如果有环，返回入环节点，否则返回None。</p>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-cycle-ii/">https://leetcode.cn/problems/linked-list-cycle-ii/</a></p>
+<h3 id="解题思路-4"><a href="#解题思路-4" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>容器解法</strong>：用哈希表记录每个节点，如果某个节点再次出现，则该节点就是入环节点。</p>
+<p><strong>最优解法</strong>：使用快慢指针，分两阶段找环。</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(12)/class34-%E9%93%BE%E8%A1%A8%E9%AB%98%E9%A2%91%E9%A2%98%E7%9B%AE%E5%92%8C%E5%BF%85%E5%A4%87%E6%8A%80%E5%B7%A7/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88%E4%BC%9A%E5%9C%A8%E5%85%A5%E7%8E%AF%E5%A4%84%E7%9B%B8%E9%81%87.png" alt="快慢指针会在入环处相遇"></p>
+<h3 id="数学原理"><a href="#数学原理" class="headerlink" title="数学原理"></a>数学原理</h3><p>设链表头到入环点距离为a，入环点到相遇点距离为b，相遇点到入环点距离为c。</p>
+<p>当快慢指针相遇时：</p>
+<ul>
+<li>慢指针走过距离：a + b</li>
+<li>快指针走过距离：a + b + c + b &#x3D; a + 2b + c</li>
+</ul>
+<p>由于快指针速度是慢指针的2倍：<br>2(a + b) &#x3D; a + 2b + c<br>解得：a &#x3D; c</p>
+<h3 id="算法步骤-4"><a href="#算法步骤-4" class="headerlink" title="算法步骤"></a>算法步骤</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">detectCycle</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span><br><span class="line">    <span class="keyword">if</span> head <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> head.<span class="built_in">next</span> <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> head.<span class="built_in">next</span>.<span class="built_in">next</span> <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        </span><br><span class="line">    slow = head.<span class="built_in">next</span>  <span class="comment"># 慢指针slow每次走一步</span></span><br><span class="line">    fast = head.<span class="built_in">next</span>.<span class="built_in">next</span>  <span class="comment"># 快指针fast每次走两步</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 第一阶段：快慢指针相遇</span></span><br><span class="line">    <span class="keyword">while</span> slow != fast:</span><br><span class="line">        <span class="keyword">if</span> fast.<span class="built_in">next</span> <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> fast.<span class="built_in">next</span>.<span class="built_in">next</span> <span class="keyword">is</span> <span class="literal">None</span>:  <span class="comment"># 如果快指针或其下一个节点为空，说明没有环</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        slow = slow.<span class="built_in">next</span>  <span class="comment"># 慢指针走一步</span></span><br><span class="line">        fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span>  <span class="comment"># 快指针走两步</span></span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 第二阶段：快指针回到头部，同步移动</span></span><br><span class="line">    fast = head  <span class="comment"># 当快慢指针相遇后，将快指针重置到链表头</span></span><br><span class="line">    <span class="comment"># 此时，慢指针和快指针同时以每次一步的速度前进</span></span><br><span class="line">    <span class="keyword">while</span> slow != fast:</span><br><span class="line">        slow = slow.<span class="built_in">next</span>  <span class="comment"># 慢指针后移</span></span><br><span class="line">        fast = fast.<span class="built_in">next</span>  <span class="comment"># 快指针后移</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> slow  <span class="comment"># 相遇点即为入环点</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析-4"><a href="#算法分析-4" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(N)</li>
+<li><strong>空间复杂度</strong>：O(1)</li>
+<li><strong>核心技巧</strong>：快慢指针 + 数学推导</li>
+</ul>
+<h2 id="题目六：链表排序"><a href="#题目六：链表排序" class="headerlink" title="题目六：链表排序"></a>题目六：链表排序</h2><h3 id="问题描述-5"><a href="#问题描述-5" class="headerlink" title="问题描述"></a>问题描述</h3><p>在链表上排序，要求时间复杂度O(n*logn)，额外空间复杂度O(1)，还要求排序有稳定性。</p>
+<p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sort-list/">https://leetcode.cn/problems/sort-list/</a></p>
+<h3 id="解题思路-5"><a href="#解题思路-5" class="headerlink" title="解题思路"></a>解题思路</h3><p>链表由于有指针存在可以做到这个指标，但是数组排序不行。使用自底向上的归并排序，采用非递归方法避免O(logn)的递归空间。</p>
+<h3 id="算法步骤-5"><a href="#算法步骤-5" class="headerlink" title="算法步骤"></a>算法步骤</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">findEnd</span>(<span class="params">self, s: ListNode, k: <span class="built_in">int</span></span>) -&gt; ListNode:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;从s开始找第k个节点&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">while</span> s <span class="keyword">and</span> s.<span class="built_in">next</span> <span class="keyword">and</span> k - <span class="number">1</span> &gt; <span class="number">0</span>:</span><br><span class="line">        s = s.<span class="built_in">next</span></span><br><span class="line">        k -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> s</span><br><span class="line"></span><br><span class="line"><span class="comment"># l1...r1 -&gt; null : 有序的左部分 (在Python实现中r1,r2参数是不必要的)</span></span><br><span class="line"><span class="comment"># l2...r2 -&gt; null : 有序的右部分</span></span><br><span class="line"><span class="comment"># 整体merge在一起，保证有序</span></span><br><span class="line"><span class="comment"># 并且返回整体的头和尾</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params">self, l1: ListNode, l2: ListNode</span>) -&gt; (ListNode, ListNode):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;合并两个有序链表，返回头和尾&quot;&quot;&quot;</span></span><br><span class="line">    dummy = <span class="variable language_">self</span>.ListNode(<span class="number">0</span>)  <span class="comment"># dummy是哨兵节点，方便处理</span></span><br><span class="line">    pre = dummy  <span class="comment"># pre指针用于构建新链表</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 当两个链表都不为空时</span></span><br><span class="line">    <span class="keyword">while</span> l1 <span class="keyword">and</span> l2:</span><br><span class="line">        <span class="comment"># 比较两个链表节点的值</span></span><br><span class="line">        <span class="keyword">if</span> l1.val &lt;= l2.val:</span><br><span class="line">            pre.<span class="built_in">next</span> = l1  <span class="comment"># 将较小的节点连接到新链表</span></span><br><span class="line">            l1 = l1.<span class="built_in">next</span>  <span class="comment"># 移动l1指针</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            pre.<span class="built_in">next</span> = l2  <span class="comment"># 将较小的节点连接到新链表</span></span><br><span class="line">            l2 = l2.<span class="built_in">next</span>  <span class="comment"># 移动l2指针</span></span><br><span class="line">        pre = pre.<span class="built_in">next</span>  <span class="comment"># 移动pre指针</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 如果l1还有剩余，直接连接</span></span><br><span class="line">    <span class="keyword">if</span> l1:</span><br><span class="line">        pre.<span class="built_in">next</span> = l1</span><br><span class="line">    <span class="keyword">elif</span> l2:  <span class="comment"># 如果l2还有剩余，直接连接</span></span><br><span class="line">        pre.<span class="built_in">next</span> = l2</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 找到合并后链表的尾部</span></span><br><span class="line">    <span class="keyword">while</span> pre.<span class="built_in">next</span>:</span><br><span class="line">        pre = pre.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> dummy.<span class="built_in">next</span>, pre  <span class="comment"># 返回新链表的头和尾</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sortList</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;正式排序&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> head:  <span class="comment"># 如果链表为空，直接返回</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line">    n = <span class="number">0</span>  <span class="comment"># n用于存储链表长度</span></span><br><span class="line">    cur = head  <span class="comment"># cur用于遍历链表</span></span><br><span class="line">    <span class="comment"># 计算链表长度</span></span><br><span class="line">    <span class="keyword">while</span> cur:</span><br><span class="line">        n += <span class="number">1</span></span><br><span class="line">        cur = cur.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">    <span class="comment"># l1...r1 每组的左部分</span></span><br><span class="line">    <span class="comment"># l2...r2 每组的右部分</span></span><br><span class="line">    <span class="comment"># next_group_head 下一组的开头</span></span><br><span class="line">    <span class="comment"># last_team_end 上一组的结尾</span></span><br><span class="line">    </span><br><span class="line">    step = <span class="number">1</span>  <span class="comment"># step是每次合并的子链表长度，从1开始，每次翻倍</span></span><br><span class="line">    <span class="keyword">while</span> step &lt; n:</span><br><span class="line">        <span class="comment"># 每一轮归并开始时，重新从头开始，dummy是一个哨兵节点，方便处理头节点</span></span><br><span class="line">        dummy = <span class="variable language_">self</span>.ListNode(<span class="number">0</span>, head)</span><br><span class="line">        last_team_end = dummy  <span class="comment"># last_team_end指向上一次合并后的尾部</span></span><br><span class="line">        cur = dummy.<span class="built_in">next</span>  <span class="comment"># cur指向当前处理的链表的头部</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> cur:       </span><br><span class="line">            l1 = cur  <span class="comment"># l1是第一部分的头</span></span><br><span class="line">            r1 = <span class="variable language_">self</span>.findEnd(l1, step)  <span class="comment"># r1是第一部分的尾</span></span><br><span class="line">            l2 = r1.<span class="built_in">next</span> <span class="keyword">if</span> r1 <span class="keyword">else</span> <span class="literal">None</span>  <span class="comment"># l2是第二部分的头</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> l2:  <span class="comment"># 如果没有第二部分，就结束这一轮的合并</span></span><br><span class="line">                last_team_end.<span class="built_in">next</span> = l1</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            r2 = <span class="variable language_">self</span>.findEnd(l2, step)  <span class="comment"># r2是第二部分的尾</span></span><br><span class="line">            </span><br><span class="line">            next_group_head = r2.<span class="built_in">next</span> <span class="keyword">if</span> r2 <span class="keyword">else</span> <span class="literal">None</span>  <span class="comment"># next_group_head是下一组的头</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 断开链表，准备合并</span></span><br><span class="line">            r1.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">            r2.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">            </span><br><span class="line">            merged_head, merged_end = <span class="variable language_">self</span>.merge(l1, l2)  <span class="comment"># 合并l1和l2两个有序链表</span></span><br><span class="line">            </span><br><span class="line">            last_team_end.<span class="built_in">next</span> = merged_head  <span class="comment"># 将合并后的链表接在上一组的后面</span></span><br><span class="line">            last_team_end = merged_end  <span class="comment"># 更新last_team_end为当前合并后的尾部</span></span><br><span class="line">            </span><br><span class="line">            cur = next_group_head  <span class="comment"># cur指向下一组的开头</span></span><br><span class="line">        </span><br><span class="line">        head = dummy.<span class="built_in">next</span>  <span class="comment"># 更新整个链表的头</span></span><br><span class="line">        step &lt;&lt;= <span class="number">1</span>  <span class="comment"># 步长翻倍</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> head</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析-5"><a href="#算法分析-5" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><strong>时间复杂度</strong>：O(N*logN)</li>
+<li><strong>空间复杂度</strong>：O(1)</li>
+<li><strong>稳定性</strong>：是</li>
+<li><strong>核心技巧</strong>：自底向上归并 + 非递归实现</li>
+</ul>
+<h2 id="链表问题核心技巧总结"><a href="#链表问题核心技巧总结" class="headerlink" title="链表问题核心技巧总结"></a>链表问题核心技巧总结</h2><h3 id="1-快慢指针技巧"><a href="#1-快慢指针技巧" class="headerlink" title="1. 快慢指针技巧"></a>1. 快慢指针技巧</h3><p>快慢指针是链表问题中最重要的技巧：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 找链表中点</span></span><br><span class="line">slow = fast = head</span><br><span class="line"><span class="keyword">while</span> fast <span class="keyword">and</span> fast.<span class="built_in">next</span>:</span><br><span class="line">    slow = slow.<span class="built_in">next</span></span><br><span class="line">    fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line"><span class="comment"># slow指向中点</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断链表是否有环</span></span><br><span class="line">slow = fast = head</span><br><span class="line"><span class="keyword">while</span> fast <span class="keyword">and</span> fast.<span class="built_in">next</span>:</span><br><span class="line">    slow = slow.<span class="built_in">next</span></span><br><span class="line">    fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">    <span class="keyword">if</span> slow == fast:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span>  <span class="comment"># 有环</span></span><br><span class="line"><span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-虚拟头节点技巧"><a href="#2-虚拟头节点技巧" class="headerlink" title="2. 虚拟头节点技巧"></a>2. 虚拟头节点技巧</h3><p>当需要修改头节点时，使用虚拟头节点简化操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dummy = ListNode(<span class="number">0</span>)</span><br><span class="line">dummy.<span class="built_in">next</span> = head</span><br><span class="line"><span class="comment"># 对dummy.next进行操作</span></span><br><span class="line"><span class="keyword">return</span> dummy.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-双指针技巧"><a href="#3-双指针技巧" class="headerlink" title="3. 双指针技巧"></a>3. 双指针技巧</h3><p>用于处理需要同时操作两个位置的问题：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除倒数第n个节点</span></span><br><span class="line">dummy = ListNode(<span class="number">0</span>, head)</span><br><span class="line">first = second = dummy</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n + <span class="number">1</span>):</span><br><span class="line">    first = first.<span class="built_in">next</span></span><br><span class="line"><span class="keyword">while</span> first:</span><br><span class="line">    first = first.<span class="built_in">next</span></span><br><span class="line">    second = second.<span class="built_in">next</span></span><br><span class="line">second.<span class="built_in">next</span> = second.<span class="built_in">next</span>.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-链表翻转技巧"><a href="#4-链表翻转技巧" class="headerlink" title="4. 链表翻转技巧"></a>4. 链表翻转技巧</h3><p>翻转是链表的基础操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">reverse</span>(<span class="params">head</span>):</span><br><span class="line">    pre = <span class="literal">None</span></span><br><span class="line">    cur = head</span><br><span class="line">    <span class="keyword">while</span> cur:</span><br><span class="line">        next_node = cur.<span class="built_in">next</span></span><br><span class="line">        cur.<span class="built_in">next</span> = pre</span><br><span class="line">        pre = cur</span><br><span class="line">        cur = next_node</span><br><span class="line">    <span class="keyword">return</span> pre</span><br></pre></td></tr></table></figure>
+
+<h2 id="复杂度分析总结"><a href="#复杂度分析总结" class="headerlink" title="复杂度分析总结"></a>复杂度分析总结</h2><table>
+<thead>
+<tr>
+<th>题目</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>核心技巧</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>链表相交</td>
+<td>O(M+N)</td>
+<td>O(1)</td>
+<td>长度差+双指针</td>
+</tr>
+<tr>
+<td>K组翻转</td>
+<td>O(N)</td>
+<td>O(1)</td>
+<td>分组+局部翻转</td>
+</tr>
+<tr>
+<td>复制随机链表</td>
+<td>O(N)</td>
+<td>O(1)</td>
+<td>节点插入+分离</td>
+</tr>
+<tr>
+<td>回文判断</td>
+<td>O(N)</td>
+<td>O(1)</td>
+<td>快慢指针+翻转</td>
+</tr>
+<tr>
+<td>环检测</td>
+<td>O(N)</td>
+<td>O(1)</td>
+<td>快慢指针+数学</td>
+</tr>
+<tr>
+<td>链表排序</td>
+<td>O(N*logN)</td>
+<td>O(1)</td>
+<td>自底向上归并</td>
+</tr>
+</tbody></table>
+<h2 id="学习建议"><a href="#学习建议" class="headerlink" title="学习建议"></a>学习建议</h2><ol>
+<li><p><strong>重视编程能力</strong>：链表题目主要考察coding能力，要多练习用有限变量解决问题</p>
+</li>
+<li><p><strong>掌握核心技巧</strong>：</p>
+<ul>
+<li>快慢指针（最重要）</li>
+<li>虚拟头节点</li>
+<li>双指针</li>
+<li>链表翻转</li>
+</ul>
+</li>
+<li><p><strong>避免容器方法</strong>：在练习时尽量使用O(1)空间的方法，提升编程能力</p>
+</li>
+<li><p><strong>注意边界条件</strong>：</p>
+<ul>
+<li>空链表</li>
+<li>单节点链表</li>
+<li>链表长度不足的情况</li>
+</ul>
+</li>
+<li><p><strong>保持链表结构</strong>：某些题目要求恢复原链表结构，要特别注意</p>
+</li>
+</ol>
+<p>链表问题虽然算法相对简单，但对编程能力要求较高。通过大量练习和对核心技巧的熟练掌握，可以有效提升解题能力。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%8811%EF%BC%89-%20%E4%BD%8D%E5%9B%BE&%E4%BD%8D%E8%BF%90%E7%AE%97%E5%AE%9E%E7%8E%B0%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3252,82 +3516,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E8%AF%BE%E4%BB%B6%E7%95%99%E6%A1%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="AgioPan">
-      <meta itemprop="description" content="Solving equations, decoding life, exploring minds.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of AgioPan">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/08/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E8%AF%BE%E4%BB%B6%E7%95%99%E6%A1%A3/" class="post-title-link" itemprop="url">吴恩达机器学习课程资料归档</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2025-08-03 12:00:00 / Modified: 20:04:45" itemprop="dateCreated datePublished" datetime="2025-08-03T12:00:00+08:00">2025-08-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Review/" itemprop="url" rel="index"><span itemprop="name">Review</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Review/Online-course/" itemprop="url" rel="index"><span itemprop="name">Online course</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>大概是24年暑假期间一周速通学完了吴恩达的机器学习，真真真是深入浅出，言简意赅， 记录一下吴恩达机器学习课程相关的PDF资料、讲义、笔记等，方便日后复习与查阅。</p>
-<h1 id="课程链接"><a href="#课程链接" class="headerlink" title="课程链接"></a>课程链接</h1><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Bq421A74G/?spm_id_from=333.1387.top_right_bar_window_custom_collection.content.click">吴恩达机器学习（B站全套）</a></p>
-<h1 id="课堂上的PDF笔记"><a href="#课堂上的PDF笔记" class="headerlink" title="课堂上的PDF笔记"></a>课堂上的PDF笔记</h1><iframe src="/myjs/pdfjs/web/viewer.html?file=/pdf/吴恩达机器学习的笔记/吴恩达机器学习的课堂Review.pdf" style="width:100%;height:800px"></iframe>
-
-<h1 id="网盘整体的文件"><a href="#网盘整体的文件" class="headerlink" title="网盘整体的文件"></a>网盘整体的文件</h1><p>通过网盘分享的文件：A最新版 吴恩达机器学习Deeplearning.ai<br>链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1RGHnExutISizVeFNNR4OnQ?pwd=ue7m">https://pan.baidu.com/s/1RGHnExutISizVeFNNR4OnQ?pwd=ue7m</a> 提取码: ue7m </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3399,7 +3587,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -3412,7 +3600,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-count">90</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
