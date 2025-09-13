@@ -189,6 +189,109 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/04/Academic%20Paper%20learning%20&%20Translation%20Records/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="AgioPan">
+      <meta itemprop="description" content="Solving equations, decoding life, exploring minds.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AgioPan">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/08/04/Academic%20Paper%20learning%20&%20Translation%20Records/" class="post-title-link" itemprop="url">Academic Paper learning & Translation Records</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-08-04 14:00:00" itemprop="dateCreated datePublished" datetime="2025-08-04T14:00:00+08:00">2025-08-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-08-05 16:19:17" itemprop="dateModified" datetime="2025-08-05T16:19:17+08:00">2025-08-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Review/" itemprop="url" rel="index"><span itemprop="name">Review</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Review/Translation/" itemprop="url" rel="index"><span itemprop="name">Translation</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>本文档用于记录自己读过的学术论文和亲自翻译的论文内容。每篇论文包含简要说明和个人理解，部分论文附有飞书文档或doi链接</p>
+<hr>
+<h1 id="翻译论文记录"><a href="#翻译论文记录" class="headerlink" title="翻译论文记录"></a>翻译论文记录</h1><h2 id="P´olya’s-Random-Walk-Theorem"><a href="#P´olya’s-Random-Walk-Theorem" class="headerlink" title="P´olya’s Random Walk Theorem"></a>P´olya’s Random Walk Theorem</h2><p>当时是为了随机过程的pre，然后翻译并推了一遍polya随机游走定理，记录一下。</p>
+<p><strong>原文标题</strong>：P´olya’s Random Walk Theorem<br><strong>作者</strong>：Jonathan Novak<br><strong>出处</strong>：The American Mathematical Monthly, 2014•Taylor &amp; Francis<br><strong>doi号</strong>：<a target="_blank" rel="noopener" href="https://doi.org/10.48550/arXiv.1301.3916">点此查看全文</a><br><strong>飞书链接</strong>：<a target="_blank" rel="noopener" href="https://cqpqhy5koc9.feishu.cn/docx/ILmQd6LHVoVouHxrqzbcUFLqnid?from=from_copylink">点此查看翻译版</a></p>
+<h2 id="MDS-TSNE-UMAP"><a href="#MDS-TSNE-UMAP" class="headerlink" title="MDS&#x2F;TSNE&#x2F;UMAP"></a>MDS&#x2F;TSNE&#x2F;UMAP</h2><p>longlongago之前把生物信息里比较常用的三种降维算法都学和推了一遍，分别是MDS（multidimensional scaling）多维尺度分析、t-SNE（t-distributed Stochastic Neighbor Embedding）和UMAP（Uniform Manifold Approximation and Projection），记录一下翻译版。</p>
+<p><strong>飞书链接</strong>：<a target="_blank" rel="noopener" href="https://cqpqhy5koc9.feishu.cn/docx/SP81dw744o2KXBxNtlkc8eXQnxo?from=from_copylink">点此查看整合的笔记</a></p>
+<h3 id="MDS"><a href="#MDS" class="headerlink" title="MDS"></a>MDS</h3><p>Multidimensional scaling，简称MDS，中文翻译成多维尺度分析。其原理是利用成对样本间的相似性，去构建合适的低维空间，使得样本在此空间的距离和在高维空间中的样本间的相似性尽可能的保持一致。我们可以用这种方式来可视化数据分布，PCA是MDS中特殊的一种。</p>
+<p>感觉有点像层次分析法，比较早用于心理学&amp;社会科学上的一些相似性分析。以下公式为简单的优化思想，理论上可以从欧式距离推广到各种距离如曼哈顿、马氏等等。</p>
+<p>原始文献有点太古老了，所以看的是csdn上的专栏：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u010705209/article/details/53518772?utm_source=itdadao&utm_medium=referral">https://blog.csdn.net/u010705209/article/details/53518772?utm_source=itdadao&amp;utm_medium=referral</a></p>
+<ul>
+<li>Kruskal, J. B. (1964). “Multidimensional Scaling by Optimizing Goodness of Fit to a Nonmetric Hypothesis.” Psychometrika, 29(1), 1-27.</li>
+<li>Shepard, R. N. (1962). “The Analysis of Proximities: Multidimensional Scaling with an Unknown Distance Function.” Psychometrika, 27(2), 125-140.</li>
+</ul>
+<h3 id="TSNE"><a href="#TSNE" class="headerlink" title="TSNE"></a>TSNE</h3><p>t-sne感觉是比较fashion的概率方法，很有意思。找了一篇论文<a target="_blank" rel="noopener" href="https://www.jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf">https://www.jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf</a></p>
+<p><strong>原文标题</strong>：Visualizing Data using t-SNE<br><strong>作者</strong>：Laurens van der Maaten， Geoffrey Hinton<br><strong>出处</strong>：Journal of Machine Learning Research 9 (2008) 2579-2605<br><strong>doi号</strong>：<a target="_blank" rel="noopener" href="https://www.jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf">点此查看全文</a></p>
+<h3 id="UMAP"><a href="#UMAP" class="headerlink" title="UMAP"></a>UMAP</h3><p>UMAP没有看太懂，主要是我没学过拓扑，但是其中模糊数学的部分很有意思，这篇论文刚刚发预印本的时候模糊数学还挺火的，现在不行了。</p>
+<p><strong>原文标题</strong>：Uniform manifold approximation and projection<br><strong>作者</strong>：John Healy， Leland McInnes<br><strong>出处</strong>：Nature Reviews Methods Primers volume 4, Article number: 82 (2024)<br><strong>doi号</strong>：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1802.03426">点此查看全文</a></p>
+<h2 id="注意力机制相关"><a href="#注意力机制相关" class="headerlink" title="注意力机制相关"></a>注意力机制相关</h2><p>包括注意力机制到transformer的自注意力及其后续的变体，还有ESM3几何注意力机制、rfdiffusion的IGSO3等等。</p>
+<h3 id="注意力机制的发展"><a href="#注意力机制的发展" class="headerlink" title="注意力机制的发展"></a>注意力机制的发展</h3><p>longlongago之前学深度学习补的：</p>
+<p><strong>飞书链接</strong>：<a target="_blank" rel="noopener" href="https://cqpqhy5koc9.feishu.cn/docx/ZhcAdjXrpoRE0exteQDc1WDZnDg?from=from_copylink">点此查看整合的笔记</a></p>
+<h3 id="几何注意力机制"><a href="#几何注意力机制" class="headerlink" title="几何注意力机制"></a>几何注意力机制</h3><p>ESM3有用到，ESM3模型处理蛋白质结构信息的两种主要方法：几何注意力（Geometric Attention）和结构标记（Structure Tokens）。</p>
+<p><strong>飞书链接</strong>：<a target="_blank" rel="noopener" href="https://cqpqhy5koc9.feishu.cn/docx/NvxrdQV10oc6dAxO58jcRg2mnud?from=from_copylink">点此查看整合的笔记</a></p>
+<h3 id="IGSO3"><a href="#IGSO3" class="headerlink" title="IGSO3"></a>IGSO3</h3><p>当时看rfdiffusion被吓坏了，这个证明真的很吓人</p>
+<p><strong>飞书链接</strong>：<a target="_blank" rel="noopener" href="https://cqpqhy5koc9.feishu.cn/docx/FSKFdRxOUoIyuWxeZ9DcizWfn9b?from=from_copylink">点此查看整合的笔记</a></p>
+<h2 id="倾向性得分在观察性研究中因果效应分析的核心作用"><a href="#倾向性得分在观察性研究中因果效应分析的核心作用" class="headerlink" title="倾向性得分在观察性研究中因果效应分析的核心作用"></a>倾向性得分在观察性研究中因果效应分析的核心作用</h2><p>文理学院统计系汇报的pre，看完了之后连统计学都不想学了，数学和统计完全是两个学科啊！感觉自己喜欢的是统计计算而不是数理统计和传统的统计inference，润了润了润去计算了</p>
+<p><strong>原文标题</strong>：The central role of the propensity score in observational studies for causal effect<br><strong>作者</strong>：PAUL R. ROSENBAUM, DONALD B. RUBIN<br><strong>出处</strong>：Biometrilca (1083), 70, 1, pp. 41-55<br><strong>doi号</strong>：<a target="_blank" rel="noopener" href="https://academic.oup.com/biomet/article-abstract/70/1/41/240879?login=false">点此查看全文</a><br><strong>飞书链接</strong>：<a target="_blank" rel="noopener" href="https://cqpqhy5koc9.feishu.cn/docx/Zp95d0fS6om1iexY3AqcibQCnyh?from=from_copylink">点此查看翻译版</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E8%AF%BE%E4%BB%B6%E7%95%99%E6%A1%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1726,80 +1829,6 @@ $$
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/05/10/The%20Applications%20of%20Large%20Language%20Models%20in%20Mental%20Health%20Scoping%20Review/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="AgioPan">
-      <meta itemprop="description" content="Solving equations, decoding life, exploring minds.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog of AgioPan">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/05/10/The%20Applications%20of%20Large%20Language%20Models%20in%20Mental%20Health%20Scoping%20Review/" class="post-title-link" itemprop="url">The Applications of Large Language Models in Mental Health Scoping Review.</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-05-10 13:42:46" itemprop="dateCreated datePublished" datetime="2025-05-10T13:42:46+08:00">2025-05-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-07-30 16:05:29" itemprop="dateModified" datetime="2025-07-30T16:05:29+08:00">2025-07-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Publication/" itemprop="url" rel="index"><span itemprop="name">Publication</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>  I am honored to be the co-first author of this paper, and my main contrbution are data extraction and visualization.<br>  Based on the 2019-2024 scoping review of 95 peer-reviewed articles, this study mapped the landscape of large language models (LLMs) applications in mental health across three key domains. The analysis revealed that LLMs are predominantly utilized for screening and detection of mental disorders (71%), with particular emphasis on depression detection (35%) and suicide risk prediction (13%). Additionally, LLMs demonstrate significant potential in supporting clinical treatments (33%) and facilitating mental health counseling and education (12%). Comparative assessments indicate that LLMs exhibit superior capabilities in information processing and natural language response generation relative to traditional non-transformer models and human performance in specific contexts. The research identified distinct advantages among different LLM architectures for various mental health applications, highlighting their promising role in addressing critical challenges in global mental healthcare, including detection efficiency, treatment effectiveness, privacy protection, and access to specialized care. These findings provide essential scientific evidence for the development and implementation of LLM-enhanced mental health interventions, which may significantly improve early detection rates and expand access to mental healthcare resources.</p>
-<h1 id="PDF-file"><a href="#PDF-file" class="headerlink" title="PDF file"></a>PDF file</h1><iframe src="/myjs/pdfjs/web/viewer.html?file=/pdf/The Applications of Large Language Models in Mental Health Scoping Review.pdf" style='width:100%;height:800px'></iframe>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1871,7 +1900,7 @@ $$
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1884,7 +1913,7 @@ $$
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-count">93</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
