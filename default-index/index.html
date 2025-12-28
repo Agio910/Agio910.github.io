@@ -220,7 +220,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-12-28 15:55:07" itemprop="dateModified" datetime="2025-12-28T15:55:07+08:00">2025-12-28</time>
+                <time title="Modified: 2025-12-28 16:17:56" itemprop="dateModified" datetime="2025-12-28T16:17:56+08:00">2025-12-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -269,11 +269,11 @@
 
 <h2 id="窗口维护策略"><a href="#窗口维护策略" class="headerlink" title="窗口维护策略"></a>窗口维护策略</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 标准滑动窗口模板</span></span><br><span class="line">l = <span class="number">0</span>  <span class="comment"># 左边界</span></span><br><span class="line"><span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(n):  <span class="comment"># 右边界遍历</span></span><br><span class="line">    <span class="comment"># 1. 扩展右边界，加入新元素</span></span><br><span class="line">    add_element(r)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 2. 收缩左边界，维持窗口性质</span></span><br><span class="line">    <span class="keyword">while</span> not_valid():</span><br><span class="line">        remove_element(l)</span><br><span class="line">        l += <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 3. 更新答案</span></span><br><span class="line">    update_answer(l, r)</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(23)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%90%86%E8%A7%A3.png" alt="滑动窗口理解"></p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(24)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%90%86%E8%A7%A3.png" alt="滑动窗口理解"></p>
 <hr>
 <h2 id="题目一：长度最小的子数组"><a href="#题目一：长度最小的子数组" class="headerlink" title="题目一：长度最小的子数组"></a>题目一：长度最小的子数组</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定一个含有n个正整数的数组和一个正整数target，找到累加和≥target的长度最小的子数组并返回其长度。如果不存在符合条件的子数组返回0。</p>
 <p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-size-subarray-sum/">https://leetcode.cn/problems/minimum-size-subarray-sum/</a></p>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(23)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E9%A2%98%E7%9B%AE%E4%B8%80.png" alt="题目一"></p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(24)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E9%A2%98%E7%9B%AE%E4%B8%80.png" alt="题目一"></p>
 <h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><p>利用累加和的单调性质：范围变大累加和一定增加</p>
 <ol>
 <li><strong>右边界扩展</strong>：不断加入新元素增加累加和</li>
@@ -292,7 +292,7 @@
 <hr>
 <h2 id="题目二：无重复字符的最长子串"><a href="#题目二：无重复字符的最长子串" class="headerlink" title="题目二：无重复字符的最长子串"></a>题目二：无重复字符的最长子串</h2><h3 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定一个字符串s，请找出其中不含有重复字符的最长子串的长度。</p>
 <p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-substring-without-repeating-characters/">https://leetcode.cn/problems/longest-substring-without-repeating-characters/</a></p>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(23)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E9%A2%98%E7%9B%AE%E4%BA%8C.png" alt="题目二"></p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(24)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E9%A2%98%E7%9B%AE%E4%BA%8C.png" alt="题目二"></p>
 <h3 id="核心思想-1"><a href="#核心思想-1" class="headerlink" title="核心思想"></a>核心思想</h3><p>使用数组记录每个字符最后出现的位置，动态调整左边界：</p>
 <ol>
 <li><strong>位置记录</strong>：last[c]记录字符c上次出现的位置</li>
@@ -313,7 +313,7 @@
 <hr>
 <h2 id="题目三：最小覆盖子串"><a href="#题目三：最小覆盖子串" class="headerlink" title="题目三：最小覆盖子串"></a>题目三：最小覆盖子串</h2><h3 id="问题描述-2"><a href="#问题描述-2" class="headerlink" title="问题描述"></a>问题描述</h3><p>给你一个字符串s、一个字符串t。返回s中涵盖t所有字符的最小子串。如果s中不存在涵盖t所有字符的子串，则返回空字符串””。</p>
 <p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-window-substring/">https://leetcode.cn/problems/minimum-window-substring/</a></p>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(23)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E9%A2%98%E7%9B%AE%E4%B8%89.png" alt="题目三"></p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(24)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E9%A2%98%E7%9B%AE%E4%B8%89.png" alt="题目三"></p>
 <h3 id="核心思想-2"><a href="#核心思想-2" class="headerlink" title="核心思想"></a>核心思想</h3><p>使用”欠债表”维护字符需求，先负债后还债：</p>
 <ol>
 <li><strong>欠债表</strong>：cnts[c] &lt; 0表示还需要字符c，&gt; 0表示字符c多余</li>
@@ -334,7 +334,7 @@
 <hr>
 <h2 id="题目四：加油站"><a href="#题目四：加油站" class="headerlink" title="题目四：加油站"></a>题目四：加油站</h2><h3 id="问题描述-3"><a href="#问题描述-3" class="headerlink" title="问题描述"></a>问题描述</h3><p>在一条环路上有n个加油站，其中第i个加油站有汽油gas[i]升。你有一辆油箱容量无限的汽车，从第i个加油站开往第i+1个加油站需要消耗汽油cost[i]升。如果你可以按顺序绕环路行驶一周，则返回出发时加油站的编号，否则返回-1。</p>
 <p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/gas-station/">https://leetcode.cn/problems/gas-station/</a></p>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(23)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E9%A2%98%E7%9B%AE%E5%9B%9B%E5%9B%BE%E7%A4%BA.png" alt="题目四图示"><br><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(23)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E9%A2%98%E7%9B%AE%E5%9B%9B%E7%8E%AF%E7%8A%B6%E6%95%B0%E7%BB%84.png" alt="题目四环状数组"><br><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(23)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E9%A2%98%E7%9B%AE%E5%9B%9B%E5%89%AA%E6%9E%9D%E6%93%8D%E4%BD%9C.png" alt="题目四剪枝操作"></p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(24)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E9%A2%98%E7%9B%AE%E5%9B%9B%E5%9B%BE%E7%A4%BA.png" alt="题目四图示"><br><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(24)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E9%A2%98%E7%9B%AE%E5%9B%9B%E7%8E%AF%E7%8A%B6%E6%95%B0%E7%BB%84.png" alt="题目四环状数组"><br><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(24)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E9%A2%98%E7%9B%AE%E5%9B%9B%E5%89%AA%E6%9E%9D%E6%93%8D%E4%BD%9C.png" alt="题目四剪枝操作"></p>
 <h3 id="核心思想-3"><a href="#核心思想-3" class="headerlink" title="核心思想"></a>核心思想</h3><p>通过结余数组和滑动窗口找到合适的起点：</p>
 <ol>
 <li><strong>结余计算</strong>：每个位置的结余 &#x3D; gas[i] - cost[i]</li>
@@ -375,7 +375,7 @@
 <hr>
 <h2 id="题目六：K个不同整数的子数组"><a href="#题目六：K个不同整数的子数组" class="headerlink" title="题目六：K个不同整数的子数组"></a>题目六：K个不同整数的子数组</h2><h3 id="问题描述-5"><a href="#问题描述-5" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定一个正整数数组nums和一个整数k，返回nums中「好子数组」的数目。如果nums的某个子数组中不同整数的个数恰好为k，则称这个连续子数组为「好子数组」。</p>
 <p><strong>测试链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subarrays-with-k-different-integers/">https://leetcode.cn/problems/subarrays-with-k-different-integers/</a></p>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(23)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E9%A2%98%E7%9B%AE%E5%85%AD%E9%97%AE%E9%A2%98%E8%BD%AC%E5%8C%96.png" alt="题目六问题转化"></p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0(24)/class49-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/%E9%A2%98%E7%9B%AE%E5%85%AD%E9%97%AE%E9%A2%98%E8%BD%AC%E5%8C%96.png" alt="题目六问题转化"></p>
 <h3 id="核心思想-5"><a href="#核心思想-5" class="headerlink" title="核心思想"></a>核心思想</h3><p>将”恰好k种”转化为”最多k种”的差值：</p>
 <p><strong>核心公式</strong>：恰好k种 &#x3D; 最多k种 - 最多k-1种</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">示例：nums = [1,2,1,2,3], k = 2</span><br><span class="line"></span><br><span class="line">最多2种的子数组：</span><br><span class="line">[1]         1种 ✓</span><br><span class="line">[1,2]       2种 ✓</span><br><span class="line">[2]         1种 ✓</span><br><span class="line">[1]         1种 ✓</span><br><span class="line">[1,2]       2种 ✓</span><br><span class="line">[2]         1种 ✓</span><br><span class="line">[2,1]       2种 ✓</span><br><span class="line">[1]         1种 ✓</span><br><span class="line">[2]         1种 ✓</span><br><span class="line">[2,3]       2种 ✓</span><br><span class="line">[3]         1种 ✓</span><br><span class="line">...</span><br><span class="line">总计：最多2种的数量 = X</span><br><span class="line"></span><br><span class="line">最多1种的子数组：</span><br><span class="line">[1]         1种 ✓</span><br><span class="line">[2]         1种 ✓</span><br><span class="line">[1]         1种 ✓</span><br><span class="line">[2]         1种 ✓</span><br><span class="line">[3]         1种 ✓</span><br><span class="line">总计：最多1种的数量 = Y</span><br><span class="line"></span><br><span class="line">恰好2种的数量 = X - Y</span><br></pre></td></tr></table></figure>
