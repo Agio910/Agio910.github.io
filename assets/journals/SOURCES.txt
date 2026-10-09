@@ -1,0 +1,24 @@
+Journal cover assets, retrieved 2026-10-09. Artwork belongs to the respective publishers.
+These identify journals; do not imply that the listed papers were selected as cover articles.
+
+nar.gif: Nucleic Acids Research, Volume 54 Issue 13 (article's issue).
+Source: https://academic.oup.com/nar/issue/54/13
+Publisher CDN: https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/nar/Issue/54/13/10/m_cover.gif
+
+fsi.webp: Representative journal cover, Volume 160 May 2025, NOT the article's issue.
+Source: https://www.elsevier.com/subject/immunology-and-microbiology/journals/insights-in-immunology
+Asset: https://images.ctfassets.net/o78em1y1w4i4/2xS2KKYc1894UxvSqpjltj/c8b68a30e8d4b0a49a6ce34ffb75d6d5/fsi_cover.jpg?fm=webp&q=75&w=576
+
+jmir.jpg: Representative JMIR journal cover, reproduced by China Medical University.
+Source: https://www.cmu.edu.tw/news_detail.php?id=5916
+Asset: https://www.cmu.edu.tw/upload/20250521122418.jpg
+
+capmh.jpg: General BMC journal cover, no issue date.
+Source: https://www.linkedin.com/posts/stevenmerahn_pediatric-residential-treatment-as-early-activity-7427681503729405952-FX0L
+Retrieved from its media.licdn.com article-share image, visually checked against journal name.
+
+Paper DOI links:
+https://doi.org/10.1093/nar/gkag656
+https://doi.org/10.1016/j.fsi.2026.111437
+https://doi.org/10.2196/69284
+https://doi.org/10.1186/s13034-025-00866-9
